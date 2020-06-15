@@ -1,0 +1,10 @@
+.pytest_cache
+coverage.xml
+htmlcov
+
+.idea
+
+build
+dist
+sitkibex.dist-info
+sitkibex.egg-info

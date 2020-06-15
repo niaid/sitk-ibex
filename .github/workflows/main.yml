@@ -1,0 +1,89 @@
+name: Python package
+
+on: [push, pull_request]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade --pre SimpleITK --find-links https://github.com/SimpleITK/SimpleITK/releases/tag/latest
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        python -m flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        python -m flake8 . --count --exit-zero --statistics
+    - name: Test with pytest
+      run: |
+        python -m pytest --junitxml=junit/test-results-${{ matrix.python-version }}.xml
+    - name: Upload pytest test results
+      uses: actions/upload-artifact@v1
+      with:
+        name: pytest-results-${{ matrix.python-version }}
+        path: junit/test-results-${{ matrix.python-version }}.xml
+      # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}
+
+  package:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install wheel
+      - name: Build package
+        run: |
+          python setup.py sdist bdist_wheel
+          ls -la dist
+      - name: Upload package
+        uses: actions/upload-artifact@v1
+        with:
+          name: python-packages
+          path: dist
+
+  docs:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade --pre SimpleITK --find-links https://github.com/SimpleITK/SimpleITK/releases/tag/latest
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+      - name: Build Sphinx Documentation
+        run: |
+          make -C docs html
+      - name: Upload documentation
+        uses: actions/upload-artifact@v1
+        with:
+          name: sphinx-docs
+          path: docs/_build/html
