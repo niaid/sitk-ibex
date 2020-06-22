@@ -18,7 +18,7 @@ import SimpleITK as sitk
 import numpy as np
 from .registration_utilities import RegistrationCallbackManager
 from . import image_utilities as imgf
-from .globals import default_random_seed
+from .globals import default_random_seed   # noqa: F401
 
 
 def register_3d(fixed_image,

@@ -15,7 +15,7 @@
 #
 """ Provides command line interfaces for sitkibex registration algorithms"""
 
-from .globals import default_random_seed
+from .globals import default_random_seed  # noqa: F401
 import os
 from os.path import basename
 import SimpleITK as sitk
@@ -58,6 +58,8 @@ def reg_cli(fixed_image, moving_image, output_transform, **kwargs):
     from .registration import registration
 
     args = _Bunch(kwargs)
+
+    print("seed {}".format(default_random_seed))
 
     if args.random:
         default_random_seed = sitk.sitkWallClock
