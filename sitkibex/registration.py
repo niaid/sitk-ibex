@@ -62,7 +62,7 @@ def register_3d(fixed_image,
     reg.SetOptimizerScalesFromIndexShift()
 
     sampling_percentage = initial_transform.GetNumberOfParameters() * \
-                          number_of_samples_per_parameter / fixed_image.GetNumberOfPixels()
+        number_of_samples_per_parameter / fixed_image.GetNumberOfPixels()
 
     if fixed_image_mask or moving_image_mask:
         mask = fixed_image_mask
