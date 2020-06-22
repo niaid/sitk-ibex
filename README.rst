@@ -47,6 +47,7 @@ Other dependencies are conventionally specified in `setup.py` and `requirements.
 
 Data
 ----
+
 Sample data is available on zenodo/figshare - link to this.
 ?Specify links to the sample IBEX data from the manuscript.?
 
@@ -54,8 +55,8 @@ You can use any image and transform file format supported
 by `SimpleITK's IO <https://simpleitk.readthedocs.io/en/master/IO.html>`_.
 We recommend using the 3D `nrrd` format, and `txt` transform file extension.
 
-If your panels are in `OME TIFF`_ format you can readily extract a channel and
-save it as a 3D `nrrd` file using `Fiji`_.
+The sample data are in the `OME TIFF`_ format. An individual channel can be saved as `nrrd` with `Fiji`_ by using
+"Image->Color->Split Channels" followed by "Save As->Nrrd".
 
 Example
 -------
