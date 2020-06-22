@@ -22,6 +22,14 @@ The key implementation aspects include:
 3. Affine transformation model.
 4. Use of correlation as optimized similarity metric.
 
+
+Build Status
+""""""""""""
+
+.. image:: https://github.com/niaid/sitk-ibex/workflows/Python%20package/badge.svg?branch=master&event=push
+   :target: https://github.com/niaid/sitk-ibex/actions?query=branch%3A+master+
+   :alt: Master Build Status
+
 Installation
 ------------
 
