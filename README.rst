@@ -79,9 +79,18 @@ Currently, the Sphinx documentation is available for download from
 "sphinx-docs".
 
 
+Contact
+-------
+
+Please use the `GitHub Issues`_ for support and code issues related to the sitk-ibex project.
+
+Additionally, we can be emailed at: bioinforamtics@niaid.nih.gov Please include "sitk-ibex" in the subject line.
+
+
 .. _SimpleITK toolkit: https://simpleitk.org
 .. _Fiji: https://fiji.sc
 .. _pip: https://pip.pypa.io/en/stable/quickstart/
 .. _Github Actions: https://github.com/niaid/sitk-ibex/actions/runs/140067646
 .. _OME TIFF: https://docs.openmicroscopy.org/ome-model/latest/ome-tiff/
 .. _latest: https://github.com/SimpleITK/SimpleITK/releases
+.. _GitHub Issues:  https://github.com/niaid/sitk-ibex

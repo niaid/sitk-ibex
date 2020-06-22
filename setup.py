@@ -32,7 +32,7 @@ setup(
     name="sitkibex",
     version=about["__version__"],
     author=about["__author__"],
-    author_email="blowekamp@mail.nih.gov",
+    author_email="bioinforamtics@niaid.nih.gov",
     description="Image registration for iterative fluorescence microscopy",
     long_description=long_description,
     long_description_content_type="text/x-rst",
