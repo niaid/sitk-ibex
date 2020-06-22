@@ -59,8 +59,6 @@ def reg_cli(fixed_image, moving_image, output_transform, **kwargs):
 
     args = _Bunch(kwargs)
 
-    print("seed {}".format(default_random_seed))
-
     if args.random:
         default_random_seed = sitk.sitkWallClock
 
