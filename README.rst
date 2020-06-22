@@ -60,7 +60,27 @@ The sample data are in the `OME TIFF`_ format. An individual channel can be save
 
 Example
 -------
-Using the downloaded data, run the registration as follows:
+
+The following examples uses CD4 marker channel extracted from the "IBEX4_spleen" data set with ImageJ. The panel 2 is
+used as the reference coordinates or the "fixed image". The other panels are registered then resampled to the fixed
+image. The following uses the sitk-ibex command line interface to perform image registration::
+
+ python -m sitkibex registration --affine IBEX4B_Panel2_CD4_AF594.nrrd IBEX4B_Panel1_CD4_AF594.nrrd tx_p2_to_p1.txt
+ python -m sitkibex registration --affine IBEX4B_Panel2_CD4_AF594.nrrd IBEX4B_Panel3_CD4_AF594.nrrd tx_p2_to_p3.txt
+
+A quick 2D visualization of the results can be generated with::
+
+ python -m sitkibex resample IBEX4B_Panel2_CD4_AF594.nrrd IBEX4B_Panel1_CD4_AF594.nrrd tx_p2_to_p1.txt \
+        --bin 4 --fusion --projection -o IBEX4B_onto_p2_2d_Panel1_CD4_AF594.png
+ python -m sitkibex resample IBEX4B_Panel3_CD4_AF594.nrrd IBEX4B_Panel1_CD4_AF594.nrrd tx_p3_to_p1.txt \
+        --bin 4 --fusion --projection -o IBEX4B_onto_p2_2d_Panel3_CD4_AF594.png
+
+Then apply the registration transform by resampling the input images onto panel 2::
+
+ python -m sitkibex resample IBEX4B_Panel2_CD4_AF594.nrrd IBEX4B_Panel1_CD4_AF594.nrrd tx_p2_to_p1.txt \
+        -o IBEX4B_onto_p2_Panel1_CD4_AF594.nrrd
+ python -m sitkibex resample IBEX4B_Panel3_CD4_AF594.nrrd IBEX4B_Panel1_CD4_AF594.nrrd tx_p3_to_p1.txt \
+        -o IBEX4B_onto_p2_Panel3_CD4_AF594.nrrd
 
 
 How to Cite
