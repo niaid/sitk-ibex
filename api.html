@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API &#8212; sitk-ibex 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Command Line Interface" href="commandline.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="commandline.html" title="Command Line Interface"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">API</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-sitkibex">
+<span id="api"></span><h1>API<a class="headerlink" href="#module-sitkibex" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="sitkibex.registration">
+<code class="sig-prename descclassname">sitkibex.</code><code class="sig-name descname">registration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fixed_image</span><span class="p">:</span> <span class="n">SimpleITK.SimpleITK.Image</span></em>, <em class="sig-param"><span class="n">moving_image</span><span class="p">:</span> <span class="n">SimpleITK.SimpleITK.Image</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">do_fft_initialization</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">do_affine2d</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">do_affine3d</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">ignore_spacing</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">sigma</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">auto_mask</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">samples_per_parameter</span><span class="o">=</span><span class="default_value">5000</span></em>, <em class="sig-param"><span class="n">expand</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; SimpleITK.SimpleITK.Transform<a class="headerlink" href="#sitkibex.registration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Robust multi-phase registration for multi-panel confocal microscopy images.</p>
+<p>The fixed and moving image are expected to be the same molecular labeling, and the same imaged regioned.</p>
+<dl class="simple">
+<dt>The phase available are:</dt><dd><ul class="simple">
+<li><p>fft initialization for translation estimation</p></li>
+<li><p>2D affine which can correct rotational acquisition problems, this phase is done on z-projections to optimize a        2D similarity transform followed by 2D affine</p></li>
+<li><p>3D affine robust mulit-level registration</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fixed_image</strong> – a scalar SimpleITK 3D Image</p></li>
+<li><p><strong>moving_image</strong> – a scalar SimpleITK 3D Image</p></li>
+<li><p><strong>do_fft_initialization</strong> – perform FFT based cross correlation for initialize translation</p></li>
+<li><p><strong>do_affine2d</strong> – perform registration on 2D images from z-projection</p></li>
+<li><p><strong>do_affine3d</strong> – multi-level affine transform</p></li>
+<li><p><strong>ignore_spacing</strong> – internally adjust spacing magnitude to be near 1 to avoid numeric stability issues with     micro sized spacing</p></li>
+<li><p><strong>sigma</strong> – scalar to change the amount of Gaussian smoothing performed</p></li>
+<li><p><strong>auto_mask</strong> – ignore zero valued pixels connected to the image boarder</p></li>
+<li><p><strong>samples_per_parameter</strong> – the number of image samples to used per transform parameter at full resolution</p></li>
+<li><p><strong>expand</strong> – Perform super-sampling to increase number of z-slices by an integer factor. Super-sampling is     automatically performed when the number of z-slices is less than 5.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A SimpleITK transform mapping points from the fixed image to the moving. This may be a CompositeTransform.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="sitkibex.resample">
+<code class="sig-prename descclassname">sitkibex.</code><code class="sig-name descname">resample</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fixed_image</span><span class="p">:</span> <span class="n">SimpleITK.SimpleITK.Image</span></em>, <em class="sig-param"><span class="n">moving_image</span><span class="p">:</span> <span class="n">SimpleITK.SimpleITK.Image</span></em>, <em class="sig-param"><span class="n">transform</span><span class="p">:</span> <span class="n">SimpleITK.SimpleITK.Transform</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">fusion</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">projection</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">combine</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">invert</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; SimpleITK.SimpleITK.Image<a class="headerlink" href="#sitkibex.resample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resample fixed_image onto the coordinates of moving_image with transform results from registration.</p>
+<p>The registration process results in a transform which maps points from the coordinates of the fixed_image to the
+moving_image. This method is next used to resample the the fixed_image with the transform to produce an image with
+the fixed_image aligned with the moving_image.</p>
+<p>If no transform is provided, then an identity transform is assumed and the moving_image is still resampled onto the
+fixed_image. This operation is useful to see alignment of images before registration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fixed_image</strong> – A 3D SimpleITK Image whose pixel values are resampled</p></li>
+<li><p><strong>moving_image</strong> – A 3D SimpleITK Image whose coordinates are used for the output image</p></li>
+<li><p><strong>transform</strong> – (optional) A 3D SimpleITK Transform mapping from points from the fixed_image to the moving_image.</p></li>
+<li><p><strong>fusion</strong> – Enable fusing the resampled moving_image and the fixed_image into a RGB image.</p></li>
+<li><p><strong>projection</strong> – Enable perform a z-projection to reduce the dimensionality to 2D.</p></li>
+<li><p><strong>combine</strong> – Enable combining the resampled moving_image and the fixed_image into a 2-channel vector image.</p></li>
+<li><p><strong>invert</strong> – Invert the input transform.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The processed SimpleITK Image.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="commandline.html"
+                        title="previous chapter">Command Line Interface</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="commandline.html" title="Command Line Interface"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">API</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Bradley Lowekamp.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.1.
+    </div>
+  </body>
+</html>
