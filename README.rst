@@ -95,9 +95,10 @@ If you use the SITK-IBEX package in your work, please cite it as:
 Documentation
 -------------
 
-Currently, the Sphinx documentation is available for download from
-`Github Actions`_ under the latest master build as
-"sphinx-docs".
+The published Sphinx documentation is available here: https://niaid.github.io/sitk-ibex/
+
+The master built Sphinx documentation is available for download from
+`Github Actions`_ under the build as "sphinx-docs".
 
 
 Contact
@@ -111,7 +112,7 @@ Additionally, we can be emailed at: bioinforamtics@niaid.nih.gov Please include 
 .. _SimpleITK toolkit: https://simpleitk.org
 .. _Fiji: https://fiji.sc
 .. _pip: https://pip.pypa.io/en/stable/quickstart/
-.. _Github Actions: https://github.com/niaid/sitk-ibex/actions/runs/140067646
+.. _Github Actions: https://github.com/niaid/sitk-ibex/actions?query=branch%3Amaster
 .. _OME TIFF: https://docs.openmicroscopy.org/ome-model/latest/ome-tiff/
 .. _latest: https://github.com/SimpleITK/SimpleITK/releases
 .. _GitHub Issues:  https://github.com/niaid/sitk-ibex
