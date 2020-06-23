@@ -2,10 +2,9 @@
 SITK-IBEX: Aligning images acquired with the IBEX microscopy imaging technique
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
 This Python package was implemented as part of the development of the
 Iterative Bleaching Extends Multiplexity (IBEX) imaging technique. It enables
-the alignment of multiple panels, low multiplexity fluorescence images, acquired
+the alignment of multiple cycles of fluorescence images, acquired
 using IBEX. A repeated marker is used to register all panels to a
 selected panel (in the registration nomenclature this is the fixed image).
 After registration all panels are resampled onto the fixed image.
