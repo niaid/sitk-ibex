@@ -93,6 +93,8 @@ jobs:
           pip install -r requirements-dev.txt
       - name: Build Sphinx Documentation
         run: |
+          # install so that setuptools_scm generate version for package
+          pip install -e .
           make -C docs html
       - name: Upload documentation
         uses: actions/upload-artifact@v1
