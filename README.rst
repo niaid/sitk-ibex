@@ -50,9 +50,8 @@ Data
 Sample data is available on zenodo/figshare - link to this.
 ?Specify links to the sample IBEX data from the manuscript.?
 
-You can use any image and transform file format supported
-by `SimpleITK's IO <https://simpleitk.readthedocs.io/en/master/IO.html>`_.
-We recommend using the 3D `nrrd` format, and `txt` transform file extension.
+Any image and transform file format supported by `SimpleITK's IO <https://simpleitk.readthedocs.io/en/master/IO.html>`_
+can be use by sitk-ibex. The 3D `nrrd` format, and `txt` transform file extension are recommended.
 
 The sample data are in the `OME TIFF`_ format. An individual channel can be saved as `nrrd` with `Fiji`_ by using
 "Image->Color->Split Channels" followed by "Save As->Nrrd".
