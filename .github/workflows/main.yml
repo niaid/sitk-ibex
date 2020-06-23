@@ -68,6 +68,7 @@ jobs:
           python setup.py sdist bdist_wheel
           ls -la dist
       - name: Upload package
+        if: github.event.action == 'push'
         uses: actions/upload-artifact@v1
         with:
           name: python-packages
@@ -97,6 +98,7 @@ jobs:
           pip install -e .
           make -C docs html
       - name: Upload documentation
+        if: github.event.action == 'push'
         uses: actions/upload-artifact@v1
         with:
           name: sphinx-docs
