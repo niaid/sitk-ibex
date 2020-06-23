@@ -67,7 +67,7 @@ The registration approach is implemented using the
 <a class="reference external image-reference" href="https://github.com/niaid/sitk-ibex/actions?query=branch%3A+master+"><img alt="Master Build Status" src="https://github.com/niaid/sitk-ibex/workflows/Python%20package/badge.svg?branch=master&amp;event=push" /></a>
 <div class="section" id="installation">
 <h4>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h4>
-<p>Download wheel from <a class="reference external" href="https://github.com/niaid/sitk-ibex/actions/runs/140067646">Github Actions</a> under the latest master build in the
+<p>Download wheel from <a class="reference external" href="https://github.com/niaid/sitk-ibex/actions?query=branch%3Amaster">Github Actions</a> under the latest master build in the
 “python-package” artifacts. Then install:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install sitkibex-0.0.1-py3-none-any.whl
 </pre></div>
@@ -86,12 +86,32 @@ For now, use the <a class="reference external" href="https://github.com/SimpleIT
 <p>You can use any image and transform file format supported
 by <a class="reference external" href="https://simpleitk.readthedocs.io/en/master/IO.html">SimpleITK’s IO</a>.
 We recommend using the 3D <cite>nrrd</cite> format, and <cite>txt</cite> transform file extension.</p>
-<p>If your panels are in <a class="reference external" href="https://docs.openmicroscopy.org/ome-model/latest/ome-tiff/">OME TIFF</a> format you can readily extract a channel and
-save it as a 3D <cite>nrrd</cite> file using <a class="reference external" href="https://fiji.sc">Fiji</a>.</p>
+<p>The sample data are in the <a class="reference external" href="https://docs.openmicroscopy.org/ome-model/latest/ome-tiff/">OME TIFF</a> format. An individual channel can be saved as <cite>nrrd</cite> with <a class="reference external" href="https://fiji.sc">Fiji</a> by using
+“Image-&gt;Color-&gt;Split Channels” followed by “Save As-&gt;Nrrd”.</p>
 </div>
 <div class="section" id="example">
 <h4>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h4>
-<p>Using the downloaded data, run the registration as follows:</p>
+<p>The following examples uses CD4 marker channel extracted from the “IBEX4_spleen” data set with ImageJ. The panel 2 is
+used as the reference coordinates or the “fixed image”. The other panels are registered then resampled to the fixed
+image. The following uses the sitk-ibex command line interface to perform image registration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">sitkibex</span> <span class="n">registration</span> <span class="o">--</span><span class="n">affine</span> <span class="n">IBEX4B_Panel2_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">IBEX4B_Panel1_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">tx_p2_to_p1</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">sitkibex</span> <span class="n">registration</span> <span class="o">--</span><span class="n">affine</span> <span class="n">IBEX4B_Panel2_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">IBEX4B_Panel3_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">tx_p2_to_p3</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>A quick 2D visualization of the results can be generated with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">sitkibex</span> <span class="n">resample</span> <span class="n">IBEX4B_Panel2_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">IBEX4B_Panel1_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">tx_p2_to_p1</span><span class="o">.</span><span class="n">txt</span> \
+       <span class="o">--</span><span class="nb">bin</span> <span class="mi">4</span> <span class="o">--</span><span class="n">fusion</span> <span class="o">--</span><span class="n">projection</span> <span class="o">-</span><span class="n">o</span> <span class="n">IBEX4B_onto_p2_2d_Panel1_CD4_AF594</span><span class="o">.</span><span class="n">png</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">sitkibex</span> <span class="n">resample</span> <span class="n">IBEX4B_Panel3_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">IBEX4B_Panel1_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">tx_p3_to_p1</span><span class="o">.</span><span class="n">txt</span> \
+       <span class="o">--</span><span class="nb">bin</span> <span class="mi">4</span> <span class="o">--</span><span class="n">fusion</span> <span class="o">--</span><span class="n">projection</span> <span class="o">-</span><span class="n">o</span> <span class="n">IBEX4B_onto_p2_2d_Panel3_CD4_AF594</span><span class="o">.</span><span class="n">png</span>
+</pre></div>
+</div>
+<p>Then apply the registration transform by resampling the input images onto panel 2:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">sitkibex</span> <span class="n">resample</span> <span class="n">IBEX4B_Panel2_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">IBEX4B_Panel1_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">tx_p2_to_p1</span><span class="o">.</span><span class="n">txt</span> \
+       <span class="o">-</span><span class="n">o</span> <span class="n">IBEX4B_onto_p2_Panel1_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">sitkibex</span> <span class="n">resample</span> <span class="n">IBEX4B_Panel3_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">IBEX4B_Panel1_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">tx_p3_to_p1</span><span class="o">.</span><span class="n">txt</span> \
+       <span class="o">-</span><span class="n">o</span> <span class="n">IBEX4B_onto_p2_Panel3_CD4_AF594</span><span class="o">.</span><span class="n">nrrd</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="how-to-cite">
 <h4>How to Cite<a class="headerlink" href="#how-to-cite" title="Permalink to this headline">¶</a></h4>
@@ -104,9 +124,9 @@ immune system using a highly multi-plexed optical imaging approach”.</p>
 </div>
 <div class="section" id="documentation">
 <h4>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h4>
-<p>Currently, the Sphinx documentation is available for download from
-<a class="reference external" href="https://github.com/niaid/sitk-ibex/actions/runs/140067646">Github Actions</a> under the latest master build as
-“sphinx-docs”.</p>
+<p>The published Sphinx documentation is available here: <a class="reference external" href="https://niaid.github.io/sitk-ibex/">https://niaid.github.io/sitk-ibex/</a></p>
+<p>The master built Sphinx documentation is available for download from
+<a class="reference external" href="https://github.com/niaid/sitk-ibex/actions?query=branch%3Amaster">Github Actions</a> under the build as “sphinx-docs”.</p>
 </div>
 <div class="section" id="contact">
 <h4>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h4>
