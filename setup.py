@@ -24,14 +24,11 @@ with open("requirements.txt", 'r') as fp:
 with open("requirements-dev.txt", 'r') as fp:
     dev_requirements = list(filter(bool, (line.strip() for line in fp)))
 
-about = {}
-with open("sitkibex/about.py") as fp:
-    exec(fp.read(), about)
 
 setup(
     name="sitkibex",
-    version=about["__version__"],
-    author=about["__author__"],
+    use_scm_version={'local_scheme': 'dirty-tag'},
+    author=["Bradley Lowekamp"],
     author_email="bioinforamtics@niaid.nih.gov",
     description="Image registration for iterative fluorescence microscopy",
     long_description=long_description,
@@ -52,5 +49,6 @@ setup(
     ],
     python_requires='>=3.5',
     install_requires=requirements,
-    tests_require=dev_requirements
+    tests_requires=dev_requirements,
+    setup_requires=['setuptools_scm']
 )
