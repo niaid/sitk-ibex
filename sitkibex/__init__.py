@@ -13,9 +13,25 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-from .about import __version__, __author__  # noqa: F401
 from .globals import default_random_seed  # noqa: F401
 from .registration import registration
 from .resample import resample
+
+try:
+    from importlib.metadata import version, PackageNotFoundError
+    __version__ = version(__name__)
+except ImportError:
+    from pkg_resources import get_distribution, DistributionNotFound
+
+    try:
+        __version__ = get_distribution(__name__).version
+    except DistributionNotFound:
+        # package is not installed
+        pass
+except PackageNotFoundError:
+    # package is not installed
+    pass
+
+__author__ = ["Bradley Lowekamp"]
 
 __all__ = ["registration", "resample"]
