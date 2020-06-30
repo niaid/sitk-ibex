@@ -47,34 +47,7 @@ jobs:
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
 
-  package:
-    needs: test
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install wheel
-      - name: Build package
-        run: |
-          python setup.py sdist bdist_wheel
-          ls -la dist
-      - name: Upload package
-        if: github.event.action == 'push'
-        uses: actions/upload-artifact@v1
-        with:
-          name: python-packages
-          path: dist
-
-  docs:
+  package_docs:
     needs: test
     runs-on: ubuntu-latest
 
@@ -90,15 +63,26 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install --upgrade --pre SimpleITK --find-links https://github.com/SimpleITK/SimpleITK/releases/tag/latest
-          pip install -r requirements.txt
-          pip install -r requirements-dev.txt
+          python -m pip install -r requirements.txt
+          python -m pip install -r requirements-dev.txt
+          python -m pip install wheel
+      - name: Build package
+        run: |
+          python setup.py sdist bdist_wheel
+          ls -la dist
+      - name: Upload package
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v1
+        with:
+          name: python-packages
+          path: dist
       - name: Build Sphinx Documentation
         run: |
           # install so that setuptools_scm generate version for package
           pip install -e .
           make -C docs html
       - name: Upload documentation
-        if: github.event.action == 'push'
+        if: github.event_name == 'push'
         uses: actions/upload-artifact@v1
         with:
           name: sphinx-docs
