@@ -1,5 +1,3 @@
 flake8
 pytest
-sphinx
-sphinx-click
 setuptools_scm
