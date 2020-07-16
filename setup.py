@@ -49,6 +49,6 @@ setup(
     ],
     python_requires='>=3.5',
     install_requires=requirements,
-    tests_requires=dev_requirements,
+    tests_require=dev_requirements,
     setup_requires=['setuptools_scm']
 )
