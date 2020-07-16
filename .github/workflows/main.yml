@@ -87,3 +87,17 @@ jobs:
         with:
           name: sphinx-docs
           path: docs/_build/html
+      - name: Update gh-pages
+        if: github.ref == 'refs/heads/master'
+        run: |
+          rm docs/_build/html/.buildinfo
+          touch docs/_build/html/.nojekyll
+
+          git update-ref refs/heads/${TARGET_BRANCH} origin/${TARGET_BRANCH}
+          ./utils/update-gh-pages.sh docs/_build/html
+
+          repo_uri="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push $repo_uri ${TARGET_BRANCH}
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+          TARGET_BRANCH: 'gh-pages'
