@@ -29,7 +29,7 @@ setup(
     name="sitkibex",
     use_scm_version={'local_scheme': 'dirty-tag'},
     author=["Bradley Lowekamp"],
-    author_email="bioinforamtics@niaid.nih.gov",
+    author_email="bioinformatics@niaid.nih.gov",
     description="Image registration for iterative fluorescence microscopy",
     long_description=long_description,
     long_description_content_type="text/x-rst",
