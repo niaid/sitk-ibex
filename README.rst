@@ -25,7 +25,7 @@ The key implementation aspects include:
 Build Status
 """"""""""""
 
-.. image:: https://github.com/niaid/sitk-ibex/workflows/Python%20package/badge.svg?branch=master&event=push
+.. image:: https://github.com/niaid/sitk-ibex/workflows/Python%20Test%20and%20Package/badge.svg?branch=master&event=push
    :target: https://github.com/niaid/sitk-ibex/actions?query=branch%3A+master+
    :alt: Master Build Status
 
@@ -35,12 +35,12 @@ Installation
 Download wheel from `Github Actions`_ under the latest master build in the
 "python-package" artifacts. Then install::
 
- $ python -m pip install sitkibex-0.0.1-py3-none-any.whl
+ python -m pip install sitkibex-0.0.1-py3-none-any.whl
 
 SITK-IBEX requires SimpleITK version 2.0 which is still under development.
 For now, use the `latest`_ development version of SimpleITK::
 
-    $ python -m pip install --upgrade --pre SimpleITK --find-links https://github.com/SimpleITK/SimpleITK/releases/tag/latest
+ python -m pip install --upgrade --pre SimpleITK --find-links https://github.com/SimpleITK/SimpleITK/releases/tag/latest
 
 Other dependencies are conventionally specified in `setup.py` and `requirements.txt`.
 
@@ -104,7 +104,7 @@ Contact
 
 Please use the `GitHub Issues`_ for support and code issues related to the sitk-ibex project.
 
-Additionally, we can be emailed at: bioinforamtics@niaid.nih.gov Please include "sitk-ibex" in the subject line.
+Additionally, we can be emailed at: bioinformatics@niaid.nih.gov Please include "sitk-ibex" in the subject line.
 
 
 .. _SimpleITK toolkit: https://simpleitk.org
