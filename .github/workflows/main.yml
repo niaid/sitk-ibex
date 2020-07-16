@@ -28,8 +28,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install --upgrade --pre SimpleITK --find-links https://github.com/SimpleITK/SimpleITK/releases/tag/latest
-        pip install -r requirements.txt
-        pip install -r requirements-dev.txt
+        pip install -r requirements.txt -r requirements-dev.txt
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -63,8 +62,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install --upgrade --pre SimpleITK --find-links https://github.com/SimpleITK/SimpleITK/releases/tag/latest
-          python -m pip install -r requirements.txt
-          python -m pip install -r requirements-dev.txt
+          python -m pip install -r requirements.txt -r requirements-dev.txt -r docs/requirements.txt
           python -m pip install wheel
       - name: Build package
         run: |
