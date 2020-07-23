@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Command Line Interface &#8212; sitk-ibex 0.1.dev24 documentation</title>
+    <title>Command Line Interface &#8212; sitk-ibex 0.1.dev25 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to sitk-ibex’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.1.dev24 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.1.dev25 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Command Line Interface</a></li> 
       </ul>
     </div>  
@@ -73,13 +73,22 @@ and the command line options available.</p>
 <dl class="std option">
 <dt id="cmdoption-sitkibex-registration-b">
 <span id="cmdoption-sitkibex-registration-bin"></span><code class="sig-name descname">-b</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--bin</code><code class="sig-prename descclassname"> &lt;bin&gt;</code><a class="headerlink" href="#cmdoption-sitkibex-registration-b" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reduce the resolution of the input images in X and Y by this factor  [default: 1]</p>
+<dd><p>Reduce the resolution of the input images in X and Y by this factor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-sitkibex-registration-s">
 <span id="cmdoption-sitkibex-registration-sigma"></span><code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--sigma</code><code class="sig-prename descclassname"> &lt;sigma&gt;</code><a class="headerlink" href="#cmdoption-sitkibex-registration-s" title="Permalink to this definition">¶</a></dt>
-<dd><p>[default: 1.0]</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>1.0</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="std option">
@@ -91,25 +100,44 @@ and the command line options available.</p>
 <dl class="std option">
 <dt id="cmdoption-sitkibex-registration-automask">
 <span id="cmdoption-sitkibex-registration-no-automask"></span><code class="sig-name descname">--automask</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-automask</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-automask" title="Permalink to this definition">¶</a></dt>
-<dd><p>Automatically compute a mask for the non-zero pixels of the input images  [default: False]</p>
+<dd><p>Automatically compute a mask for the non-zero pixels of the input images</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-sitkibex-registration-ignore-spacing">
 <span id="cmdoption-sitkibex-registration-no-ignore-spacing"></span><code class="sig-name descname">--ignore-spacing</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-ignore-spacing</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-ignore-spacing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ignore the magnitude of spacing, but preserve relative ratio.  [default: True]</p>
+<dd><p>Ignore the magnitude of spacing, but preserve relative ratio.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>True</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-sitkibex-registration-random">
 <span id="cmdoption-sitkibex-registration-no-random"></span><code class="sig-name descname">--random</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-random</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-random" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use wall-clock instead of a fixed seed for random initialization.  [default: False]</p>
+<dd><p>Use wall-clock instead of a fixed seed for random initialization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-sitkibex-registration-samples-per-parameter">
 <code class="sig-name descname">--samples-per-parameter</code><code class="sig-prename descclassname"> &lt;samples_per_parameter&gt;</code><a class="headerlink" href="#cmdoption-sitkibex-registration-samples-per-parameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>[default: 5000]</p>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>5000</p>
+</dd>
+</dl>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
@@ -152,31 +180,56 @@ MOVING_IMAGE.</p>
 <dl class="std option">
 <dt id="cmdoption-sitkibex-resample-b">
 <span id="cmdoption-sitkibex-resample-bin"></span><code class="sig-name descname">-b</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--bin</code><code class="sig-prename descclassname"> &lt;bin&gt;</code><a class="headerlink" href="#cmdoption-sitkibex-resample-b" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reduce the resolution of the input images in X and Y by this factor  [default: 1]</p>
+<dd><p>Reduce the resolution of the input images in X and Y by this factor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>1</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-sitkibex-resample-fusion">
 <span id="cmdoption-sitkibex-resample-no-fusion"></span><code class="sig-name descname">--fusion</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-fusion</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-fusion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Blend fixed and moving images into RGB  [default: False]</p>
+<dd><p>Blend fixed and moving images into RGB</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-sitkibex-resample-combine">
 <span id="cmdoption-sitkibex-resample-no-combine"></span><code class="sig-name descname">--combine</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-combine</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-combine" title="Permalink to this definition">¶</a></dt>
-<dd><p>Combine fixed and moving images into multi-component  [default: False]</p>
+<dd><p>Combine fixed and moving images into multi-component</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-sitkibex-resample-invert">
 <span id="cmdoption-sitkibex-resample-no-invert"></span><code class="sig-name descname">--invert</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-invert</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-invert" title="Permalink to this definition">¶</a></dt>
-<dd><p>invert the transform  [default: False]</p>
+<dd><p>invert the transform</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-sitkibex-resample-projection">
 <span id="cmdoption-sitkibex-resample-no-projection"></span><code class="sig-name descname">--projection</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-projection</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-projection" title="Permalink to this definition">¶</a></dt>
-<dd><p>project the volume in the z-direction to create 2-d image  [default: False]</p>
+<dd><p>project the volume in the z-direction to create 2-d image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default</dt>
+<dd class="field-odd"><p>False</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="std option">
@@ -269,7 +322,7 @@ MOVING_IMAGE.</p>
         <li class="right" >
           <a href="index.html" title="Welcome to sitk-ibex’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.1.dev24 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.1.dev25 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Command Line Interface</a></li> 
       </ul>
     </div>
