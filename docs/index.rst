@@ -36,9 +36,13 @@ it to function properly. Specifically, because semantic versioning is done with 
   python -m pip install requirements-dev.txt
   python -m pip install --editable .
 
-After changes are made check that flake8 and the test pass with out warning or errors::
+New contributions must come from pull requests on GitHub. New features should start as local branch with a name
+starting with "feature-" followed by a description. After changes, verify flake8 and the tests pass
+without warnings or errors::
 
   python -m flake8
   python -m pytest
 
-Pull requests should be made on GitHub for new contributions, where the CI will automatically run flake8 and pytest.
+Since the repository is internal, the feature branch needs to be
+pushed to the *upstream* repository. Next a pull request is made against master, where the CI will automatically run
+flake8, pytest and sphinx. When merging the branch with rebased onto the origin, and the feature branch is deleted.
