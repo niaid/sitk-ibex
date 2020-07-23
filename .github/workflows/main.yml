@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    tags:
+      - 'v*'
   pull_request:
     branches:
       - master
@@ -49,7 +51,6 @@ jobs:
   package_docs:
     needs: test
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
         with:
@@ -99,3 +100,52 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
           TARGET_BRANCH: 'gh-pages'
+
+  github_release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: package_docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        id: download
+        with:
+          name: python-packages
+      - name: Extract Python Packages
+        id: files
+        run: |
+          cd ${{steps.download.outputs.download-path}}
+          echo ::set-output name=file1::$(ls sitkibex*any.whl)
+          echo ::set-output name=file2::$(ls sitkibex*.tar.gz)
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset Wheel
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include
+          # a `upload_url`. See this blog post for more info:
+          # https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{steps.download.outputs.download-path}}/${{steps.files.outputs.file1}}
+          asset_name: ${{steps.files.outputs.file1}}
+          asset_content_type: application/octet-stream
+      - name: Upload Release Asset Source
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{steps.download.outputs.download-path}}/${{steps.files.outputs.file2}}
+          asset_name: ${{steps.files.outputs.file2}}
+          asset_content_type: application/octet-stream
