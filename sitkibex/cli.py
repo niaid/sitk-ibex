@@ -20,6 +20,9 @@ import os
 from os.path import basename
 import SimpleITK as sitk
 import click
+import itertools
+
+import sitkibex.registration_utilities as utils
 
 
 class _Bunch(object):
@@ -110,24 +113,46 @@ def resample_cli(fixed_image, moving_image, transform, **kwargs):
 
     >>> sitkibex resample --bin 10 --fusion --projection -o preview.png fixed.nrrd moving.nrrd out.txt
 
+    If the moving image has more than 3 dimensions each sub-3d volume will be iteratively resampled.
+
     """
 
     from .resample import resample
 
     args = _Bunch(kwargs)
 
-    fixed_img = sitk.BinShrink(sitk.ReadImage(fixed_image), [args.bin, args.bin, 1])
-    moving_img = sitk.BinShrink(sitk.ReadImage(moving_image), [args.bin, args.bin, 1])
+    @utils.sub_volume_execute()
+    def binner(image):
+        if args.bin != 1:
+            return sitk.BinShrink(image, [args.bin, args.bin, 1])
+        else:
+            return image
+
+    moving_img = binner(sitk.ReadImage(moving_image))
+
+    reader = sitk.ImageFileReader()
+    reader.SetFileName(fixed_image)
+    reader.ReadImageInformation()
+    if reader.GetDimension() > 3:
+        extract_size = reader.GetSize()
+        extract_size[3:] = itertools.repeat(0, len(extract_size) - 3)
+        reader.SetExtractSize(extract_size)
+
+    fixed_img = binner(reader.Execute())
 
     tx = None
     if transform:
         tx = sitk.ReadTransform(transform)
 
-    result = resample(fixed_img, moving_img, tx,
-                      fusion=args.fusion,
-                      combine=args.combine,
-                      invert=args.invert,
-                      projection=args.projection)
+    @utils.sub_volume_execute(inplace=True)
+    def resample_sub_volume(mv_img):
+        return resample(fixed_img, mv_img, tx,
+                        fusion=args.fusion,
+                        combine=args.combine,
+                        invert=args.invert,
+                        projection=args.projection)
+
+    result = resample_sub_volume(moving_img)
 
     if args.output:
         sitk.WriteImage(result, args.output)

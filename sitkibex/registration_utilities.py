@@ -15,6 +15,9 @@
 #
 import SimpleITK as sitk
 import time
+from functools import reduce
+import itertools
+from functools import wraps
 
 
 class RegistrationCallbackManager:
@@ -104,3 +107,62 @@ class RegistrationCallbackManager:
 
         self.prev_time = multi_time
         print("---Level {0} Start---".format(self.R.GetCurrentLevel()))
+
+
+def sub_volume_execute(inplace=True):
+    """
+    A function decorator which executes func on each sub-volume and *in-place* pastes the output input the
+    input image.
+
+    :param inplace:
+    :param func: A function which take a SimpleITK Image as it's first argument and returns the results.
+    :return: A wrapped function.
+    """
+
+    def wrapper(func):
+        @wraps(func)
+        def slice_by_slice(image, *args, **kwargs):
+
+            dim = image.GetDimension()
+
+            if dim <= 3:
+                image = func(image, *args, **kwargs)
+                return image
+
+            extract_size = list(image.GetSize())
+            extract_size[3:] = itertools.repeat(0,  dim-3)
+
+            extract_index = [0] * dim
+            paste_idx = [slice(None, None)] * dim
+
+            extractor = sitk.ExtractImageFilter()
+            extractor.SetSize(extract_size)
+            if inplace:
+                for high_idx in itertools.product(*[range(s) for s in image.GetSize()[3:]]):
+                    extract_index[3:] = high_idx
+                    extractor.SetIndex(extract_index)
+
+                    paste_idx[3:] = high_idx
+                    image[paste_idx] = func(extractor.Execute(image), *args, **kwargs)
+
+            else:
+                img_list = []
+                for high_idx in itertools.product(*[range(s) for s in image.GetSize()[3:]]):
+                    extract_index[3:] = high_idx
+                    extractor.SetIndex(extract_index)
+
+                    paste_idx[3:] = high_idx
+
+                    img_list.append(func(extractor.Execute(image), *args, **kwargs))
+
+                for d in range(3, dim):
+                    step = reduce((lambda x, y: x * y), image.GetSize()[d + 1:], 1)
+                    img_list = [sitk.JoinSeries(img_list[i::step], image.GetSpacing()[d]) for i in range(step)]
+
+                assert len(img_list) == 1
+                image = img_list[0]
+
+            return image
+
+        return slice_by_slice
+    return wrapper
