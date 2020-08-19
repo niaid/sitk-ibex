@@ -4,8 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Command Line Interface &#8212; sitk-ibex 0.1.dev27 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Command Line Interface &#8212; sitk-ibex 0.2.dev1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to sitk-ibex’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.1.dev27 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.2.dev1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Command Line Interface</a></li> 
       </ul>
     </div>  
@@ -143,19 +143,19 @@ and the command line options available.</p>
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt id="cmdoption-sitkibex-registration-arg-FIXED_IMAGE">
-<code class="sig-name descname">FIXED_IMAGE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-arg-FIXED_IMAGE" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-sitkibex-registration-arg-fixed-image"></span><code class="sig-name descname">FIXED_IMAGE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-arg-FIXED_IMAGE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-sitkibex-registration-arg-MOVING_IMAGE">
-<code class="sig-name descname">MOVING_IMAGE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-arg-MOVING_IMAGE" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-sitkibex-registration-arg-moving-image"></span><code class="sig-name descname">MOVING_IMAGE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-arg-MOVING_IMAGE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-sitkibex-registration-arg-OUTPUT_TRANSFORM">
-<code class="sig-name descname">OUTPUT_TRANSFORM</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-arg-OUTPUT_TRANSFORM" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-sitkibex-registration-arg-output-transform"></span><code class="sig-name descname">OUTPUT_TRANSFORM</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-arg-OUTPUT_TRANSFORM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
@@ -173,6 +173,7 @@ MOVING_IMAGE.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sitkibex</span> <span class="n">resample</span> <span class="o">--</span><span class="nb">bin</span> <span class="mi">10</span> <span class="o">--</span><span class="n">fusion</span> <span class="o">--</span><span class="n">projection</span> <span class="o">-</span><span class="n">o</span> <span class="n">preview</span><span class="o">.</span><span class="n">png</span> <span class="n">fixed</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">moving</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">out</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
+<p>If the moving image has more than 3 dimensions each sub-3d volume will be iteratively resampled.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sitkibex resample <span class="o">[</span>OPTIONS<span class="o">]</span> FIXED_IMAGE MOVING_IMAGE <span class="o">[</span>TRANSFORM<span class="o">]</span>
 </pre></div>
 </div>
@@ -241,19 +242,19 @@ MOVING_IMAGE.</p>
 <p class="rubric">Arguments</p>
 <dl class="std option">
 <dt id="cmdoption-sitkibex-resample-arg-FIXED_IMAGE">
-<code class="sig-name descname">FIXED_IMAGE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-arg-FIXED_IMAGE" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-sitkibex-resample-arg-fixed-image"></span><code class="sig-name descname">FIXED_IMAGE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-arg-FIXED_IMAGE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-sitkibex-resample-arg-MOVING_IMAGE">
-<code class="sig-name descname">MOVING_IMAGE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-arg-MOVING_IMAGE" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-sitkibex-resample-arg-moving-image"></span><code class="sig-name descname">MOVING_IMAGE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-arg-MOVING_IMAGE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
 <dl class="std option">
 <dt id="cmdoption-sitkibex-resample-arg-TRANSFORM">
-<code class="sig-name descname">TRANSFORM</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-arg-TRANSFORM" title="Permalink to this definition">¶</a></dt>
+<span id="cmdoption-sitkibex-resample-arg-transform"></span><code class="sig-name descname">TRANSFORM</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-arg-TRANSFORM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optional argument</p>
 </dd></dl>
 
@@ -322,13 +323,13 @@ MOVING_IMAGE.</p>
         <li class="right" >
           <a href="index.html" title="Welcome to sitk-ibex’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.1.dev27 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.2.dev1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Command Line Interface</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Bradley Lowekamp.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
     </div>
   </body>
 </html>
