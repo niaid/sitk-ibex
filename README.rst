@@ -41,13 +41,9 @@ The Python module is distributed as a `wheel`_ binary package. Download the late
 Wheels from the master branch can be download wheel from `Github Actions`_ in the
 "python-package" artifact.
 
-SITK-IBEX requires SimpleITK version 2.0 which is still under development.
-For now, use the `latest`_ development version of SimpleITK::
 
- python -m pip install --upgrade --pre SimpleITK --find-links https://github.com/SimpleITK/SimpleITK/releases/tag/latest
-
-Other dependencies are conventionally specified in `setup.py` and `requirements.txt` and therefore installed as
-dependencies when the wheel is installed.
+Dependencies are conventionally specified in `setup.py` and `requirements.txt` and therefore installed as
+dependencies when the wheel is installed. This includes the SimpleITK 2.0 requirement.
 
 Data
 ----
@@ -117,7 +113,6 @@ Additionally, we can be emailed at: bioinformatics@niaid.nih.gov Please include 
 .. _pip: https://pip.pypa.io/en/stable/quickstart/
 .. _Github Actions: https://github.com/niaid/sitk-ibex/actions?query=branch%3Amaster
 .. _OME TIFF: https://docs.openmicroscopy.org/ome-model/latest/ome-tiff/
-.. _latest: https://github.com/SimpleITK/SimpleITK/releases
 .. _GitHub Issues:  https://github.com/niaid/sitk-ibex
 .. _wheel: https://www.python.org/dev/peps/pep-0427/
 .. _Github Releases: https://github.com/niaid/sitk-ibex/releases
