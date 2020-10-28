@@ -349,7 +349,7 @@ def registration(fixed_image: sitk.Image,
         expand_factors = [-(-5//s) for s in fixed_image.GetSize()]
 
     if any([e != 1 for e in expand_factors]):
-        print("WARNING: Fixed image under sized in at lease one dimension!")
+        print("WARNING: Fixed image under sized in at least one dimension!")
         print("\tApplying expand factors {0} to image size.".format(expand_factors))
         fixed_image = sitk.Expand(fixed_image, expandFactors=expand_factors)
 
@@ -358,7 +358,7 @@ def registration(fixed_image: sitk.Image,
 
     expand_factors = [-(-5//s) for s in moving_image.GetSize()]
     if any([e != 1 for e in expand_factors]):
-        print("WARNING: Moving image under sized in at lease one dimension!")
+        print("WARNING: Moving image under sized in at least one dimension!")
         print("\tApplying expand factors {0} to image size.".format(expand_factors))
         moving_image = sitk.Expand(moving_image, expandFactors=expand_factors)
 
