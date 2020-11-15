@@ -328,6 +328,9 @@ def registration(fixed_image: sitk.Image,
     :return: A SimpleITK transform mapping points from the fixed image to the moving. This may be a CompositeTransform.
 
     """
+    #Identity transform will be returned if all registration steps are disabled by
+    #the calling function.
+    result = sitk.Transform()
 
     initial_translation_3d = True
 
