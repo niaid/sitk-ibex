@@ -48,6 +48,17 @@ class TestReg(TestCase):
         fail_msg = "The distance between {0} and {1} exceeded tolerance".format(pt1, pt2)
         self.assertLess(distance, tolerance, msg=fail_msg)
 
+    def test_reg0(self):
+        pts = [[256,256,8]]
+        #all registration options set to False, so no registration is
+        #performed, returning the identity transformation.
+        tx = registration(sitk.Image([32,32], sitk.sitkUInt8),
+                          sitk.Image([32,32], sitk.sitkUInt8),
+                          do_fft_initialization=False,
+                          do_affine2d=False,
+                          do_affine3d=False)
+        self.check_near(pts[0], tx.TransformPoint(pts[0]))
+
     def test_reg1(self):
         fixed_pts = [[256, 256, 8],
                      [64, 64, 7]]
