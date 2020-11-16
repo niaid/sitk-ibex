@@ -21,6 +21,7 @@ from os.path import basename
 import SimpleITK as sitk
 import click
 import itertools
+import logging
 
 import sitkibex.registration_utilities as utils
 
@@ -31,7 +32,19 @@ class _Bunch(object):
 
 
 @click.group()
-def cli():
+@click.option('--debug', 'logging_level', flag_value=logging.DEBUG,
+              help="Maximum verbosity with debugging logging enabled.")
+@click.option('-v', '--verbose', 'logging_level', flag_value=logging.INFO, default=True,
+              help="Increased verbosity with information logging enabled.")
+@click.option('-q', '--quiet', 'logging_level', flag_value=logging.WARNING,
+              help="Minimal verbosity with only warning logging enabled.")
+def cli(**kwargs):
+
+    args = _Bunch(kwargs)
+
+    logging.basicConfig(level=args.logging_level,
+                        format='%(message)s')
+
     if "SITK_SHOW_EXTENSION" not in os.environ:
         os.environ["SITK_SHOW_EXTENSION"] = ".nrrd"
 

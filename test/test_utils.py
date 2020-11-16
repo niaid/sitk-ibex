@@ -17,6 +17,9 @@ import pytest
 import SimpleITK as sitk
 
 import sitkibex.registration_utilities as utils
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 @utils.sub_volume_execute(inplace=True)

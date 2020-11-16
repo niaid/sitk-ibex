@@ -19,6 +19,9 @@ import numpy as np
 from .registration_utilities import RegistrationCallbackManager
 from . import image_utilities as imgf
 from .globals import default_random_seed   # noqa: F401
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 def register_3d(fixed_image,
@@ -71,13 +74,13 @@ def register_3d(fixed_image,
         stats = sitk.StatisticsImageFilter()
         stats.Execute(mask != 0)
 
-        print("Unmasked sampling: {0}".format(sampling_percentage))
-        print("\tmasked percentage: {0}%".format(100 * stats.GetMean()))
+        _logger.info("Unmasked sampling: {0}".format(sampling_percentage))
+        _logger.info("\tmasked percentage: {0}%".format(100 * stats.GetMean()))
         # this scaling assumes that the size in pixels of the mask the the fixed image are about the same
         sampling_percentage /= stats.GetMean()
         # sampling_percentage *= 10
 
-        print("Adjusted sampling: {0}".format(sampling_percentage))
+        _logger.info("Adjusted sampling: {0}".format(sampling_percentage))
 
     if use_neighborhood_correlation:
         neighborhood_radius = 4
@@ -87,9 +90,11 @@ def register_3d(fixed_image,
         reg.SetMetricAsCorrelation()
 
     sampling_percentage_per_level = [min(0.10, sampling_percentage * f * f) for f in scale_factors]
-    print("Sampling Percentage Per Level:", sampling_percentage_per_level)
-    print("\t#", [p * fixed_image.GetNumberOfPixels() / (f ** 3)
-                  for p, f in zip(sampling_percentage_per_level, scale_factors)])
+    _logger.info("Sampling Percentage Per Level: {0} #{1}"
+                 .format(sampling_percentage_per_level,
+                         [p * fixed_image.GetNumberOfPixels() / (f ** 3)
+                          for p, f in
+                          zip(sampling_percentage_per_level, scale_factors)]))
 
     reg.SetMetricSamplingPercentagePerLevel(sampling_percentage_per_level,
                                             default_random_seed)
@@ -98,7 +103,7 @@ def register_3d(fixed_image,
     reg.SmoothingSigmasAreSpecifiedInPhysicalUnitsOn()
     smoothing_sigmas = [2.0 * sigma_base * f * fixed_image.GetSpacing()[0] for f in scale_factors]
     reg.SetSmoothingSigmasPerLevel(smoothing_sigmas)
-    print("SmoothingSigmasPerLevel: ", smoothing_sigmas)
+    _logger.info("SmoothingSigmasPerLevel: {}".format(smoothing_sigmas))
 
     reg.SetInterpolator(sitk.sitkLinear)
 
@@ -143,8 +148,8 @@ def register_as_2d_affine(fixed_image,
     do_affine = True
     verbose = True
 
-    print("Initializing projected registration...")
-    print("Sigma Base: {0}".format(sigma_base))
+    _logger.info("Initializing projected registration...")
+    _logger.info("Sigma Base: {0}".format(sigma_base))
 
     fixed_2d = imgf.project(fixed_image)
     moving_2d = imgf.project(moving_image)
@@ -206,11 +211,11 @@ def register_as_2d_affine(fixed_image,
     R.SetInterpolator(sitk.sitkLinear)
 
     if fixed_mask_2d:
-        print("Setting fixed mask")
+        _logger.info("Setting fixed mask")
         R.SetMetricFixedMask(fixed_mask_2d)
 
     if moving_mask_2d:
-        print("Setting moving mask")
+        _logger.info("Setting moving mask")
         R.SetMetricMovingMask(moving_mask_2d)
 
     R_callbacks = RegistrationCallbackManager(R)
@@ -281,7 +286,7 @@ def register_as_2d_affine(fixed_image,
     center_3d = moving_image.TransformContinuousIndexToPhysicalPoint(idx_3d)
 
     # The 2d projected images preserve the image spacing but have the direction matrix set to the identity.
-    print("center 2d->3d: {0}->{1}".format(affine_result.GetCenter(), center_3d))
+    _logger.info("center 2d->3d: {0}->{1}".format(affine_result.GetCenter(), center_3d))
 
     result_3d = sitk.AffineTransform(3)
     result_3d.SetTranslation(affine_result.GetTranslation()+(0,))
@@ -352,8 +357,8 @@ def registration(fixed_image: sitk.Image,
         expand_factors = [-(-5//s) for s in fixed_image.GetSize()]
 
     if any([e != 1 for e in expand_factors]):
-        print("WARNING: Fixed image under sized in at least one dimension!")
-        print("\tApplying expand factors {0} to image size.".format(expand_factors))
+        _logger.warning("Fixed image under sized in at lease one dimension!"
+                        "\tApplying expand factors {0} to image size.".format(expand_factors))
         fixed_image = sitk.Expand(fixed_image, expandFactors=expand_factors)
 
     if moving_image.GetPixelID() != sitk.sitkFloat32:
@@ -361,8 +366,8 @@ def registration(fixed_image: sitk.Image,
 
     expand_factors = [-(-5//s) for s in moving_image.GetSize()]
     if any([e != 1 for e in expand_factors]):
-        print("WARNING: Moving image under sized in at least one dimension!")
-        print("\tApplying expand factors {0} to image size.".format(expand_factors))
+        _logger.warning("WARNING: Moving image under sized in at lease one dimension!"
+                        "\tApplying expand factors {0} to image size.".format(expand_factors))
         moving_image = sitk.Expand(moving_image, expandFactors=expand_factors)
 
     if auto_mask:
@@ -377,15 +382,15 @@ def registration(fixed_image: sitk.Image,
 
         spacing_magnitude = imgf.spacing_average_magnitude(fixed_image)
 
-        print("Adjusting image spacing by {0}...".format(1.0/spacing_magnitude))
+        _logger.info("Adjusting image spacing by {0}...".format(1.0/spacing_magnitude))
 
         new_spacing = [s/spacing_magnitude for s in fixed_image.GetSpacing()]
-        print("\tFixed Image Spacing: {0}->{1}".format(fixed_image.GetSpacing(), new_spacing))
+        _logger.info("\tFixed Image Spacing: {0}->{1}".format(fixed_image.GetSpacing(), new_spacing))
         fixed_image.SetSpacing(new_spacing)
         fixed_image.SetOrigin([o/spacing_magnitude for o in fixed_image.GetOrigin()])
 
         new_spacing = [s / spacing_magnitude for s in moving_image.GetSpacing()]
-        print("\tMoving Image Spacing: {0}->{1}".format(moving_image.GetSpacing(), new_spacing))
+        _logger.info("\tMoving Image Spacing: {0}->{1}".format(moving_image.GetSpacing(), new_spacing))
         moving_image.SetSpacing(new_spacing)
         moving_image.SetOrigin([o/spacing_magnitude for o in moving_image.GetOrigin()])
 
@@ -422,7 +427,7 @@ def registration(fixed_image: sitk.Image,
 
     if do_affine3d:
 
-        print("Initializing Affine Registration...")
+        _logger.info("Initializing Affine Registration...")
 
         if do_affine2d:
             # set the FFT xcoor initial z translation
@@ -433,7 +438,7 @@ def registration(fixed_image: sitk.Image,
                 translation[2] = initial_translation[2]
                 result.SetTranslation(translation)
 
-                print("Initialized 3D affine with z-translation... {0}".format(translation))
+                _logger.info("Initialized 3D affine with z-translation... {0}".format(translation))
 
             affine = result
         else:
@@ -446,7 +451,7 @@ def registration(fixed_image: sitk.Image,
             if do_fft_initialization:
                 if len(initial_translation) >= 3:
                     affine.SetTranslation(list(initial_translation))
-                    print("Initialized 3D affine with z-translation... {0}".format(initial_translation))
+                    _logger.info("Initialized 3D affine with z-translation... {0}".format(initial_translation))
                 else:
                     affine.SetTranslation(list(initial_translation)+[0, ])
 
@@ -480,6 +485,6 @@ def registration(fixed_image: sitk.Image,
 
         result.FlattenTransform()
 
-        print(result)
+        _logger.info(result)
 
     return result
