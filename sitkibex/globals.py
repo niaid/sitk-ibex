@@ -14,4 +14,14 @@
 #  limitations under the License.
 #
 
+import logging
+
 default_random_seed = 100
+"""Random seed used for each registration called for reproducible results. If it is set to 0 the time will be used to
+initialized a seed."""
+
+logger = logging.getLogger(__name__).parent
+"""The parent `logger` object for all sub-loggers. It can be used to control the level of output and how the
+ warning, info, and debug messages are handled."""
+
+__all__ = ["default_random_seed", "logger"]

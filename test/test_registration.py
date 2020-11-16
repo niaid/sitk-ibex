@@ -16,9 +16,12 @@
 from unittest import TestCase
 
 import SimpleITK as sitk
-from sitkibex.registration import registration
+from sitkibex import registration
+from sitkibex.globals import logger
+import logging
 import math
 
+logging.basicConfig(level=logging.DEBUG)
 
 class TestReg(TestCase):
 

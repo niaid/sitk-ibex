@@ -14,6 +14,9 @@
 #  limitations under the License.
 #
 import SimpleITK as sitk
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 def spacing_average_magnitude(image):
@@ -88,19 +91,19 @@ def fft_initialization(moving, fixed, bin_shrink=8, projection=True):
     fft_moving = sitk.Cast(sitk.SmoothingRecursiveGaussian(sitk.BinShrink(moving, bin_shrink_list), sigma), pixel_type)
     fft_fixed = sitk.Cast(sitk.SmoothingRecursiveGaussian(sitk.BinShrink(fixed, bin_shrink_list), sigma), pixel_type)
 
-    print("FFT Correlation...")
+    _logger.info("FFT Correlation...")
     out = sitk.MaskedFFTNormalizedCorrelation(fft_fixed,
                                               fft_moving,
                                               sitk.Cast(fft_fixed != 0, pixel_type),
                                               sitk.Cast(fft_moving != 0, pixel_type),
                                               requiredFractionOfOverlappingPixels=fraction_overlap)
 
-    print("Smoothing...")
+    _logger.info("Smoothing...")
     out = sitk.SmoothingRecursiveGaussian(out)
-    print("Detecting peak...")
-    print("\tConnected components and maxima...")
+    _logger.info("Detecting peak...")
+    _logger.info("\tConnected components and maxima...")
     cc = sitk.ConnectedComponent(sitk.RegionalMaxima(out, fullyConnected=True))
-    print("\tLabel statistics...")
+    _logger.info("\tLabel statistics...")
     stats = sitk.LabelStatisticsImageFilter()
     stats.Execute(out, cc)
     labels = sorted(stats.GetLabels(), key=lambda l: stats.GetMean(l))
@@ -115,6 +118,6 @@ def fft_initialization(moving, fixed, bin_shrink=8, projection=True):
     translation = [c - p for c, p in zip(center_pt, peak_pt)]
     translation += [0] * (moving.GetDimension() - len(translation))
 
-    print("FFT peak correlation of {0} at translation of {1}".format(peak_value, translation))
+    _logger.info("FFT peak correlation of {0} at translation of {1}".format(peak_value, translation))
 
     return translation

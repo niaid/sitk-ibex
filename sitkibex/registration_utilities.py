@@ -18,6 +18,9 @@ import time
 from functools import reduce
 import itertools
 from functools import wraps
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class RegistrationCallbackManager:
@@ -38,23 +41,23 @@ class RegistrationCallbackManager:
         self.R.AddCommand(sitk.sitkMultiResolutionIterationEvent, lambda: self.multi_resolution_callback())
 
     def start_callback(self):
-        print("===Registration Start===")
+        _logger.info("===Registration Start===")
         self.start_time = time.time()
 
     def end_callback(self, message=None):
         end_time = time.time()
         if message is not None:
-            print(message)
+            _logger.info(message)
 
-        print("Total elapsed time: {0:.4f}s".format(end_time-self.start_time))
-        print("Optimizer stop condition: {0}".format(self.R.GetOptimizerStopConditionDescription()))
-        print(" Iteration: {0}".format(self.R.GetOptimizerIteration()))
-        print(" Final Metric value: {0}".format(self.R.GetMetricValue()))
+        _logger.info("Total elapsed time: {0:.4f}s".format(end_time - self.start_time))
+        _logger.info("Optimizer stop condition: {0}".format(self.R.GetOptimizerStopConditionDescription()))
+        _logger.info(" Iteration: {0}".format(self.R.GetOptimizerIteration()))
+        _logger.info(" Final Metric value: {0}".format(self.R.GetMetricValue()))
 
         if self.R.GetInitialTransformInPlace():
-            print(self.R.GetInitialTransform())
+            _logger.info(self.R.GetInitialTransform())
 
-        print("===Registraion End===")
+        _logger.info("===Registraion End===")
 
     def iteration_callback1(self, print_position=True):
         """
@@ -65,13 +68,13 @@ class RegistrationCallbackManager:
         """
         if self.R.GetOptimizerIteration() == 0 and len(self.R.GetOptimizerScales()):
             if self.R.GetOptimizerLearningRate() != 0:
-                print("Learning Rate: {0}".format(self.R.GetOptimizerLearningRate()))
+                _logger.info("Learning Rate: {0}".format(self.R.GetOptimizerLearningRate()))
 
             if self.R.GetInitialTransform().IsLinear():
-                print("Estimated Scales: {0}".format(self.R.GetOptimizerScales()))
+                _logger.info("Estimated Scales: {0}".format(self.R.GetOptimizerScales()))
             else:
                 pass
-                # print("Estimated Scales: {0}".format(self.R.GetOptimizerScales()[0]))
+                # _logger.info("Estimated Scales: {0}".format(self.R.GetOptimizerScales()[0]))
 
         number_of_valid_points = '?'
         try:
@@ -81,32 +84,32 @@ class RegistrationCallbackManager:
             pass
 
         if print_position:
-            print("{0:3} = {1:10.5f} : {2} ({3:10.5e}) [#{4}]".format(self.R.GetOptimizerIteration(),
-                                                                      self.R.GetMetricValue(),
-                                                                      self.R.GetOptimizerPosition(),
-                                                                      self.R.GetOptimizerConvergenceValue(),
-                                                                      number_of_valid_points
-                                                                      ))
+            _logger.info("{0:3} = {1:10.5f} : {2} ({3:10.5e}) [#{4}]".format(self.R.GetOptimizerIteration(),
+                                                                             self.R.GetMetricValue(),
+                                                                             self.R.GetOptimizerPosition(),
+                                                                             self.R.GetOptimizerConvergenceValue(),
+                                                                             number_of_valid_points
+                                                                             ))
 
         else:
-            print("{0:3} = {1:10.5f} ({2:10.5e}) [#{3}]".format(self.R.GetOptimizerIteration(),
-                                                                self.R.GetMetricValue(),
-                                                                self.R.GetOptimizerConvergenceValue(),
-                                                                number_of_valid_points
-                                                                ))
+            _logger.info("{0:3} = {1:10.5f} ({2:10.5e}) [#{3}]".format(self.R.GetOptimizerIteration(),
+                                                                       self.R.GetMetricValue(),
+                                                                       self.R.GetOptimizerConvergenceValue(),
+                                                                       number_of_valid_points
+                                                                       ))
 
     def multi_resolution_callback(self, message=None):
 
         multi_time = time.time()
         if self.R.GetCurrentLevel() > 0:
-            print("Elapsed time: {0:.4f}s".format(multi_time-self.prev_time))
-            print("Optimizer stop condition: {0}".format(self.R.GetOptimizerStopConditionDescription()))
-            print(" Total Iteration: {0}".format(self.R.GetOptimizerIteration()))
-            print(" Metric value: {0}".format(self.R.GetMetricValue()))
-            print(" Convergence value: {0}".format(self.R.GetOptimizerConvergenceValue()))
+            _logger.info("Elapsed time: {0:.4f}s".format(multi_time - self.prev_time))
+            _logger.info("Optimizer stop condition: {0}".format(self.R.GetOptimizerStopConditionDescription()))
+            _logger.info(" Total Iteration: {0}".format(self.R.GetOptimizerIteration()))
+            _logger.info(" Metric value: {0}".format(self.R.GetMetricValue()))
+            _logger.info(" Convergence value: {0}".format(self.R.GetOptimizerConvergenceValue()))
 
         self.prev_time = multi_time
-        print("---Level {0} Start---".format(self.R.GetCurrentLevel()))
+        _logger.info("---Level {0} Start---".format(self.R.GetCurrentLevel()))
 
 
 def sub_volume_execute(inplace=True):
@@ -130,7 +133,7 @@ def sub_volume_execute(inplace=True):
                 return image
 
             extract_size = list(image.GetSize())
-            extract_size[3:] = itertools.repeat(0,  dim-3)
+            extract_size[3:] = itertools.repeat(0, dim - 3)
 
             extract_index = [0] * dim
             paste_idx = [slice(None, None)] * dim

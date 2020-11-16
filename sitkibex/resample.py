@@ -15,6 +15,9 @@
 #
 
 import SimpleITK as sitk
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 def _combine_images(fixed_image, moving_image, transform, virtual_image=None,  tx2=None, fusion=False):
@@ -91,13 +94,13 @@ def resample(fixed_image: sitk.Image,
 
     if fusion or combine:
 
-        print("Fusing images...")
+        _logger.info("Fusing images...")
         resampled_image = _combine_images(fixed_image, moving_image, transform, fusion=fusion)
 
     else:
         output_pixel_type = moving_image.GetPixelID()
 
-        print("Resampling image...")
+        _logger.info("Resampling image...")
 
         resampler = sitk.ResampleImageFilter()
         resampler.SetOutputDirection(fixed_image.GetDirection())
@@ -112,7 +115,7 @@ def resample(fixed_image: sitk.Image,
         resampled_image = resampler.Execute(moving_image)
 
     if projection:
-        print("Projecting image...")
+        _logger.info("Projecting image...")
         proj_size = resampled_image.GetSize()[:2] + (0,)
         output_pixel_type = resampled_image.GetPixelID()
         projection_image = sitk.Cast(sitk.MeanProjection(resampled_image, projectionDimension=2), output_pixel_type)

@@ -16,6 +16,10 @@
 from unittest import TestCase
 from sitkibex import resample
 import SimpleITK as sitk
+import logging
+
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 class TestResample(TestCase):
