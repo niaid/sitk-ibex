@@ -33,7 +33,7 @@ Development
 The required packages for development are specified in `requirements-dev.txt`. The sitk-ibex project must be install for
 it to function properly. Specifically, because semantic versioning is done with `setuptools-scm` it must be installed. To setup for development::
 
-  python -m pip install requirements-dev.txt
+  python -m pip install -r requirements-dev.txt
   python -m pip install --editable .
 
 New contributions must come from pull requests on GitHub. New features should start as local branch with a name
