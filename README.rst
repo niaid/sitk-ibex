@@ -85,11 +85,16 @@ Then apply the registration transform by resampling the input images onto panel 
 How to Cite
 -----------
 
-If you use the SITK-IBEX package in your work, please cite it as:
+If you use the SITK-IBEX package in your work, please cite us:
 
- A. J. Radtke, E. Kandov, B. C. Lowekamp et al.,
- "Characterization and deep spatial profiling of the mammalian
- immune system using a highly multi-plexed optical imaging approach".
+ A. J. Radtke, E. F. Kandov, B. C. Lowekamp, E. Speranza, C. Chu,
+ A. Gola, N. Thakur, R. Shih, L. Yao, Z. R. Yaniv, R. Beuschel,
+ J. Kabat, J. Croteau, J. Davis, J. M. Hernandez, R. N. Germain
+ "IBEX - A versatile multi-plex optical imaging approach
+ for deep phenotyping and spatial analysis of cells in complex tissues",
+ Proc Natl Acad Sci, in press.
+
+
 
 Documentation
 -------------
