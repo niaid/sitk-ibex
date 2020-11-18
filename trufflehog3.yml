@@ -1,0 +1,7 @@
+skip_strings:
+  # will only be skipped in corresponding files
+  /.github/workflows/main.yml:
+    - "${GITHUB_TOKEN}@github.com"
+
+skip_paths:
+  - "/docs/_build/html/.buildinfo"
