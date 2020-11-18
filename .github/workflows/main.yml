@@ -36,6 +36,10 @@ jobs:
         python -m flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         python -m flake8 . --count --exit-zero --statistics
+    - name: Run trufflehog3 detector
+      run: |
+        python -m pip install trufflehog3
+        trufflehog3 -v -c trufflehog3.yml . && echo "tufflehog3 OK"
     - name: Test with pytest
       run: |
         python -m pytest --junitxml=junit/test-results-${{ matrix.python-version }}.xml
