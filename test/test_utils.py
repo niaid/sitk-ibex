@@ -13,11 +13,11 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-import pytest
 import SimpleITK as sitk
 
 import sitkibex.registration_utilities as utils
 import logging
+
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -75,7 +75,7 @@ def test_sve_decorator_3d():
 
 def test_sve_decorator_4d():
     img = sitk.Image([2, 3, 4, 5], sitk.sitkUInt8)
-    
+
     img_out = do_add2(img)
 
     assert all([v == 1 for v in img_out])
