@@ -17,11 +17,11 @@ from unittest import TestCase
 
 import SimpleITK as sitk
 from sitkibex import registration
-from sitkibex.globals import logger
 import logging
 import math
 
 logging.basicConfig(level=logging.DEBUG)
+
 
 class TestReg(TestCase):
 
@@ -52,11 +52,11 @@ class TestReg(TestCase):
         self.assertLess(distance, tolerance, msg=fail_msg)
 
     def test_reg0(self):
-        pts = [[256,256,8]]
-        #all registration options set to False, so no registration is
-        #performed, returning the identity transformation.
-        tx = registration(sitk.Image([32,32], sitk.sitkUInt8),
-                          sitk.Image([32,32], sitk.sitkUInt8),
+        pts = [[256, 256, 8]]
+        # all registration options set to False, so no registration is
+        # performed, returning the identity transformation.
+        tx = registration(sitk.Image([32, 32], sitk.sitkUInt8),
+                          sitk.Image([32, 32], sitk.sitkUInt8),
                           do_fft_initialization=False,
                           do_affine2d=False,
                           do_affine3d=False)
