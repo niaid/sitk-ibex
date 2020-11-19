@@ -296,7 +296,7 @@ def register_as_2d_affine(fixed_image,
     return result_3d
 
 
-def registration(fixed_image: sitk.Image,
+def registration(fixed_image: sitk.Image,     # noqa: C901
                  moving_image: sitk.Image,
                  *,
                  do_fft_initialization=True,
