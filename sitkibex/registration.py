@@ -18,7 +18,7 @@ import SimpleITK as sitk
 import numpy as np
 from .registration_utilities import RegistrationCallbackManager
 from . import image_utilities as imgf
-from .globals import default_random_seed   # noqa: F401
+import sitkibex.globals
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -97,7 +97,7 @@ def register_3d(fixed_image,
                           zip(sampling_percentage_per_level, scale_factors)]))
 
     reg.SetMetricSamplingPercentagePerLevel(sampling_percentage_per_level,
-                                            default_random_seed)
+                                            sitkibex.globals.default_random_seed)
     reg.SetMetricSamplingStrategy(reg.REGULAR)
     reg.SetShrinkFactorsPerLevel([f for f in scale_factors])
     reg.SmoothingSigmasAreSpecifiedInPhysicalUnitsOn()
@@ -201,7 +201,8 @@ def register_as_2d_affine(fixed_image,
     # We don't need more samples for larger image, so base the number of samples on the number of parameters
     sampling_percentage = len(
         initial_rigid.GetParameters()) * number_of_samples_per_parameter / fixed_2d.GetNumberOfPixels()
-    R.SetMetricSamplingPercentagePerLevel([min(0.10, sampling_percentage) for f in scale_factors], default_random_seed)
+    R.SetMetricSamplingPercentagePerLevel([min(0.10, sampling_percentage) for f in scale_factors],
+                                          sitkibex.globals.default_random_seed)
     R.SetMetricSamplingStrategy(R.REGULAR)
     R.SetShrinkFactorsPerLevel([1 for f in scale_factors])
     R.SmoothingSigmasAreSpecifiedInPhysicalUnitsOn()
@@ -255,7 +256,7 @@ def register_as_2d_affine(fixed_image,
     scale_factors = [8, 4, 2]
     sampling_percentage = len(affine.GetParameters()) * number_of_samples_per_parameter / fixed_2d.GetNumberOfPixels()
     R2.SetMetricSamplingPercentagePerLevel([min(0.10, sampling_percentage*f) for f in scale_factors],
-                                           default_random_seed)
+                                           sitkibex.globals.default_random_seed)
     R2.SetMetricSamplingStrategy(R.RANDOM)
     R2.SetShrinkFactorsPerLevel([f for f in scale_factors])
     R2.SmoothingSigmasAreSpecifiedInPhysicalUnitsOn()
