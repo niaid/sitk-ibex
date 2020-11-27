@@ -20,15 +20,59 @@ import os
 from os.path import basename
 import SimpleITK as sitk
 import click
-import itertools
 import logging
-
+import re
+from .io import im_read_channel
 import sitkibex.registration_utilities as utils
+
+
+_logger = logging.getLogger(__name__)
 
 
 class _Bunch(object):
     def __init__(self, adict):
         self.__dict__.update(adict)
+
+
+class ImagePathChannel(click.Path):
+    """
+    A custom click ParamType.
+
+    This class parses channel name suffixes for command line parameters.
+    The '@CHANNEL` suffix can be appended to extract one channel. The `CHANNEL` can be a 0-based
+    number e.g `@0`, or `Ch` followed by a 1-based index e.g. `@Ch1`, or it can be a string identifier
+    for the name of a channel.
+
+    If the channel suffix  is an integer ( or with  "Ch" ), then an integer type is returned for a 1-based channel
+    index.
+
+
+    The converted output returned is a pair of the filename followed by the channel name or integer channel index.
+
+    """
+
+    name = "image_file[@channel]"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def convert(self, value, param, ctx):
+
+        m = re.match(r'(.*)@(.*)', value)
+
+        channel_part = None
+        if m:
+            value = m.groups()[0]
+            channel_part = m.groups()[1]
+
+            m = re.match(r'(Ch)?(\d)', channel_part, re.IGNORECASE)
+            if m:
+                channel_part = int(m.groups()[1])
+                # if "Ch" prefix it it 1 based index, so convert
+                if m.groups()[0] is not None:
+                    channel_part -= 1
+
+        return super().convert(value, param, ctx), channel_part
 
 
 @click.group()
@@ -63,23 +107,32 @@ def cli(**kwargs):
               help="Use wall-clock instead of a fixed seed for random initialization.")
 @click.option('--samples-per-parameter', default=5000, type=int, show_default=True)
 @click.argument('fixed_image',
-                type=click.Path(exists=True, dir_okay=False, resolve_path=True))
+                type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
 @click.argument('moving_image',
-                type=click.Path(exists=True, dir_okay=False, resolve_path=True))
+                type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
 @click.argument('output_transform',
                 type=click.Path(exists=False, resolve_path=True))
 def reg_cli(fixed_image, moving_image, output_transform, **kwargs):
     """Perform registration to solve for an OUTPUT_TRANSFORM mapping points from the FIXED_IMAGE to the MOVING_IMAGE."""
-    global default_random_seed
     from sitkibex.registration import registration
 
     args = _Bunch(kwargs)
 
+    fixed_image, fixed_channel_name = fixed_image
+    moving_image, moving_channel_name = moving_image
+
     if args.random:
         sitkibex.globals.default_random_seed = sitk.sitkWallClock
 
-    fixed_image = sitk.BinShrink(sitk.ReadImage(fixed_image, sitk.sitkFloat32), [args.bin, args.bin, 1])
-    moving_image = sitk.BinShrink(sitk.ReadImage(moving_image, sitk.sitkFloat32), [args.bin, args.bin, 1])
+    def r(img, channel_name, bin_xy):
+        img = im_read_channel(img, channel_name)
+        img = sitk.Cast(img, sitk.sitkFloat32)
+        if bin != 1:
+            img = sitk.BinShrink(img, [bin_xy, bin_xy, 1])
+        return img
+
+    fixed_image = r(fixed_image, fixed_channel_name, args.bin)
+    moving_image = r(moving_image, moving_channel_name, args.bin)
 
     tx = registration(fixed_image, moving_image,
                       sigma=args.sigma,
@@ -106,9 +159,9 @@ def reg_cli(fixed_image, moving_image, output_transform, **kwargs):
               help="filename for output image, if not provided the SimpleITK Show method is called",
               type=click.Path(exists=False, resolve_path=True))
 @click.argument('fixed_image',
-                type=click.Path(exists=True, dir_okay=False, resolve_path=True))
+                type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
 @click.argument('moving_image',
-                type=click.Path(exists=True, dir_okay=False, resolve_path=True))
+                type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
 @click.argument('transform',
                 required=False,
                 type=click.Path(exists=True, dir_okay=False, resolve_path=True))
@@ -141,23 +194,28 @@ def resample_cli(fixed_image, moving_image, transform, **kwargs):
         else:
             return image
 
-    moving_img = binner(sitk.ReadImage(moving_image))
+    moving_image, moving_channel_name = moving_image
+    fixed_image, fixed_channel_name = fixed_image
 
-    reader = sitk.ImageFileReader()
-    reader.SetFileName(fixed_image)
-    reader.ReadImageInformation()
-    if reader.GetDimension() > 3:
-        extract_size = reader.GetSize()
-        extract_size[3:] = itertools.repeat(0, len(extract_size) - 3)
-        reader.SetExtractSize(extract_size)
+    moving_img = binner(im_read_channel(moving_image, moving_channel_name))
 
-    fixed_img = binner(reader.Execute())
+    if fixed_channel_name is None:
+        reader = sitk.ImageFileReader()
+        reader.SetFileName(fixed_image)
+        reader.ReadImageInformation()
+        if reader.GetDimension() > 3:
+            if args.fusion:
+                _logger.warning("Automatically selecting first channel with fusion enabled.")
+            fixed_channel_name = 0
+
+    fixed_img = im_read_channel(fixed_image, fixed_channel_name)
+    fixed_img = binner(fixed_img)
 
     tx = None
     if transform:
         tx = sitk.ReadTransform(transform)
 
-    @utils.sub_volume_execute(inplace=True)
+    @utils.sub_volume_execute(inplace=False)
     def resample_sub_volume(mv_img):
         return resample(fixed_img, mv_img, tx,
                         fusion=args.fusion,

@@ -13,97 +13,138 @@
 #  limitations under the License.
 #
 
-"""
-The image metadata dictionary contains the following keys-values:
-    'unit' - string denoting the physical units of the image origin,
-             and spacing.
-    'times' - string denoting the time associated with the image in
-                        ('%Y-%m-%d %H:%M:%S.%f' -
-                        Year-month-day hour:minute:second.microsecond) format.
-    'imaris_channels_information' - XML string denoting channel information.
-    XML structure:
-
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="imaris_channels_information">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="channel">
-          <xs:complexType>
-              <xs:element type="xs:string" name="name"/>
-              <xs:element type="xs:string" name="description"/>
-              <xs:element type="xs:string" name="color"/>
-              <xs:element type="xs:string" name="range"/>
-              <xs:element type="xs:string" name="gamma" minOccurs="0" maxOccurs="1"/>
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-</xs:schema>
-"""
-
-import xml.etree.ElementTree as et
+import xml.etree.ElementTree as ET
 
 
-def channels_information_xmlstr2list(channels_information_xml_str):
+class XMLInfo:
     """
-    Convert the xml string containing channel information into a list of dictionaries with channel information.
+    The image metadata dictionary contains the following keys-values:
+        'unit' - string denoting the physical units of the image origin,
+                 and spacing.
+        'times' - string denoting the time associated with the image in
+                            ('%Y-%m-%d %H:%M:%S.%f' -
+                            Year-month-day hour:minute:second.microsecond) format.
+        'imaris_channels_information' - XML string denoting channel information.
+        XML structure:
 
-    :param channels_information_xml_str: xml string representation the channels information.
-    :return: list of dictionaries representing the information from the input xml string
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="imaris_channels_information">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="channel">
+              <xs:complexType>
+                  <xs:element type="xs:string" name="name"/>
+                  <xs:element type="xs:string" name="description"/>
+                  <xs:element type="xs:string" name="color"/>
+                  <xs:element type="xs:string" name="range"/>
+                  <xs:element type="xs:string" name="gamma" minOccurs="0" maxOccurs="1"/>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
     """
-    channels_information = []
-    channels_xml_information = list(et.fromstring(channels_information_xml_str))
-    for channel_xml_info in channels_xml_information:
-        channel_info = {}
-        channel_info['name'] = channel_xml_info.find('name').text
-        channel_info['description'] = channel_xml_info.find('description').text
-        if channel_xml_info.find('color') is not None:
-            channel_info['color'] = [float(c)/255 for c in channel_xml_info.find('color').text.replace(',', ' ').split()]  # noqa: E501
-        elif channel_xml_info.find('color_table') is not None:
-            channel_info['color_table'] = [float(c)/255 for c in channel_xml_info.find('color_table').text.replace(',', ' ').split()]  # noqa: E501
-        channel_info['range'] = [float(c) for c in channel_xml_info.find('range').text.replace(',', ' ').split()]
-        if channel_xml_info.find('gamma'):  # Gamma is optional
-            channel_info['gamma'] = float(channel_xml_info.find('gamma').text)
-        channel_info['alpha'] = float(channel_xml_info.find('alpha').text)
-        channels_information.append(channel_info)
-    return channels_information
+
+    def __init__(self, xml_string):
+        self.root_element = ET.fromstring(xml_string)
+
+    @staticmethod
+    def _parse_tuple(s):
+        if s is None:
+            return None
+        return s.replace(',', ' ').split()
+
+    @property
+    def channel_names(self):
+        return [e.text for e in self.root_element.findall("channel/name")]
+
+    def descriptions(self):
+        return [e.text for e in self.root_element.findall("channel/description")]
+
+    def colors(self):
+        colors = []
+        for ch_element in self.root_element.iter("channel"):
+            e = ch_element.find("color")
+            if e is None:
+                c = None
+            else:
+                c = [float(c) / 255 for c in self._parse_tuple(e.text)]
+            colors.append(c)
+        return colors
+
+    def color_tables(self):
+        color_tables = []
+        for ch_element in self.root_element.iter("channel"):
+            e = ch_element.find("color")
+            if e is None:
+                t = None
+            else:
+                t = [float(c) / 255 for c in self._parse_tuple(e.text)]
+            color_tables.append(t)
+        return color_tables
+
+    def ranges(self):
+        return [self._parse_tuple(e.text) for e in self.root_element.findall("channel/range")]
+
+    def gamas(self):
+        gamas = []
+        for ch_element in self.root_element.iter("channel"):
+            e = ch_element.find("gama")
+            if e is None:
+                g = None
+            else:
+                g = [float(self._parse_tuple(e.text))]
+            gamas.append(g)
+        return gamas
+
+    def alpha(self):
+        return [float(e.text) for e in self.root_element.findall("channel/alpha")]
 
 
-def channels_information_list2xmlstr(channels_information_list):
-    """
-    Convert the channels information list of dictionaries to an xml string
-    representation which can be embedded as metadata in the image.
+class OMEInfo:
 
-    :param channels_information_list: list of dictionaries.
-    :return: an xml string representing the information from the input list
-    """
-    # Encode the Imaris channels information in xml.
-    xml_root = et.Element('imaris_channels_information')
-    xml_root.append(et.Comment('generated by SimpleITK'))
+    _ome_ns = {"OME": "http://www.openmicroscopy.org/Schemas/OME/2015-01"}
 
-    for channel_information in channels_information_list:
-        child = et.SubElement(xml_root, 'channel')
-        current_field = et.SubElement(child, 'name')
-        current_field.text = channel_information['name']
-        current_field = et.SubElement(child, 'description')
-        current_field.text = channel_information['description']
-        # Set the color information
-        if 'color' in channel_information:
-            current_field = et.SubElement(child, 'color')
-            color_info = channel_information['color']
-        elif 'color_table' in channel_information:
-            current_field = et.SubElement(child, 'color_table')
-            color_info = channel_information['color_table']
-        current_field.text = ', '.join([str(int(c*255 + 0.5)) for c in color_info])
-        current_field = et.SubElement(child, 'range')
-        current_field.text = '{0}, {1}'.format(channel_information['range'][0],
-                                               channel_information['range'][1])
-        current_field = et.SubElement(child, 'alpha')
-        current_field.text = str(channel_information['alpha'])
-        if 'gamma' in channel_information:  # Some images have gamma value some not
-            current_field = et.SubElement(child, 'gamma')
-            current_field.text = str(channel_information['gamma'])
+    def __init__(self, ome_xml_string):
+        self._root_element = ET.fromstring(ome_xml_string)
 
-    # Specify encoding as unicode to get a regular string, default is bytestring
-    return et.tostring(xml_root, encoding='unicode')
+    def _image_element(self):
+        return self._root_element.findall("OME:Image/OME:Pixels", self._ome_ns)[0]
+
+    @property
+    def channel_names(self):
+        el = self._root_element.findall("OME:Image/OME:Pixels/OME:Channel", self._ome_ns)
+        return [e.attrib["Name"] for e in el]
+
+    @property
+    def dimension_order(self):
+        return self._image_element().attrib["DimensionOrder"]
+
+    @property
+    def size(self):
+        img_element = self._image_element()
+        size = []
+        for d in self.dimension_order:
+            attr = "Size{}".format(d)
+            size.append(int(img_element.get(attr, 1)))
+        return size
+
+    @property
+    def spacing(self):
+        img_element = self._image_element()
+        spacing = []
+        for d in self.dimension_order:
+            attr = "PhysicalSize{}".format(d)
+            spacing.append(float(img_element.get(attr, 1.0)))
+        return spacing
+
+    @property
+    def units(self):
+        img_element = self._image_element()
+        default = "µm"
+        units = []
+        for d in self.dimension_order:
+            attr = "PhysicalSize{}Unit".format(d)
+            units.append(img_element.get(attr, default))
+        return units
