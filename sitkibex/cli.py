@@ -15,7 +15,7 @@
 #
 """ Provides command line interfaces for sitkibex registration algorithms"""
 
-from .globals import default_random_seed  # noqa: F401
+import sitkibex.globals
 import os
 from os.path import basename
 import SimpleITK as sitk
@@ -71,12 +71,12 @@ def cli(**kwargs):
 def reg_cli(fixed_image, moving_image, output_transform, **kwargs):
     """Perform registration to solve for an OUTPUT_TRANSFORM mapping points from the FIXED_IMAGE to the MOVING_IMAGE."""
     global default_random_seed
-    from .registration import registration
+    from sitkibex.registration import registration
 
     args = _Bunch(kwargs)
 
     if args.random:
-        default_random_seed = sitk.sitkWallClock
+        sitkibex.globals.default_random_seed = sitk.sitkWallClock
 
     fixed_image = sitk.BinShrink(sitk.ReadImage(fixed_image, sitk.sitkFloat32), [args.bin, args.bin, 1])
     moving_image = sitk.BinShrink(sitk.ReadImage(moving_image, sitk.sitkFloat32), [args.bin, args.bin, 1])
