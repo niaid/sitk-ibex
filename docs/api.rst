@@ -6,3 +6,6 @@ API
 
 .. automodule:: sitkibex.globals
     :members:
+
+.. automodule:: sitkibex.io
+    :members:
