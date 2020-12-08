@@ -48,14 +48,14 @@ dependencies when the wheel is installed. This includes the SimpleITK 2.0 requir
 Data
 ----
 
-Sample data is available on zenodo/figshare - link to this.
-?Specify links to the sample IBEX data from the manuscript.?
+Sample data is available and described on Zenodo:
+
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4304786.svg
+   :target: https://doi.org/10.5281/zenodo.4304786
 
 Any image and transform file format supported by `SimpleITK's IO <https://simpleitk.readthedocs.io/en/master/IO.html>`_
 can be use by sitk-ibex. The 3D `nrrd` format, and `txt` transform file extension are recommended.
 
-The sample data are in the `OME TIFF`_ format. An individual channel can be saved as `nrrd` with `Fiji`_ by using
-"Image->Color->Split Channels" followed by "Save As->Nrrd".
 
 Example
 -------
@@ -64,22 +64,25 @@ The following examples uses CD4 marker channel extracted from the "IBEX4_spleen"
 used as the reference coordinates or the "fixed image". The other panels are registered then resampled to the fixed
 image. The following uses the sitk-ibex command line interface to perform image registration::
 
- python -m sitkibex registration --affine IBEX4B_Panel2_CD4_AF594.nrrd IBEX4B_Panel1_CD4_AF594.nrrd tx_p2_to_p1.txt
- python -m sitkibex registration --affine IBEX4B_Panel2_CD4_AF594.nrrd IBEX4B_Panel3_CD4_AF594.nrrd tx_p2_to_p3.txt
+ python -m sitkibex registration --affine "spleen_panel2.nrrd@CD4 AF594" "spleen_panel1.nrrd@CD4 AF594" tx_p2_to_p1.txt
+ python -m sitkibex registration --affine "spleen_panel2.nrrd@CD4 AF594" "spleen_panel3.nrrd@CD4 AF594" tx_p2_to_p3.txt
 
 A quick 2D visualization of the results can be generated with::
 
- python -m sitkibex resample IBEX4B_Panel2_CD4_AF594.nrrd IBEX4B_Panel1_CD4_AF594.nrrd tx_p2_to_p1.txt \
-        --bin 4 --fusion --projection -o IBEX4B_onto_p2_2d_Panel1_CD4_AF594.png
- python -m sitkibex resample IBEX4B_Panel3_CD4_AF594.nrrd IBEX4B_Panel1_CD4_AF594.nrrd tx_p3_to_p1.txt \
-        --bin 4 --fusion --projection -o IBEX4B_onto_p2_2d_Panel3_CD4_AF594.png
+ python -m sitkibex resample "spleen_panel2.nrrd@CD4 AF594" "spleen_panel1.nrrd@CD4 AF594" tx_p2_to_p1.txt \
+        --bin 4 --fusion --projection -o spleen_onto_p2_2d_Panel1.png
+ python -m sitkibex resample "spleen_panel2.nrrd@CD4 AF594" "spleen_panel3.nrrd@CD4 AF594" tx_p2_to_p3.txt \
+        --bin 4 --fusion --projection -o spleen_onto_p2_2d_Panel3.png
 
-Then apply the registration transform by resampling the input images onto panel 2::
+The above image fusion renders the fixed image as magenta and the moving as cyan, so when the two are aligned the
+results are white.
 
- python -m sitkibex resample IBEX4B_Panel2_CD4_AF594.nrrd IBEX4B_Panel1_CD4_AF594.nrrd tx_p2_to_p1.txt \
-        -o IBEX4B_onto_p2_Panel1_CD4_AF594.nrrd
- python -m sitkibex resample IBEX4B_Panel3_CD4_AF594.nrrd IBEX4B_Panel1_CD4_AF594.nrrd tx_p3_to_p1.txt \
-        -o IBEX4B_onto_p2_Panel3_CD4_AF594.nrrd
+Then apply the registration transform by resampling all channels of the the input images onto panel 2::
+
+ python -m sitkibex resample "spleen_panel2.nrrd@CD4 AF594" spleen_panel2.nrrd tx_p2_to_p1.txt \
+        -o spleen_onto_p2_panel1.nrrd
+ python -m sitkibex resample spleen_panel2.nrrd@CD4 AF594" spleen_panel3.nrrd tx_p2_to_p3.txt \
+        -o spleen_onto_p2_panel3.nrrd
 
 
 How to Cite
@@ -117,7 +120,7 @@ Additionally, we can be emailed at: bioinformatics@niaid.nih.gov Please include 
 .. _Fiji: https://fiji.sc
 .. _pip: https://pip.pypa.io/en/stable/quickstart/
 .. _Github Actions: https://github.com/niaid/sitk-ibex/actions?query=branch%3Amaster
-.. _OME TIFF: https://docs.openmicroscopy.org/ome-model/latest/ome-tiff/
+.. _NRRD: http://teem.sourceforge.net/nrrd/format.html
 .. _GitHub Issues:  https://github.com/niaid/sitk-ibex
 .. _wheel: https://www.python.org/dev/peps/pep-0427/
 .. _Github Releases: https://github.com/niaid/sitk-ibex/releases
