@@ -33,14 +33,13 @@ Installation
 ------------
 
 
-The Python module is distributed as a `wheel`_ binary package. Download the latest tagged release from the
-`Github Releases`_ page. Then install::
+The Python module is distributed as a `wheel`_ binary package. To install the latest tagged release from
+the `Github Releases`_ page with pip, run::
 
- python -m pip install sitkibex-0.1-py3-none-any.whl
+ python -m pip install sitkibex --find-links https://github.com/niaid/sitk-ibex/releases
 
 Wheels from the master branch can be download wheel from `Github Actions`_ in the
 "python-package" artifact.
-
 
 Dependencies are conventionally specified in `setup.py` and `requirements.txt` and therefore installed as
 dependencies when the wheel is installed. This includes the SimpleITK 2.0 requirement.
