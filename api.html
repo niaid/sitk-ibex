@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API &#8212; sitk-ibex 0.3.dev18 documentation</title>
+    <title>API &#8212; sitk-ibex 0.3.dev19 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.3.dev18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.3.dev19 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">API</a></li> 
       </ul>
     </div>  
@@ -118,6 +118,28 @@ initialized a seed.</p>
 warning, info, and debug messages are handled.</p>
 </dd></dl>
 
+<span class="target" id="module-sitkibex.io"></span><dl class="py function">
+<dt id="sitkibex.io.im_read_channel">
+<code class="sig-prename descclassname">sitkibex.io.</code><code class="sig-name descname">im_read_channel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">channel</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#sitkibex.io.im_read_channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a channel from an image file.</p>
+<p>SimpleITK is used to read a channel from the file. Channel names can be used if the image file contains meta-data
+which can be parsed and provides names for the channels. Otherwise channel index should be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The path to an image file.</p></li>
+<li><p><strong>channel</strong> – An integer for the channel index or string for the name of the channel. If None then all channel are</p></li>
+</ul>
+</dd>
+</dl>
+<p>read.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A SimpleITK Image.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
@@ -163,7 +185,7 @@ warning, info, and debug messages are handled.</p>
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.3.dev18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.3.dev19 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">API</a></li> 
       </ul>
     </div>
