@@ -31,7 +31,7 @@ _vector_to_scalar = {sitk.sitkVectorUInt8: sitk.sitkUInt8,
                      sitk.sitkVectorFloat64: sitk.sitkFloat64}
 
 
-def im_read_channel(filename, channel=None):
+def im_read_channel(filename, channel=None):  # noqa: C901
     """
     Read a channel from an image file.
 
