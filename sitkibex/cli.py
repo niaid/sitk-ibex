@@ -17,6 +17,7 @@
 
 import sitkibex.globals
 import os
+import sys
 from os.path import basename
 import SimpleITK as sitk
 import click
@@ -86,8 +87,22 @@ def cli(**kwargs):
 
     args = _Bunch(kwargs)
 
-    logging.basicConfig(level=args.logging_level,
-                        format='%(message)s')
+    # single app logger:
+    log = sitkibex.globals.logger
+    log.setLevel(args.logging_level)
+
+    # Create handler to set everything at or below INFO to stdout
+    h1 = logging.StreamHandler(sys.stdout)
+    h1.setLevel(logging.NOTSET)
+    h1.addFilter(lambda record: record.levelno <= logging.INFO)
+    h1.setFormatter(logging.Formatter("%(message)s"))
+    log.addHandler(h1)
+
+    # Warnings and error go to stderr
+    h2 = logging.StreamHandler(sys.stderr)
+    h2.setLevel(logging.WARNING)
+    h2.setFormatter(logging.Formatter("%(levelname)s - %(message)s"))
+    log.addHandler(h2)
 
     if "SITK_SHOW_EXTENSION" not in os.environ:
         os.environ["SITK_SHOW_EXTENSION"] = ".nrrd"
