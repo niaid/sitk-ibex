@@ -94,7 +94,7 @@ If you use the SITK-IBEX package in your work, please cite us:
  J. Kabat, J. Croteau, J. Davis, J. M. Hernandez, R. N. Germain
  "IBEX - A versatile multi-plex optical imaging approach
  for deep phenotyping and spatial analysis of cells in complex tissues",
- Proc Natl Acad Sci, in press.
+ Proc Natl Acad Sci, 117(52):33455-33465, 2020, doi:`10.1073/pnas.2018488117`_.
 
 
 
@@ -123,3 +123,4 @@ Additionally, we can be emailed at: bioinformatics@niaid.nih.gov Please include 
 .. _GitHub Issues:  https://github.com/niaid/sitk-ibex
 .. _wheel: https://www.python.org/dev/peps/pep-0427/
 .. _Github Releases: https://github.com/niaid/sitk-ibex/releases
+.. _10.1073/pnas.2018488117: https://www.pnas.org/doi/10.1073/pnas.2018488117
