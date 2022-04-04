@@ -4,16 +4,16 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Command Line Interface &#8212; sitk-ibex 0.3.dev22 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Command Line Interface &#8212; sitk-ibex 0.4.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to sitk-ibex’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.3.dev22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.4.dev2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Command Line Interface</a></li> 
       </ul>
     </div>  
@@ -45,7 +45,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="command-line-interface">
+  <section id="command-line-interface">
 <h1>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h1>
 <p>The SITK-IBEX packages contains a command line executable to running at the command prompt or for batch processing. This
 command line interface provides sub-commands. It can be invoke directly as an executable:</p>
@@ -58,31 +58,31 @@ command line interface provides sub-commands. It can be invoke directly as an ex
 </div>
 <p>With either method of invoking the command line interface, the following sections descripts the sub-command available
 and the command line options available.</p>
-<div class="section" id="sitkibex">
+<section id="sitkibex">
 <h2>sitkibex<a class="headerlink" href="#sitkibex" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sitkibex <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
 </pre></div>
 </div>
 <p class="rubric">Options</p>
 <dl class="std option">
-<dt id="cmdoption-sitkibex-debug">
-<code class="sig-name descname">--debug</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-debug" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-debug">
+<span class="sig-name descname"><span class="pre">--debug</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-debug" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximum verbosity with debugging logging enabled.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-v">
-<span id="cmdoption-sitkibex-verbose"></span><code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--verbose</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-v" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-v">
+<span id="cmdoption-sitkibex-verbose"></span><span class="sig-name descname"><span class="pre">-v</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--verbose</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increased verbosity with information logging enabled.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-q">
-<span id="cmdoption-sitkibex-quiet"></span><code class="sig-name descname">-q</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--quiet</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-q" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-q">
+<span id="cmdoption-sitkibex-quiet"></span><span class="sig-name descname"><span class="pre">-q</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--quiet</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-q" title="Permalink to this definition">¶</a></dt>
 <dd><p>Minimal verbosity with only warning logging enabled.</p>
 </dd></dl>
 
-<div class="section" id="sitkibex-registration">
+<section id="sitkibex-registration">
 <h3>registration<a class="headerlink" href="#sitkibex-registration" title="Permalink to this headline">¶</a></h3>
 <p>Perform registration to solve for an OUTPUT_TRANSFORM mapping points from the FIXED_IMAGE to the MOVING_IMAGE.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sitkibex registration <span class="o">[</span>OPTIONS<span class="o">]</span> FIXED_IMAGE MOVING_IMAGE OUTPUT_TRANSFORM
@@ -90,8 +90,8 @@ and the command line options available.</p>
 </div>
 <p class="rubric">Options</p>
 <dl class="std option">
-<dt id="cmdoption-sitkibex-registration-b">
-<span id="cmdoption-sitkibex-registration-bin"></span><code class="sig-name descname">-b</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--bin</code><code class="sig-prename descclassname"> &lt;bin&gt;</code><a class="headerlink" href="#cmdoption-sitkibex-registration-b" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-registration-b">
+<span id="cmdoption-sitkibex-registration-bin"></span><span class="sig-name descname"><span class="pre">-b</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--bin</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;bin&gt;</span></span><a class="headerlink" href="#cmdoption-sitkibex-registration-b" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reduce the resolution of the input images in X and Y by this factor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
@@ -101,8 +101,8 @@ and the command line options available.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-registration-s">
-<span id="cmdoption-sitkibex-registration-sigma"></span><code class="sig-name descname">-s</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--sigma</code><code class="sig-prename descclassname"> &lt;sigma&gt;</code><a class="headerlink" href="#cmdoption-sitkibex-registration-s" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-registration-s">
+<span id="cmdoption-sitkibex-registration-sigma"></span><span class="sig-name descname"><span class="pre">-s</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--sigma</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;sigma&gt;</span></span><a class="headerlink" href="#cmdoption-sitkibex-registration-s" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Default</dt>
 <dd class="field-odd"><p>1.0</p>
@@ -111,14 +111,14 @@ and the command line options available.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-registration-affine">
-<span id="cmdoption-sitkibex-registration-no-affine"></span><code class="sig-name descname">--affine</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-affine</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-affine" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-registration-affine">
+<span id="cmdoption-sitkibex-registration-no-affine"></span><span class="sig-name descname"><span class="pre">--affine</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-affine</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-registration-affine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do affine registration in a second step.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-registration-automask">
-<span id="cmdoption-sitkibex-registration-no-automask"></span><code class="sig-name descname">--automask</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-automask</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-automask" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-registration-automask">
+<span id="cmdoption-sitkibex-registration-no-automask"></span><span class="sig-name descname"><span class="pre">--automask</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-automask</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-registration-automask" title="Permalink to this definition">¶</a></dt>
 <dd><p>Automatically compute a mask for the non-zero pixels of the input images</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
@@ -128,8 +128,8 @@ and the command line options available.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-registration-ignore-spacing">
-<span id="cmdoption-sitkibex-registration-no-ignore-spacing"></span><code class="sig-name descname">--ignore-spacing</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-ignore-spacing</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-ignore-spacing" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-registration-ignore-spacing">
+<span id="cmdoption-sitkibex-registration-no-ignore-spacing"></span><span class="sig-name descname"><span class="pre">--ignore-spacing</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-ignore-spacing</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-registration-ignore-spacing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ignore the magnitude of spacing, but preserve relative ratio.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
@@ -139,8 +139,8 @@ and the command line options available.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-registration-random">
-<span id="cmdoption-sitkibex-registration-no-random"></span><code class="sig-name descname">--random</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-random</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-random" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-registration-random">
+<span id="cmdoption-sitkibex-registration-no-random"></span><span class="sig-name descname"><span class="pre">--random</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-random</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-registration-random" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use wall-clock instead of a fixed seed for random initialization.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
@@ -150,8 +150,8 @@ and the command line options available.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-registration-samples-per-parameter">
-<code class="sig-name descname">--samples-per-parameter</code><code class="sig-prename descclassname"> &lt;samples_per_parameter&gt;</code><a class="headerlink" href="#cmdoption-sitkibex-registration-samples-per-parameter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-registration-samples-per-parameter">
+<span class="sig-name descname"><span class="pre">--samples-per-parameter</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;samples_per_parameter&gt;</span></span><a class="headerlink" href="#cmdoption-sitkibex-registration-samples-per-parameter" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Default</dt>
 <dd class="field-odd"><p>5000</p>
@@ -161,28 +161,29 @@ and the command line options available.</p>
 
 <p class="rubric">Arguments</p>
 <dl class="std option">
-<dt id="cmdoption-sitkibex-registration-arg-FIXED_IMAGE">
-<span id="cmdoption-sitkibex-registration-arg-fixed-image"></span><code class="sig-name descname">FIXED_IMAGE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-arg-FIXED_IMAGE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-registration-arg-FIXED_IMAGE">
+<span id="cmdoption-sitkibex-registration-arg-fixed-image"></span><span class="sig-name descname"><span class="pre">FIXED_IMAGE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-registration-arg-FIXED_IMAGE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-registration-arg-MOVING_IMAGE">
-<span id="cmdoption-sitkibex-registration-arg-moving-image"></span><code class="sig-name descname">MOVING_IMAGE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-arg-MOVING_IMAGE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-registration-arg-MOVING_IMAGE">
+<span id="cmdoption-sitkibex-registration-arg-moving-image"></span><span class="sig-name descname"><span class="pre">MOVING_IMAGE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-registration-arg-MOVING_IMAGE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-registration-arg-OUTPUT_TRANSFORM">
-<span id="cmdoption-sitkibex-registration-arg-output-transform"></span><code class="sig-name descname">OUTPUT_TRANSFORM</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-registration-arg-OUTPUT_TRANSFORM" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-registration-arg-OUTPUT_TRANSFORM">
+<span id="cmdoption-sitkibex-registration-arg-output-transform"></span><span class="sig-name descname"><span class="pre">OUTPUT_TRANSFORM</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-registration-arg-OUTPUT_TRANSFORM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
-</div>
-<div class="section" id="sitkibex-resample">
+</section>
+<section id="sitkibex-resample">
 <h3>resample<a class="headerlink" href="#sitkibex-resample" title="Permalink to this headline">¶</a></h3>
 <p>Create new image by transforming the MOVING_IMAGE onto the FIXED_IMAGE.</p>
-<p>Apply the TRANSFORM results from registration to resample the MOVING_IMAGE onto the coordinate space defined by the
+<blockquote>
+<div><p>Apply the TRANSFORM results from registration to resample the MOVING_IMAGE onto the coordinate space defined by the
 MOVING_IMAGE.</p>
 <p>To apply the results of registration:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sitkibex</span> <span class="n">resample</span> <span class="o">-</span><span class="n">o</span> <span class="n">fixed_onto_moving</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">fixed</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">moving</span><span class="o">.</span><span class="n">nrrd</span> <span class="n">out</span><span class="o">.</span><span class="n">txt</span>
@@ -193,13 +194,14 @@ MOVING_IMAGE.</p>
 </pre></div>
 </div>
 <p>If the moving image has more than 3 dimensions each sub-3d volume will be iteratively resampled.</p>
+</div></blockquote>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sitkibex resample <span class="o">[</span>OPTIONS<span class="o">]</span> FIXED_IMAGE MOVING_IMAGE <span class="o">[</span>TRANSFORM<span class="o">]</span>
 </pre></div>
 </div>
 <p class="rubric">Options</p>
 <dl class="std option">
-<dt id="cmdoption-sitkibex-resample-b">
-<span id="cmdoption-sitkibex-resample-bin"></span><code class="sig-name descname">-b</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--bin</code><code class="sig-prename descclassname"> &lt;bin&gt;</code><a class="headerlink" href="#cmdoption-sitkibex-resample-b" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-resample-b">
+<span id="cmdoption-sitkibex-resample-bin"></span><span class="sig-name descname"><span class="pre">-b</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--bin</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;bin&gt;</span></span><a class="headerlink" href="#cmdoption-sitkibex-resample-b" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reduce the resolution of the input images in X and Y by this factor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
@@ -209,8 +211,8 @@ MOVING_IMAGE.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-resample-fusion">
-<span id="cmdoption-sitkibex-resample-no-fusion"></span><code class="sig-name descname">--fusion</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-fusion</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-fusion" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-resample-fusion">
+<span id="cmdoption-sitkibex-resample-no-fusion"></span><span class="sig-name descname"><span class="pre">--fusion</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-fusion</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-resample-fusion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Blend fixed and moving images into RGB</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
@@ -220,8 +222,8 @@ MOVING_IMAGE.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-resample-combine">
-<span id="cmdoption-sitkibex-resample-no-combine"></span><code class="sig-name descname">--combine</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-combine</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-combine" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-resample-combine">
+<span id="cmdoption-sitkibex-resample-no-combine"></span><span class="sig-name descname"><span class="pre">--combine</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-combine</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-resample-combine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Combine fixed and moving images into multi-component</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
@@ -231,8 +233,8 @@ MOVING_IMAGE.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-resample-invert">
-<span id="cmdoption-sitkibex-resample-no-invert"></span><code class="sig-name descname">--invert</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-invert</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-invert" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-resample-invert">
+<span id="cmdoption-sitkibex-resample-no-invert"></span><span class="sig-name descname"><span class="pre">--invert</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-invert</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-resample-invert" title="Permalink to this definition">¶</a></dt>
 <dd><p>invert the transform</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
@@ -242,8 +244,8 @@ MOVING_IMAGE.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-resample-projection">
-<span id="cmdoption-sitkibex-resample-no-projection"></span><code class="sig-name descname">--projection</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--no-projection</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-projection" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-resample-projection">
+<span id="cmdoption-sitkibex-resample-no-projection"></span><span class="sig-name descname"><span class="pre">--projection</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--no-projection</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-resample-projection" title="Permalink to this definition">¶</a></dt>
 <dd><p>project the volume in the z-direction to create 2-d image</p>
 <dl class="field-list simple">
 <dt class="field-odd">Default</dt>
@@ -253,33 +255,33 @@ MOVING_IMAGE.</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-resample-o">
-<span id="cmdoption-sitkibex-resample-output"></span><code class="sig-name descname">-o</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--output</code><code class="sig-prename descclassname"> &lt;output&gt;</code><a class="headerlink" href="#cmdoption-sitkibex-resample-o" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-resample-o">
+<span id="cmdoption-sitkibex-resample-output"></span><span class="sig-name descname"><span class="pre">-o</span></span><span class="sig-prename descclassname"></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">--output</span></span><span class="sig-prename descclassname"> <span class="pre">&lt;output&gt;</span></span><a class="headerlink" href="#cmdoption-sitkibex-resample-o" title="Permalink to this definition">¶</a></dt>
 <dd><p>filename for output image, if not provided the SimpleITK Show method is called</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
 <dl class="std option">
-<dt id="cmdoption-sitkibex-resample-arg-FIXED_IMAGE">
-<span id="cmdoption-sitkibex-resample-arg-fixed-image"></span><code class="sig-name descname">FIXED_IMAGE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-arg-FIXED_IMAGE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-resample-arg-FIXED_IMAGE">
+<span id="cmdoption-sitkibex-resample-arg-fixed-image"></span><span class="sig-name descname"><span class="pre">FIXED_IMAGE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-resample-arg-FIXED_IMAGE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-resample-arg-MOVING_IMAGE">
-<span id="cmdoption-sitkibex-resample-arg-moving-image"></span><code class="sig-name descname">MOVING_IMAGE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-arg-MOVING_IMAGE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-resample-arg-MOVING_IMAGE">
+<span id="cmdoption-sitkibex-resample-arg-moving-image"></span><span class="sig-name descname"><span class="pre">MOVING_IMAGE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-resample-arg-MOVING_IMAGE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
 <dl class="std option">
-<dt id="cmdoption-sitkibex-resample-arg-TRANSFORM">
-<span id="cmdoption-sitkibex-resample-arg-transform"></span><code class="sig-name descname">TRANSFORM</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-sitkibex-resample-arg-TRANSFORM" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object std" id="cmdoption-sitkibex-resample-arg-TRANSFORM">
+<span id="cmdoption-sitkibex-resample-arg-transform"></span><span class="sig-name descname"><span class="pre">TRANSFORM</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-sitkibex-resample-arg-TRANSFORM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optional argument</p>
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -317,7 +319,7 @@ MOVING_IMAGE.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -342,7 +344,7 @@ MOVING_IMAGE.</p>
         <li class="right" >
           <a href="index.html" title="Welcome to sitk-ibex’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.3.dev22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.4.dev2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Command Line Interface</a></li> 
       </ul>
     </div>

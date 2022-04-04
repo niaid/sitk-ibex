@@ -4,16 +4,16 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to sitk-ibex’s documentation! &#8212; sitk-ibex 0.3.dev22 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Welcome to sitk-ibex’s documentation! &#8212; sitk-ibex 0.4.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.3.dev22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.4.dev2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to sitk-ibex’s documentation!</a></li> 
       </ul>
     </div>  
@@ -41,9 +41,9 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="welcome-to-sitk-ibex-s-documentation">
+  <section id="welcome-to-sitk-ibex-s-documentation">
 <h1>Welcome to sitk-ibex’s documentation!<a class="headerlink" href="#welcome-to-sitk-ibex-s-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="sitk-ibex-aligning-images-acquired-with-the-ibex-microscopy-imaging-technique">
+<section id="sitk-ibex-aligning-images-acquired-with-the-ibex-microscopy-imaging-technique">
 <h2>SITK-IBEX: Aligning images acquired with the IBEX microscopy imaging technique<a class="headerlink" href="#sitk-ibex-aligning-images-acquired-with-the-ibex-microscopy-imaging-technique" title="Permalink to this headline">¶</a></h2>
 <p>This Python package was implemented as part of the development of the
 Iterative Bleaching Extends Multiplexity (IBEX) imaging technique. It enables
@@ -62,10 +62,10 @@ The registration approach is implemented using the
 <li><p>Affine transformation model.</p></li>
 <li><p>Use of correlation as optimized similarity metric.</p></li>
 </ol>
-<div class="section" id="build-status">
+<section id="build-status">
 <h3>Build Status<a class="headerlink" href="#build-status" title="Permalink to this headline">¶</a></h3>
 <a class="reference external image-reference" href="https://github.com/niaid/sitk-ibex/actions?query=branch%3A+master+"><img alt="Master Build Status" src="https://github.com/niaid/sitk-ibex/workflows/Python%20Test%20and%20Package/badge.svg?branch=master&amp;event=push" /></a>
-<div class="section" id="installation">
+<section id="installation">
 <h4>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h4>
 <p>The Python module is distributed as a <a class="reference external" href="https://www.python.org/dev/peps/pep-0427/">wheel</a> binary package. To install the latest tagged release from
 the <a class="reference external" href="https://github.com/niaid/sitk-ibex/releases">Github Releases</a> page with pip, run:</p>
@@ -76,15 +76,15 @@ the <a class="reference external" href="https://github.com/niaid/sitk-ibex/relea
 “python-package” artifact.</p>
 <p>Dependencies are conventionally specified in <cite>setup.py</cite> and <cite>requirements.txt</cite> and therefore installed as
 dependencies when the wheel is installed. This includes the SimpleITK 2.0 requirement.</p>
-</div>
-<div class="section" id="data">
+</section>
+<section id="data">
 <h4>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h4>
 <p>Sample data is available and described on Zenodo:</p>
 <a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.4304786"><img alt="https://zenodo.org/badge/DOI/10.5281/zenodo.4304786.svg" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4304786.svg" /></a>
 <p>Any image and transform file format supported by <a class="reference external" href="https://simpleitk.readthedocs.io/en/master/IO.html">SimpleITK’s IO</a>
 can be use by sitk-ibex. The 3D <cite>nrrd</cite> format, and <cite>txt</cite> transform file extension are recommended.</p>
-</div>
-<div class="section" id="example">
+</section>
+<section id="example">
 <h4>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h4>
 <p>The following examples uses CD4 marker channel extracted from the “IBEX4_spleen” data set with ImageJ. The panel 2 is
 used as the reference coordinates or the “fixed image”. The other panels are registered then resampled to the fixed
@@ -109,8 +109,8 @@ results are white.</p>
 <span class="s2">       -o spleen_onto_p2_panel3.nrrd</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="how-to-cite">
+</section>
+<section id="how-to-cite">
 <h4>How to Cite<a class="headerlink" href="#how-to-cite" title="Permalink to this headline">¶</a></h4>
 <p>If you use the SITK-IBEX package in your work, please cite us:</p>
 <blockquote>
@@ -121,19 +121,19 @@ J. Kabat, J. Croteau, J. Davis, J. M. Hernandez, R. N. Germain
 for deep phenotyping and spatial analysis of cells in complex tissues”,
 Proc Natl Acad Sci, in press.</p>
 </div></blockquote>
-</div>
-<div class="section" id="documentation">
+</section>
+<section id="documentation">
 <h4>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h4>
 <p>The published Sphinx documentation is available here: <a class="reference external" href="https://niaid.github.io/sitk-ibex/">https://niaid.github.io/sitk-ibex/</a></p>
 <p>The master built Sphinx documentation is available for download from
 <a class="reference external" href="https://github.com/niaid/sitk-ibex/actions?query=branch%3Amaster">Github Actions</a> under the build as “sphinx-docs”.</p>
-</div>
-<div class="section" id="contact">
+</section>
+<section id="contact">
 <h4>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h4>
 <p>Please use the <a class="reference external" href="https://github.com/niaid/sitk-ibex">GitHub Issues</a> for support and code issues related to the sitk-ibex project.</p>
 <p>Additionally, we can be emailed at: <a class="reference external" href="mailto:bioinformatics&#37;&#52;&#48;niaid&#46;nih&#46;gov">bioinformatics<span>&#64;</span>niaid<span>&#46;</span>nih<span>&#46;</span>gov</a> Please include “sitk-ibex” in the subject line.</p>
-</div>
-<div class="section" id="command-line-interface-reference">
+</section>
+<section id="command-line-interface-reference">
 <h4>Command Line Interface Reference<a class="headerlink" href="#command-line-interface-reference" title="Permalink to this headline">¶</a></h4>
 <p>Documentation for command line usage of the Python module.</p>
 <div class="toctree-wrapper compound">
@@ -144,8 +144,8 @@ Proc Natl Acad Sci, in press.</p>
 </li>
 </ul>
 </div>
-</div>
-<div class="section" id="api-reference">
+</section>
+<section id="api-reference">
 <h4>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h4>
 <p>Documentation for directly using the Python functions.</p>
 <div class="toctree-wrapper compound">
@@ -153,8 +153,8 @@ Proc Natl Acad Sci, in press.</p>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
 </div>
-</div>
-<div class="section" id="development">
+</section>
+<section id="development">
 <h4>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h4>
 <p>The required packages for development are specified in <cite>requirements-dev.txt</cite>. The sitk-ibex project must be install for
 it to function properly. Specifically, because semantic versioning is done with <cite>setuptools-scm</cite> it must be installed. To setup for development:</p>
@@ -172,10 +172,10 @@ without warnings or errors:</p>
 <p>Since the repository is internal, the feature branch needs to be
 pushed to the <em>upstream</em> repository. Next a pull request is made against master, where the CI will automatically run
 flake8, pytest and sphinx. When merging the branch with rebased onto the origin, and the feature branch is deleted.</p>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -220,7 +220,7 @@ flake8, pytest and sphinx. When merging the branch with rebased onto the origin,
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -242,7 +242,7 @@ flake8, pytest and sphinx. When merging the branch with rebased onto the origin,
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.3.dev22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.4.dev2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to sitk-ibex’s documentation!</a></li> 
       </ul>
     </div>

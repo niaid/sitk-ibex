@@ -4,16 +4,16 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API &#8212; sitk-ibex 0.3.dev22 documentation</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>API &#8212; sitk-ibex 0.4.dev2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -31,7 +31,7 @@
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.3.dev22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.4.dev2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">API</a></li> 
       </ul>
     </div>  
@@ -41,11 +41,11 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-sitkibex">
+  <section id="module-sitkibex">
 <span id="api"></span><h1>API<a class="headerlink" href="#module-sitkibex" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
-<dt id="sitkibex.registration">
-<code class="sig-prename descclassname">sitkibex.</code><code class="sig-name descname">registration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fixed_image</span><span class="p">:</span> <span class="n">SimpleITK.SimpleITK.Image</span></em>, <em class="sig-param"><span class="n">moving_image</span><span class="p">:</span> <span class="n">SimpleITK.SimpleITK.Image</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">do_fft_initialization</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">do_affine2d</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">do_affine3d</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">ignore_spacing</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">sigma</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">auto_mask</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">samples_per_parameter</span><span class="o">=</span><span class="default_value">5000</span></em>, <em class="sig-param"><span class="n">expand</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; SimpleITK.SimpleITK.Transform<a class="headerlink" href="#sitkibex.registration" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sitkibex.registration">
+<span class="sig-prename descclassname"><span class="pre">sitkibex.</span></span><span class="sig-name descname"><span class="pre">registration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SimpleITK.SimpleITK.Image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moving_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SimpleITK.SimpleITK.Image</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_fft_initialization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_affine2d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_affine3d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples_per_parameter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SimpleITK.SimpleITK.Transform</span></span></span><a class="headerlink" href="#sitkibex.registration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Robust multi-phase registration for multi-panel confocal microscopy images.</p>
 <p>The fixed and moving image are expected to be the same molecular labeling, and the same imaged regioned.</p>
 <dl class="simple">
@@ -78,8 +78,8 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="sitkibex.resample">
-<code class="sig-prename descclassname">sitkibex.</code><code class="sig-name descname">resample</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fixed_image</span><span class="p">:</span> <span class="n">SimpleITK.SimpleITK.Image</span></em>, <em class="sig-param"><span class="n">moving_image</span><span class="p">:</span> <span class="n">SimpleITK.SimpleITK.Image</span></em>, <em class="sig-param"><span class="n">transform</span><span class="p">:</span> <span class="n">SimpleITK.SimpleITK.Transform</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">fusion</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">projection</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">combine</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">invert</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; SimpleITK.SimpleITK.Image<a class="headerlink" href="#sitkibex.resample" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sitkibex.resample">
+<span class="sig-prename descclassname"><span class="pre">sitkibex.</span></span><span class="sig-name descname"><span class="pre">resample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SimpleITK.SimpleITK.Image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moving_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SimpleITK.SimpleITK.Image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">SimpleITK.SimpleITK.Transform</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fusion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SimpleITK.SimpleITK.Image</span></span></span><a class="headerlink" href="#sitkibex.resample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resample fixed_image onto the coordinates of moving_image with transform results from registration.</p>
 <p>The registration process results in a transform which maps points from the coordinates of the fixed_image to the
 moving_image. This method is next used to resample the the fixed_image with the transform to produce an image with
@@ -105,22 +105,22 @@ fixed_image. This operation is useful to see alignment of images before registra
 </dd></dl>
 
 <span class="target" id="module-sitkibex.globals"></span><dl class="py data">
-<dt id="sitkibex.globals.default_random_seed">
-<code class="sig-prename descclassname">sitkibex.globals.</code><code class="sig-name descname">default_random_seed</code><em class="property"> = 100</em><a class="headerlink" href="#sitkibex.globals.default_random_seed" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sitkibex.globals.default_random_seed">
+<span class="sig-prename descclassname"><span class="pre">sitkibex.globals.</span></span><span class="sig-name descname"><span class="pre">default_random_seed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#sitkibex.globals.default_random_seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Random seed used for each registration called for reproducible results. If it is set to 0 the time will be used to
 initialized a seed.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt id="sitkibex.globals.logger">
-<code class="sig-prename descclassname">sitkibex.globals.</code><code class="sig-name descname">logger</code><em class="property"> = &lt;RootLogger root (WARNING)&gt;</em><a class="headerlink" href="#sitkibex.globals.logger" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sitkibex.globals.logger">
+<span class="sig-prename descclassname"><span class="pre">sitkibex.globals.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RootLogger</span> <span class="pre">root</span> <span class="pre">(WARNING)&gt;</span></em><a class="headerlink" href="#sitkibex.globals.logger" title="Permalink to this definition">¶</a></dt>
 <dd><p>The parent <cite>logger</cite> object for all sub-loggers. It can be used to control the level of output and how the
 warning, info, and debug messages are handled.</p>
 </dd></dl>
 
 <span class="target" id="module-sitkibex.io"></span><dl class="py function">
-<dt id="sitkibex.io.im_read_channel">
-<code class="sig-prename descclassname">sitkibex.io.</code><code class="sig-name descname">im_read_channel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">channel</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#sitkibex.io.im_read_channel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="sitkibex.io.im_read_channel">
+<span class="sig-prename descclassname"><span class="pre">sitkibex.io.</span></span><span class="sig-name descname"><span class="pre">im_read_channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sitkibex.io.im_read_channel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read a channel from an image file.</p>
 <p>SimpleITK is used to read a channel from the file. Channel names can be used if the image file contains meta-data
 which can be parsed and provides names for the channels. Otherwise channel index should be used.</p>
@@ -140,7 +140,7 @@ which can be parsed and provides names for the channels. Otherwise channel index
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -163,7 +163,7 @@ which can be parsed and provides names for the channels. Otherwise channel index
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -185,7 +185,7 @@ which can be parsed and provides names for the channels. Otherwise channel index
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.3.dev22 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.4.dev2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">API</a></li> 
       </ul>
     </div>
