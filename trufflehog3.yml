@@ -1,7 +1,12 @@
-skip_strings:
-  # will only be skipped in corresponding files
-  /.github/workflows/main.yml:
-    - "${GITHUB_TOKEN}@github.com"
-
-skip_paths:
-  - "/docs/_build/html/.buildinfo"
+no_history: true # disable commit history check
+exclude: # exclude matching issues
+   - message: Ignore git stuff
+     paths:
+       - .git/*
+   - message: "Workflow strings"
+     pattern: \{GITHUB_TOKEN\}@github.com
+     paths:
+       - .github/workflows/main.yml
+   - message: Build Directories
+     paths:
+       - /docs/_build/**
