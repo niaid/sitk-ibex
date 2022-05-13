@@ -80,7 +80,7 @@ Then apply the registration transform by resampling all channels of the the inpu
 
  python -m sitkibex resample "spleen_panel2.nrrd@CD4 AF594" spleen_panel2.nrrd tx_p2_to_p1.txt \
         -o spleen_onto_p2_panel1.nrrd
- python -m sitkibex resample spleen_panel2.nrrd@CD4 AF594" spleen_panel3.nrrd tx_p2_to_p3.txt \
+ python -m sitkibex resample "spleen_panel2.nrrd@CD4 AF594" spleen_panel3.nrrd tx_p2_to_p3.txt \
         -o spleen_onto_p2_panel3.nrrd
 
 
