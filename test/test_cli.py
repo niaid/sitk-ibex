@@ -54,6 +54,8 @@ reg_args = [
     ['registration', data_files["panel1.nrrd"] + '@JOJO', data_files["panel2.nrrd"] + '@JOJO', 'out.txt'],
     ['registration', data_files["panel1.nrrd"] + '@4', data_files["panel2.nrrd"] + '@4', 'out.txt'],
     ['registration', data_files["panel1.nrrd"] + '@Ch5', data_files["panel2.nrrd"] + '@CH5', 'out.txt'],
+    ['registration', data_files["vpanel1.nrrd"] + '@JOJO', data_files["panel2.nrrd"] + '@CH5', 'out.txt'],
+    ['registration', data_files["vpanel1.nrrd"] + '@4', data_files["panel2.nrrd"] + '@CH5', 'out.txt'],
 ]
 
 

@@ -145,6 +145,6 @@ def im_read_channel(filename, channel=None):  # noqa: C901
         if channel_number >= reader.GetNumberOfComponents():
             raise Exception("Channel index {} is beyond the number of components {}"
                             .format(channel_number, reader.GetNumberOfComponents()))
-        img = sitk.VectorIndexSelectionCastImageFilter(img, channel_number)
+        img = sitk.VectorIndexSelectionCast(img, channel_number)
 
     return img
