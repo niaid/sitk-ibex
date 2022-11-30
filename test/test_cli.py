@@ -40,22 +40,22 @@ data_files = _data_files()
 
 def test_cli_help():
     runner = CliRunner()
-    result = runner.invoke(cli, ['--help'])
+    result = runner.invoke(cli, ["--help"])
     assert not result.exception
 
 
 def test_cli_reg_help():
     runner = CliRunner()
-    result = runner.invoke(cli, ['registration', '--help'])
+    result = runner.invoke(cli, ["registration", "--help"])
     assert not result.exception
 
 
 reg_args = [
-    ['registration', data_files["panel1.nrrd"] + '@JOJO', data_files["panel2.nrrd"] + '@JOJO', 'out.txt'],
-    ['registration', data_files["panel1.nrrd"] + '@4', data_files["panel2.nrrd"] + '@4', 'out.txt'],
-    ['registration', data_files["panel1.nrrd"] + '@Ch5', data_files["panel2.nrrd"] + '@CH5', 'out.txt'],
-    ['registration', data_files["vpanel1.nrrd"] + '@JOJO', data_files["panel2.nrrd"] + '@CH5', 'out.txt'],
-    ['registration', data_files["vpanel1.nrrd"] + '@4', data_files["panel2.nrrd"] + '@CH5', 'out.txt'],
+    ["registration", data_files["panel1.nrrd"] + "@JOJO", data_files["panel2.nrrd"] + "@JOJO", "out.txt"],
+    ["registration", data_files["panel1.nrrd"] + "@4", data_files["panel2.nrrd"] + "@4", "out.txt"],
+    ["registration", data_files["panel1.nrrd"] + "@Ch5", data_files["panel2.nrrd"] + "@CH5", "out.txt"],
+    ["registration", data_files["vpanel1.nrrd"] + "@JOJO", data_files["panel2.nrrd"] + "@CH5", "out.txt"],
+    ["registration", data_files["vpanel1.nrrd"] + "@4", data_files["panel2.nrrd"] + "@CH5", "out.txt"],
 ]
 
 
@@ -72,8 +72,9 @@ resample_args = [
     "resample {} {} -o test.nrrd".format(data_files["panel1.nrrd"], data_files["panel2.nrrd"]),
     "resample {} {}@Ch1 -o test.nrrd".format(data_files["panel1.nrrd"], data_files["panel2.nrrd"]),
     "resample --fusion {}@JOJO {}@JOJO -o test.nrrd".format(data_files["panel1.nrrd"], data_files["panel2.nrrd"]),
-    "resample  --bin 2 --fusion --projection {}@1 {}@Ch1 -o test.png".format(data_files["panel1.nrrd"],
-                                                                             data_files["panel2.nrrd"])
+    "resample  --bin 2 --fusion --projection {}@1 {}@Ch1 -o test.png".format(
+        data_files["panel1.nrrd"], data_files["panel2.nrrd"]
+    ),
 ]
 
 
@@ -87,5 +88,5 @@ def test_cli_resample(cli_args):
 
 def test_cli_resample_help():
     runner = CliRunner()
-    result = runner.invoke(cli, ['resample', '--help'])
+    result = runner.invoke(cli, ["resample", "--help"])
     assert not result.exception

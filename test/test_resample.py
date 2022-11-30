@@ -23,7 +23,6 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 class TestResample(TestCase):
-
     def test_resample1(self):
         """Test permutation of options"""
 
@@ -50,8 +49,8 @@ class TestResample(TestCase):
         self.assertEqual((0, 254), out[32, 16, 6])
 
         out = resample(image1, image2, tx, projection=True)
-        self.assertAlmostEqual(254.0/11.0, out[32, 16], places=5)
+        self.assertAlmostEqual(254.0 / 11.0, out[32, 16], places=5)
         resample(image1, image2, tx, fusion=True, projection=True)
         out = resample(image1, image2, tx, combine=True, projection=True)
         self.assertEqual(0, out[32, 16][0])
-        self.assertEqual(int(254.0/11.0), out[32, 16][1])
+        self.assertEqual(int(254.0 / 11.0), out[32, 16][1])

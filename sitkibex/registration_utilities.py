@@ -24,7 +24,7 @@ _logger = logging.getLogger(__name__)
 
 
 class RegistrationCallbackManager:
-    """An object with member functions for the callbacks of a sitk RegistrationMethod """
+    """An object with member functions for the callbacks of a sitk RegistrationMethod"""
 
     def __init__(self, registration_method):
         self.R = registration_method
@@ -76,7 +76,7 @@ class RegistrationCallbackManager:
                 pass
                 # _logger.info("Estimated Scales: {0}".format(self.R.GetOptimizerScales()[0]))
 
-        number_of_valid_points = '?'
+        number_of_valid_points = "?"
         try:
             number_of_valid_points = self.R.GetMetricNumberOfValidPoints()
         except AttributeError:
@@ -84,19 +84,25 @@ class RegistrationCallbackManager:
             pass
 
         if print_position:
-            _logger.info("{0:3} = {1:10.5f} : {2} ({3:10.5e}) [#{4}]".format(self.R.GetOptimizerIteration(),
-                                                                             self.R.GetMetricValue(),
-                                                                             self.R.GetOptimizerPosition(),
-                                                                             self.R.GetOptimizerConvergenceValue(),
-                                                                             number_of_valid_points
-                                                                             ))
+            _logger.info(
+                "{0:3} = {1:10.5f} : {2} ({3:10.5e}) [#{4}]".format(
+                    self.R.GetOptimizerIteration(),
+                    self.R.GetMetricValue(),
+                    self.R.GetOptimizerPosition(),
+                    self.R.GetOptimizerConvergenceValue(),
+                    number_of_valid_points,
+                )
+            )
 
         else:
-            _logger.info("{0:3} = {1:10.5f} ({2:10.5e}) [#{3}]".format(self.R.GetOptimizerIteration(),
-                                                                       self.R.GetMetricValue(),
-                                                                       self.R.GetOptimizerConvergenceValue(),
-                                                                       number_of_valid_points
-                                                                       ))
+            _logger.info(
+                "{0:3} = {1:10.5f} ({2:10.5e}) [#{3}]".format(
+                    self.R.GetOptimizerIteration(),
+                    self.R.GetMetricValue(),
+                    self.R.GetOptimizerConvergenceValue(),
+                    number_of_valid_points,
+                )
+            )
 
     def multi_resolution_callback(self, message=None):
 
@@ -159,7 +165,7 @@ def sub_volume_execute(inplace=True):
                     img_list.append(func(extractor.Execute(image), *args, **kwargs))
 
                 for d in range(3, dim):
-                    step = reduce((lambda x, y: x * y), image.GetSize()[d + 1:], 1)
+                    step = reduce((lambda x, y: x * y), image.GetSize()[d + 1 :], 1)
                     img_list = [sitk.JoinSeries(img_list[i::step], image.GetSpacing()[d]) for i in range(step)]
 
                 assert len(img_list) == 1
@@ -168,4 +174,5 @@ def sub_volume_execute(inplace=True):
             return image
 
         return slice_by_slice
+
     return wrapper

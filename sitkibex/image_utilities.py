@@ -27,12 +27,13 @@ def spacing_average_magnitude(image):
     :return: a floating point number representing the magnitude
     """
     from math import log10
+
     average_spacing = sum(image.GetSpacing()) / float(image.GetDimension())
     return pow(10, round(log10(average_spacing)))
 
 
 def project(image_3d, projection_func=sitk.MeanProjection):
-    """"
+    """ "
     Do projection from 3D to 2D along z-axis
     The direction cosine matrix is explicitly set to the identity to enable conversion of the 2-D transform back to 3D
 
@@ -43,11 +44,10 @@ def project(image_3d, projection_func=sitk.MeanProjection):
     dim = 2
     size_2d = image_3d.GetSize()[:2] + (0,)
 
-    projected_image = projection_func(image_3d,
-                                      projectionDimension=dim)
-    return sitk.Extract(projected_image,
-                        size=size_2d,
-                        directionCollapseToStrategy=sitk.ExtractImageFilter.DIRECTIONCOLLAPSETOIDENTITY)
+    projected_image = projection_func(image_3d, projectionDimension=dim)
+    return sitk.Extract(
+        projected_image, size=size_2d, directionCollapseToStrategy=sitk.ExtractImageFilter.DIRECTIONCOLLAPSETOIDENTITY
+    )
 
 
 def make_auto_mask(feature_image):
@@ -92,11 +92,13 @@ def fft_initialization(moving, fixed, bin_shrink=8, projection=True):
     fft_fixed = sitk.Cast(sitk.SmoothingRecursiveGaussian(sitk.BinShrink(fixed, bin_shrink_list), sigma), pixel_type)
 
     _logger.info("FFT Correlation...")
-    out = sitk.MaskedFFTNormalizedCorrelation(fft_fixed,
-                                              fft_moving,
-                                              sitk.Cast(fft_fixed != 0, pixel_type),
-                                              sitk.Cast(fft_moving != 0, pixel_type),
-                                              requiredFractionOfOverlappingPixels=fraction_overlap)
+    out = sitk.MaskedFFTNormalizedCorrelation(
+        fft_fixed,
+        fft_moving,
+        sitk.Cast(fft_fixed != 0, pixel_type),
+        sitk.Cast(fft_moving != 0, pixel_type),
+        requiredFractionOfOverlappingPixels=fraction_overlap,
+    )
 
     _logger.info("Smoothing...")
     out = sitk.SmoothingRecursiveGaussian(out)

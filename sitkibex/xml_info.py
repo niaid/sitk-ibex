@@ -53,7 +53,7 @@ class XMLInfo:
     def _parse_tuple(s):
         if s is None:
             return None
-        return s.replace(',', ' ').split()
+        return s.replace(",", " ").split()
 
     @property
     def channel_names(self):
