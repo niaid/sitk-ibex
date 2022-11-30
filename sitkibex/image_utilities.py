@@ -106,7 +106,7 @@ def fft_initialization(moving, fixed, bin_shrink=8, projection=True):
     _logger.info("\tLabel statistics...")
     stats = sitk.LabelStatisticsImageFilter()
     stats.Execute(out, cc)
-    labels = sorted(stats.GetLabels(), key=lambda l: stats.GetMean(l))
+    labels = sorted(stats.GetLabels(), key=lambda l_id: stats.GetMean(l_id))
 
     peak_idx = stats.GetBoundingBox(labels[-1])[::2]
     peak_idx = [i + 0.5 for i in peak_idx]
