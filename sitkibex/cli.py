@@ -59,14 +59,14 @@ class ImagePathChannel(click.Path):
 
     def convert(self, value, param, ctx):
 
-        m = re.match(r'(.*)@(.*)', value)
+        m = re.match(r"(.*)@(.*)", value)
 
         channel_part = None
         if m:
             value = m.groups()[0]
             channel_part = m.groups()[1]
 
-            m = re.match(r'(Ch)?(\d)', channel_part, re.IGNORECASE)
+            m = re.match(r"(Ch)?(\d)", channel_part, re.IGNORECASE)
             if m:
                 channel_part = int(m.groups()[1])
                 # if "Ch" prefix it it 1 based index, so convert
@@ -77,12 +77,24 @@ class ImagePathChannel(click.Path):
 
 
 @click.group()
-@click.option('--debug', 'logging_level', flag_value=logging.DEBUG,
-              help="Maximum verbosity with debugging logging enabled.")
-@click.option('-v', '--verbose', 'logging_level', flag_value=logging.INFO, default=True,
-              help="Increased verbosity with information logging enabled.")
-@click.option('-q', '--quiet', 'logging_level', flag_value=logging.WARNING,
-              help="Minimal verbosity with only warning logging enabled.")
+@click.option(
+    "--debug", "logging_level", flag_value=logging.DEBUG, help="Maximum verbosity with debugging logging enabled."
+)
+@click.option(
+    "-v",
+    "--verbose",
+    "logging_level",
+    flag_value=logging.INFO,
+    default=True,
+    help="Increased verbosity with information logging enabled.",
+)
+@click.option(
+    "-q",
+    "--quiet",
+    "logging_level",
+    flag_value=logging.WARNING,
+    help="Minimal verbosity with only warning logging enabled.",
+)
 def cli(**kwargs):
 
     args = _Bunch(kwargs)
@@ -109,24 +121,38 @@ def cli(**kwargs):
 
 
 @cli.command(name="registration")
-@click.option('-b', '--bin', default=1, type=int, show_default=True,
-              help="Reduce the resolution of the input images in X and Y by this factor")
-@click.option('-s', '--sigma', default=1.0, type=float, show_default=True)
-@click.option('--affine/--no-affine',  default=False,
-              help="Do affine registration in a second step.")
-@click.option('--automask/--no-automask', default=False, show_default=True,
-              help="Automatically compute a mask for the non-zero pixels of the input images")
-@click.option('--ignore-spacing/--no-ignore-spacing', default=True, show_default=True,
-              help="Ignore the magnitude of spacing, but preserve relative ratio.")
-@click.option('--random/--no-random', default=False, show_default=True,
-              help="Use wall-clock instead of a fixed seed for random initialization.")
-@click.option('--samples-per-parameter', default=5000, type=int, show_default=True)
-@click.argument('fixed_image',
-                type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
-@click.argument('moving_image',
-                type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
-@click.argument('output_transform',
-                type=click.Path(exists=False, resolve_path=True))
+@click.option(
+    "-b",
+    "--bin",
+    default=1,
+    type=int,
+    show_default=True,
+    help="Reduce the resolution of the input images in X and Y by this factor",
+)
+@click.option("-s", "--sigma", default=1.0, type=float, show_default=True)
+@click.option("--affine/--no-affine", default=False, help="Do affine registration in a second step.")
+@click.option(
+    "--automask/--no-automask",
+    default=False,
+    show_default=True,
+    help="Automatically compute a mask for the non-zero pixels of the input images",
+)
+@click.option(
+    "--ignore-spacing/--no-ignore-spacing",
+    default=True,
+    show_default=True,
+    help="Ignore the magnitude of spacing, but preserve relative ratio.",
+)
+@click.option(
+    "--random/--no-random",
+    default=False,
+    show_default=True,
+    help="Use wall-clock instead of a fixed seed for random initialization.",
+)
+@click.option("--samples-per-parameter", default=5000, type=int, show_default=True)
+@click.argument("fixed_image", type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
+@click.argument("moving_image", type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
+@click.argument("output_transform", type=click.Path(exists=False, resolve_path=True))
 def reg_cli(fixed_image, moving_image, output_transform, **kwargs):
     """Perform registration to solve for an OUTPUT_TRANSFORM mapping points from the FIXED_IMAGE to the MOVING_IMAGE."""
     from sitkibex.registration import registration
@@ -149,37 +175,52 @@ def reg_cli(fixed_image, moving_image, output_transform, **kwargs):
     fixed_image = r(fixed_image, fixed_channel_name, args.bin)
     moving_image = r(moving_image, moving_channel_name, args.bin)
 
-    tx = registration(fixed_image, moving_image,
-                      sigma=args.sigma,
-                      do_affine3d=args.affine,
-                      auto_mask=args.automask,
-                      ignore_spacing=args.ignore_spacing,
-                      samples_per_parameter=args.samples_per_parameter)
+    tx = registration(
+        fixed_image,
+        moving_image,
+        sigma=args.sigma,
+        do_affine3d=args.affine,
+        auto_mask=args.automask,
+        ignore_spacing=args.ignore_spacing,
+        samples_per_parameter=args.samples_per_parameter,
+    )
 
     sitk.WriteTransform(tx, output_transform)
 
 
 @cli.command(name="resample")
-@click.option('-b', '--bin', default=1, type=int, show_default=True,
-              help="Reduce the resolution of the input images in X and Y by this factor")
-@click.option('--fusion/--no-fusion',  default=False, show_default=True,
-              help="Blend fixed and moving images into RGB")
-@click.option('--combine/--no-combine',  default=False, show_default=True,
-              help="Combine fixed and moving images into multi-component")
-@click.option('--invert/--no-invert', default=False, show_default=True,
-              help="invert the transform")
-@click.option('--projection/--no-projection', default=False, show_default=True,
-              help="project the volume in the z-direction to create 2-d image")
-@click.option('-o', '--output', default=None,
-              help="filename for output image, if not provided the SimpleITK Show method is called",
-              type=click.Path(exists=False, resolve_path=True))
-@click.argument('fixed_image',
-                type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
-@click.argument('moving_image',
-                type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
-@click.argument('transform',
-                required=False,
-                type=click.Path(exists=True, dir_okay=False, resolve_path=True))
+@click.option(
+    "-b",
+    "--bin",
+    default=1,
+    type=int,
+    show_default=True,
+    help="Reduce the resolution of the input images in X and Y by this factor",
+)
+@click.option("--fusion/--no-fusion", default=False, show_default=True, help="Blend fixed and moving images into RGB")
+@click.option(
+    "--combine/--no-combine",
+    default=False,
+    show_default=True,
+    help="Combine fixed and moving images into multi-component",
+)
+@click.option("--invert/--no-invert", default=False, show_default=True, help="invert the transform")
+@click.option(
+    "--projection/--no-projection",
+    default=False,
+    show_default=True,
+    help="project the volume in the z-direction to create 2-d image",
+)
+@click.option(
+    "-o",
+    "--output",
+    default=None,
+    help="filename for output image, if not provided the SimpleITK Show method is called",
+    type=click.Path(exists=False, resolve_path=True),
+)
+@click.argument("fixed_image", type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
+@click.argument("moving_image", type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
+@click.argument("transform", required=False, type=click.Path(exists=True, dir_okay=False, resolve_path=True))
 def resample_cli(fixed_image, moving_image, transform, **kwargs):
     """Create new image by transforming the MOVING_IMAGE onto the FIXED_IMAGE.
 
@@ -232,11 +273,15 @@ def resample_cli(fixed_image, moving_image, transform, **kwargs):
 
     @utils.sub_volume_execute(inplace=False)
     def resample_sub_volume(mv_img):
-        return resample(fixed_img, mv_img, tx,
-                        fusion=args.fusion,
-                        combine=args.combine,
-                        invert=args.invert,
-                        projection=args.projection)
+        return resample(
+            fixed_img,
+            mv_img,
+            tx,
+            fusion=args.fusion,
+            combine=args.combine,
+            invert=args.invert,
+            projection=args.projection,
+        )
 
     result = resample_sub_volume(moving_img)
 

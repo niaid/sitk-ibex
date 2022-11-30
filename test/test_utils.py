@@ -88,7 +88,7 @@ def test_sve_decorator_5d():
 
     for c in range(img.GetSize()[4]):
         for t in range(img.GetSize()[3]):
-            img[:, :, :, t, c] = 10*t+c
+            img[:, :, :, t, c] = 10 * t + c
 
     img_out = do_add2(img)
 

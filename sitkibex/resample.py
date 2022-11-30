@@ -20,8 +20,8 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-def _combine_images(fixed_image, moving_image, transform, virtual_image=None,  tx2=None, fusion=False):
-    """ Combine two scalar images into multi-component images.
+def _combine_images(fixed_image, moving_image, transform, virtual_image=None, tx2=None, fusion=False):
+    """Combine two scalar images into multi-component images.
 
     The default operation is to compose the two input images into a 2 channel vector image.
 
@@ -34,37 +34,34 @@ def _combine_images(fixed_image, moving_image, transform, virtual_image=None,  t
         output_pixel_type = sitk.VectorUInt8
 
     if virtual_image is not None:
-        moving_resampled = sitk.Resample(moving_image,
-                                         referenceImage=virtual_image,
-                                         transform=transform,
-                                         outputPixelType=output_pixel_type)
-        fixed_resampled = sitk.Resample(fixed_image, virtual_image,
-                                        transform=tx2,
-                                        outputPixelType=output_pixel_type)
+        moving_resampled = sitk.Resample(
+            moving_image, referenceImage=virtual_image, transform=transform, outputPixelType=output_pixel_type
+        )
+        fixed_resampled = sitk.Resample(fixed_image, virtual_image, transform=tx2, outputPixelType=output_pixel_type)
     else:
-        moving_resampled = sitk.Resample(moving_image,
-                                         referenceImage=fixed_image,
-                                         transform=transform,
-                                         outputPixelType=output_pixel_type)
+        moving_resampled = sitk.Resample(
+            moving_image, referenceImage=fixed_image, transform=transform, outputPixelType=output_pixel_type
+        )
         fixed_resampled = sitk.Cast(fixed_image, output_pixel_type)
 
     if fusion:
         moving_resampled = sitk.RescaleIntensity(moving_resampled)
         fixed_resampled = sitk.RescaleIntensity(fixed_resampled)
-        return sitk.Compose([fixed_resampled, moving_resampled, fixed_resampled//2.0+moving_resampled//2.0])
+        return sitk.Compose([fixed_resampled, moving_resampled, fixed_resampled // 2.0 + moving_resampled // 2.0])
 
     return sitk.Compose([fixed_resampled, moving_resampled])
 
 
-def resample(fixed_image: sitk.Image,
-             moving_image: sitk.Image,
-             transform: sitk.Transform = None,
-             *,
-             fusion=False,
-             projection=False,
-             combine=False,
-             invert=False
-             ) -> sitk.Image:
+def resample(
+    fixed_image: sitk.Image,
+    moving_image: sitk.Image,
+    transform: sitk.Transform = None,
+    *,
+    fusion=False,
+    projection=False,
+    combine=False,
+    invert=False
+) -> sitk.Image:
     """Resample fixed_image onto the coordinates of moving_image with transform results from registration.
 
     The registration process results in a transform which maps points from the coordinates of the fixed_image to the
@@ -119,8 +116,10 @@ def resample(fixed_image: sitk.Image,
         proj_size = resampled_image.GetSize()[:2] + (0,)
         output_pixel_type = resampled_image.GetPixelID()
         projection_image = sitk.Cast(sitk.MeanProjection(resampled_image, projectionDimension=2), output_pixel_type)
-        resampled_image = sitk.Extract(projection_image,
-                                       size=proj_size,
-                                       directionCollapseToStrategy=sitk.ExtractImageFilter.DIRECTIONCOLLAPSETOIDENTITY)
+        resampled_image = sitk.Extract(
+            projection_image,
+            size=proj_size,
+            directionCollapseToStrategy=sitk.ExtractImageFilter.DIRECTIONCOLLAPSETOIDENTITY,
+        )
 
     return resampled_image

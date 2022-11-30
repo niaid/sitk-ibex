@@ -15,19 +15,19 @@
 #
 from setuptools import setup, find_packages
 
-with open("README.rst", 'r') as fp:
+with open("README.rst", "r") as fp:
     long_description = fp.read()
 
-with open("requirements.txt", 'r') as fp:
+with open("requirements.txt", "r") as fp:
     requirements = list(filter(bool, (line.strip() for line in fp)))
 
-with open("requirements-dev.txt", 'r') as fp:
+with open("requirements-dev.txt", "r") as fp:
     dev_requirements = list(filter(bool, (line.strip() for line in fp)))
 
 
 setup(
     name="sitkibex",
-    use_scm_version={'local_scheme': 'dirty-tag'},
+    use_scm_version={"local_scheme": "dirty-tag"},
     author=["Bradley Lowekamp"],
     author_email="bioinformatics@niaid.nih.gov",
     description="Image registration for iterative fluorescence microscopy",
@@ -35,20 +35,16 @@ setup(
     long_description_content_type="text/x-rst",
     url="https://github.com/niaid/sitk-ibex",
     packages=find_packages(exclude=("test",)),
-    license='Apache 2.0',
-    entry_points={
-          'console_scripts': [
-              'sitkibex = sitkibex.cli:cli'
-          ]
-      },
+    license="Apache 2.0",
+    entry_points={"console_scripts": ["sitkibex = sitkibex.cli:cli"]},
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.5',
+    python_requires=">=3.5",
     install_requires=requirements,
     tests_require=dev_requirements,
-    setup_requires=['setuptools_scm']
+    setup_requires=["setuptools_scm"],
 )

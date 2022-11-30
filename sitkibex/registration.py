@@ -24,13 +24,15 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-def register_3d(fixed_image,
-                moving_image,
-                initial_transform,
-                sigma_base=1.0,
-                fixed_image_mask=None,
-                moving_image_mask=None,
-                number_of_samples_per_parameter=5000):
+def register_3d(
+    fixed_image,
+    moving_image,
+    initial_transform,
+    sigma_base=1.0,
+    fixed_image_mask=None,
+    moving_image_mask=None,
+    number_of_samples_per_parameter=5000,
+):
     """Perform multi-resolution 3D registration, with parameters tuned for affine transformation.
 
 
@@ -53,19 +55,22 @@ def register_3d(fixed_image,
     reg.MetricUseMovingImageGradientFilterOff()
     reg.MetricUseFixedImageGradientFilterOff()
 
-    reg.SetOptimizerAsGradientDescentLineSearch(learningRate=1.0,
-                                                numberOfIterations=400,
-                                                convergenceMinimumValue=1e-7,
-                                                convergenceWindowSize=10,
-                                                lineSearchLowerLimit=0,
-                                                lineSearchUpperLimit=1.0,
-                                                lineSearchMaximumIterations=5,
-                                                maximumStepSizeInPhysicalUnits=1.0)
+    reg.SetOptimizerAsGradientDescentLineSearch(
+        learningRate=1.0,
+        numberOfIterations=400,
+        convergenceMinimumValue=1e-7,
+        convergenceWindowSize=10,
+        lineSearchLowerLimit=0,
+        lineSearchUpperLimit=1.0,
+        lineSearchMaximumIterations=5,
+        maximumStepSizeInPhysicalUnits=1.0,
+    )
 
     reg.SetOptimizerScalesFromIndexShift()
 
-    sampling_percentage = initial_transform.GetNumberOfParameters() * \
-        number_of_samples_per_parameter / fixed_image.GetNumberOfPixels()
+    sampling_percentage = (
+        initial_transform.GetNumberOfParameters() * number_of_samples_per_parameter / fixed_image.GetNumberOfPixels()
+    )
 
     if fixed_image_mask or moving_image_mask:
         mask = fixed_image_mask
@@ -90,14 +95,17 @@ def register_3d(fixed_image,
         reg.SetMetricAsCorrelation()
 
     sampling_percentage_per_level = [min(0.10, sampling_percentage * f * f) for f in scale_factors]
-    _logger.info("Sampling Percentage Per Level: {0} #{1}"
-                 .format(sampling_percentage_per_level,
-                         [p * fixed_image.GetNumberOfPixels() / (f ** 3)
-                          for p, f in
-                          zip(sampling_percentage_per_level, scale_factors)]))
+    _logger.info(
+        "Sampling Percentage Per Level: {0} #{1}".format(
+            sampling_percentage_per_level,
+            [
+                p * fixed_image.GetNumberOfPixels() / (f**3)
+                for p, f in zip(sampling_percentage_per_level, scale_factors)
+            ],
+        )
+    )
 
-    reg.SetMetricSamplingPercentagePerLevel(sampling_percentage_per_level,
-                                            sitkibex.globals.default_random_seed)
+    reg.SetMetricSamplingPercentagePerLevel(sampling_percentage_per_level, sitkibex.globals.default_random_seed)
     reg.SetMetricSamplingStrategy(reg.REGULAR)
     reg.SetShrinkFactorsPerLevel([f for f in scale_factors])
     reg.SmoothingSigmasAreSpecifiedInPhysicalUnitsOn()
@@ -121,14 +129,16 @@ def register_3d(fixed_image,
     return reg.Execute(fixed_image, moving_image)
 
 
-def register_as_2d_affine(fixed_image,
-                          moving_image,
-                          sigma_base=1.0,
-                          initial_translation=None,
-                          fixed_image_mask=None,
-                          moving_image_mask=None,
-                          number_of_samples_per_parameter=5000):
-    """ Perform 2D registration from 3D image projected in the z-direction.
+def register_as_2d_affine(
+    fixed_image,
+    moving_image,
+    sigma_base=1.0,
+    initial_translation=None,
+    fixed_image_mask=None,
+    moving_image_mask=None,
+    number_of_samples_per_parameter=5000,
+):
+    """Perform 2D registration from 3D image projected in the z-direction.
 
     The fixed_image and moving_image are first projected along the z-dimension to generate 2D images. Then a
     transform to map points from the fixed_image to the moving_image is optimized for normalized
@@ -168,10 +178,9 @@ def register_as_2d_affine(fixed_image,
     # - Use Euler transform
     #
 
-    initial_rigid = sitk.CenteredTransformInitializer(fixed_2d,
-                                                      moving_2d,
-                                                      sitk.Euler2DTransform(),
-                                                      sitk.CenteredTransformInitializerFilter.GEOMETRY)
+    initial_rigid = sitk.CenteredTransformInitializer(
+        fixed_2d, moving_2d, sitk.Euler2DTransform(), sitk.CenteredTransformInitializerFilter.GEOMETRY
+    )
 
     if initial_translation:
         initial_rigid = sitk.Euler2DTransform(initial_rigid)
@@ -189,24 +198,28 @@ def register_as_2d_affine(fixed_image,
     R.MetricUseMovingImageGradientFilterOff()
     R.MetricUseFixedImageGradientFilterOff()
 
-    R.SetOptimizerAsGradientDescent(learningRate=1.0,
-                                    numberOfIterations=500,
-                                    convergenceMinimumValue=1e-6,
-                                    convergenceWindowSize=10,
-                                    maximumStepSizeInPhysicalUnits=2.0)
+    R.SetOptimizerAsGradientDescent(
+        learningRate=1.0,
+        numberOfIterations=500,
+        convergenceMinimumValue=1e-6,
+        convergenceWindowSize=10,
+        maximumStepSizeInPhysicalUnits=2.0,
+    )
 
     R.SetOptimizerScalesFromIndexShift()
 
     scale_factors = [16, 8, 4]
     # We don't need more samples for larger image, so base the number of samples on the number of parameters
-    sampling_percentage = len(
-        initial_rigid.GetParameters()) * number_of_samples_per_parameter / fixed_2d.GetNumberOfPixels()
-    R.SetMetricSamplingPercentagePerLevel([min(0.10, sampling_percentage) for f in scale_factors],
-                                          sitkibex.globals.default_random_seed)
+    sampling_percentage = (
+        len(initial_rigid.GetParameters()) * number_of_samples_per_parameter / fixed_2d.GetNumberOfPixels()
+    )
+    R.SetMetricSamplingPercentagePerLevel(
+        [min(0.10, sampling_percentage) for f in scale_factors], sitkibex.globals.default_random_seed
+    )
     R.SetMetricSamplingStrategy(R.REGULAR)
     R.SetShrinkFactorsPerLevel([1 for f in scale_factors])
     R.SmoothingSigmasAreSpecifiedInPhysicalUnitsOn()
-    R.SetSmoothingSigmasPerLevel([4.0*sigma_base * f * fixed_2d.GetSpacing()[0] for f in scale_factors])
+    R.SetSmoothingSigmasPerLevel([4.0 * sigma_base * f * fixed_2d.GetSpacing()[0] for f in scale_factors])
 
     R.SetInitialTransform(initial_rigid)
     R.SetInterpolator(sitk.sitkLinear)
@@ -242,21 +255,24 @@ def register_as_2d_affine(fixed_image,
     R2.SetMetricAsCorrelation()
     R2.MetricUseMovingImageGradientFilterOff()
     R2.MetricUseFixedImageGradientFilterOff()
-    R2.SetOptimizerAsGradientDescentLineSearch(learningRate=1.0,
-                                               numberOfIterations=100,
-                                               convergenceMinimumValue=1e-6,
-                                               convergenceWindowSize=10,
-                                               lineSearchLowerLimit=0,
-                                               lineSearchUpperLimit=2.0,
-                                               lineSearchMaximumIterations=5,
-                                               maximumStepSizeInPhysicalUnits=2)
+    R2.SetOptimizerAsGradientDescentLineSearch(
+        learningRate=1.0,
+        numberOfIterations=100,
+        convergenceMinimumValue=1e-6,
+        convergenceWindowSize=10,
+        lineSearchLowerLimit=0,
+        lineSearchUpperLimit=2.0,
+        lineSearchMaximumIterations=5,
+        maximumStepSizeInPhysicalUnits=2,
+    )
 
     R2.SetOptimizerScalesFromIndexShift()
 
     scale_factors = [8, 4, 2]
     sampling_percentage = len(affine.GetParameters()) * number_of_samples_per_parameter / fixed_2d.GetNumberOfPixels()
-    R2.SetMetricSamplingPercentagePerLevel([min(0.10, sampling_percentage*f) for f in scale_factors],
-                                           sitkibex.globals.default_random_seed)
+    R2.SetMetricSamplingPercentagePerLevel(
+        [min(0.10, sampling_percentage * f) for f in scale_factors], sitkibex.globals.default_random_seed
+    )
     R2.SetMetricSamplingStrategy(R.RANDOM)
     R2.SetShrinkFactorsPerLevel([f for f in scale_factors])
     R2.SmoothingSigmasAreSpecifiedInPhysicalUnitsOn()
@@ -283,31 +299,33 @@ def register_as_2d_affine(fixed_image,
     matrix_3d[:2, :2] = np.asarray(affine_result.GetMatrix()).reshape(2, 2)
 
     idx_2d = moving_2d.TransformPhysicalPointToContinuousIndex(affine_result.GetCenter())
-    idx_3d = idx_2d + (moving_image.GetSize()[2]/2.0, )
+    idx_3d = idx_2d + (moving_image.GetSize()[2] / 2.0,)
     center_3d = moving_image.TransformContinuousIndexToPhysicalPoint(idx_3d)
 
     # The 2d projected images preserve the image spacing but have the direction matrix set to the identity.
     _logger.info("center 2d->3d: {0}->{1}".format(affine_result.GetCenter(), center_3d))
 
     result_3d = sitk.AffineTransform(3)
-    result_3d.SetTranslation(affine_result.GetTranslation()+(0,))
+    result_3d.SetTranslation(affine_result.GetTranslation() + (0,))
     result_3d.SetMatrix(matrix_3d.flatten())
     result_3d.SetCenter(center_3d)
 
     return result_3d
 
 
-def registration(fixed_image: sitk.Image,     # noqa: C901
-                 moving_image: sitk.Image,
-                 *,
-                 do_fft_initialization=True,
-                 do_affine2d=False,
-                 do_affine3d=True,
-                 ignore_spacing=True,
-                 sigma=1.0,
-                 auto_mask=False,
-                 samples_per_parameter=5000,
-                 expand=None) -> sitk.Transform:
+def registration(
+    fixed_image: sitk.Image,  # noqa: C901
+    moving_image: sitk.Image,
+    *,
+    do_fft_initialization=True,
+    do_affine2d=False,
+    do_affine3d=True,
+    ignore_spacing=True,
+    sigma=1.0,
+    auto_mask=False,
+    samples_per_parameter=5000,
+    expand=None
+) -> sitk.Transform:
     """Robust multi-phase registration for multi-panel confocal microscopy images.
 
     The fixed and moving image are expected to be the same molecular labeling, and the same imaged regioned.
@@ -355,20 +373,24 @@ def registration(fixed_image: sitk.Image,     # noqa: C901
 
     # expand the image if at least 5 in any dimension
     if not expand_factors:
-        expand_factors = [-(-5//s) for s in fixed_image.GetSize()]
+        expand_factors = [-(-5 // s) for s in fixed_image.GetSize()]
 
     if any([e != 1 for e in expand_factors]):
-        _logger.warning("Fixed image under sized in at lease one dimension!"
-                        "\tApplying expand factors {0} to image size.".format(expand_factors))
+        _logger.warning(
+            "Fixed image under sized in at lease one dimension!"
+            "\tApplying expand factors {0} to image size.".format(expand_factors)
+        )
         fixed_image = sitk.Expand(fixed_image, expandFactors=expand_factors)
 
     if moving_image.GetPixelID() != sitk.sitkFloat32:
         moving_image = sitk.Cast(moving_image, sitk.sitkFloat32)
 
-    expand_factors = [-(-5//s) for s in moving_image.GetSize()]
+    expand_factors = [-(-5 // s) for s in moving_image.GetSize()]
     if any([e != 1 for e in expand_factors]):
-        _logger.warning("WARNING: Moving image under sized in at lease one dimension!"
-                        "\tApplying expand factors {0} to image size.".format(expand_factors))
+        _logger.warning(
+            "WARNING: Moving image under sized in at lease one dimension!"
+            "\tApplying expand factors {0} to image size.".format(expand_factors)
+        )
         moving_image = sitk.Expand(moving_image, expandFactors=expand_factors)
 
     if auto_mask:
@@ -383,21 +405,21 @@ def registration(fixed_image: sitk.Image,     # noqa: C901
 
         spacing_magnitude = imgf.spacing_average_magnitude(fixed_image)
 
-        _logger.info("Adjusting image spacing by {0}...".format(1.0/spacing_magnitude))
+        _logger.info("Adjusting image spacing by {0}...".format(1.0 / spacing_magnitude))
 
-        new_spacing = [s/spacing_magnitude for s in fixed_image.GetSpacing()]
+        new_spacing = [s / spacing_magnitude for s in fixed_image.GetSpacing()]
         _logger.info("\tFixed Image Spacing: {0}->{1}".format(fixed_image.GetSpacing(), new_spacing))
         fixed_image.SetSpacing(new_spacing)
-        fixed_image.SetOrigin([o/spacing_magnitude for o in fixed_image.GetOrigin()])
+        fixed_image.SetOrigin([o / spacing_magnitude for o in fixed_image.GetOrigin()])
 
         new_spacing = [s / spacing_magnitude for s in moving_image.GetSpacing()]
         _logger.info("\tMoving Image Spacing: {0}->{1}".format(moving_image.GetSpacing(), new_spacing))
         moving_image.SetSpacing(new_spacing)
-        moving_image.SetOrigin([o/spacing_magnitude for o in moving_image.GetOrigin()])
+        moving_image.SetOrigin([o / spacing_magnitude for o in moving_image.GetOrigin()])
 
         if moving_mask:
             moving_mask.SetSpacing(new_spacing)
-            moving_mask.SetOrigin([o/spacing_magnitude for o in moving_mask.GetOrigin()])
+            moving_mask.SetOrigin([o / spacing_magnitude for o in moving_mask.GetOrigin()])
 
         if fixed_mask:
             fixed_mask.SetSpacing(new_spacing)
@@ -410,21 +432,23 @@ def registration(fixed_image: sitk.Image,     # noqa: C901
     #
     initial_translation = None
     if do_fft_initialization:
-        initial_translation = imgf.fft_initialization(moving_image,
-                                                      fixed_image,
-                                                      bin_shrink=8,
-                                                      projection=(not initial_translation_3d))
+        initial_translation = imgf.fft_initialization(
+            moving_image, fixed_image, bin_shrink=8, projection=(not initial_translation_3d)
+        )
         result = sitk.TranslationTransform(len(initial_translation), initial_translation)
 
     #
     # Do 2D registration first
     #
     if do_affine2d:
-        result = register_as_2d_affine(fixed_image, moving_image,
-                                       sigma_base=sigma,
-                                       initial_translation=initial_translation,
-                                       fixed_image_mask=fixed_mask,
-                                       moving_image_mask=moving_mask)
+        result = register_as_2d_affine(
+            fixed_image,
+            moving_image,
+            sigma_base=sigma,
+            initial_translation=initial_translation,
+            fixed_image_mask=fixed_mask,
+            moving_image_mask=moving_mask,
+        )
 
     if do_affine3d:
 
@@ -443,10 +467,9 @@ def registration(fixed_image: sitk.Image,     # noqa: C901
 
             affine = result
         else:
-            affine = sitk.CenteredTransformInitializer(fixed_image,
-                                                       moving_image,
-                                                       sitk.AffineTransform(3),
-                                                       sitk.CenteredTransformInitializerFilter.GEOMETRY)
+            affine = sitk.CenteredTransformInitializer(
+                fixed_image, moving_image, sitk.AffineTransform(3), sitk.CenteredTransformInitializerFilter.GEOMETRY
+            )
             affine = sitk.AffineTransform(affine)
 
             if do_fft_initialization:
@@ -454,14 +477,22 @@ def registration(fixed_image: sitk.Image,     # noqa: C901
                     affine.SetTranslation(list(initial_translation))
                     _logger.info("Initialized 3D affine with z-translation... {0}".format(initial_translation))
                 else:
-                    affine.SetTranslation(list(initial_translation)+[0, ])
+                    affine.SetTranslation(
+                        list(initial_translation)
+                        + [
+                            0,
+                        ]
+                    )
 
-        affine_result = register_3d(fixed_image, moving_image,
-                                    initial_transform=affine,
-                                    sigma_base=sigma,
-                                    fixed_image_mask=fixed_mask,
-                                    moving_image_mask=moving_mask,
-                                    number_of_samples_per_parameter=number_of_samples_per_parameter)
+        affine_result = register_3d(
+            fixed_image,
+            moving_image,
+            initial_transform=affine,
+            sigma_base=sigma,
+            fixed_image_mask=fixed_mask,
+            moving_image_mask=moving_mask,
+            number_of_samples_per_parameter=number_of_samples_per_parameter,
+        )
 
         result = affine_result
 
@@ -475,11 +506,9 @@ def registration(fixed_image: sitk.Image,     # noqa: C901
         scale = spacing_magnitude
 
         scale_transform = sitk.ScaleTransform(3)
-        scale_transform.SetScale([scale]*3)
+        scale_transform.SetScale([scale] * 3)
 
-        result = sitk.CompositeTransform([sitk.Transform(scale_transform),
-                                          result,
-                                          scale_transform.GetInverse()])
+        result = sitk.CompositeTransform([sitk.Transform(scale_transform), result, scale_transform.GetInverse()])
 
         # if result was a composite transform then we have nested composite
         # transforms white need to be flattened for writing.
