@@ -11,6 +11,37 @@ on:
       - master
 
 jobs:
+  linting_test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+  # The specific pre-commit tests configurations are found in
+  # the .pre-commit-config.yaml file at the root of the repository
+    - uses: actions/setup-python@v4
+    - uses: pre-commit/action@v2.0.3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    - name: set PY
+      run: echo "PY=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
+    - uses: actions/cache@v3
+      with:
+        path: ~/.cache/pre-commit
+        key: pre-commit|${{ env.PY }}|${{ hashFiles('.pre-commit-config.yaml') }}
+    - name: Linting
+      run: |
+        pip install pre-commit trufflehog3>=3.0
+        pre-commit run --all-files
+    - name: Run trufflehog3  detector
+      run: |
+        trufflehog3 -v -c trufflehog3.yml . && echo "tufflehog3 OK"
+
   test:
 
     runs-on: ubuntu-latest
@@ -30,14 +61,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt -r requirements-dev.txt
-    - name: Lint with flake8
-      run: |
-        # stop the build for flake8 issues
-        python -m flake8 . --show-source --statistics
-    - name: Run trufflehog3 detector
-      run: |
-        python -m pip install "trufflehog3>=3.0"
-        trufflehog3 -v -c trufflehog3.yml . && echo "tufflehog3 OK"
     - name: Test with pytest
       run: |
         python -m pytest --junitxml=junit/test-results-${{ matrix.python-version }}.xml
