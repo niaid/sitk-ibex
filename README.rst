@@ -33,10 +33,9 @@ Installation
 ------------
 
 
-The Python module is distributed as a `wheel`_ binary package. To install the latest tagged release from
-the `Github Releases`_ page with pip, run::
+The Python module is distributed on `PyPI - The Python Package Index`_. The package can be installed by running:
 
- python -m pip install sitkibex --find-links https://github.com/niaid/sitk-ibex/releases
+ python -m pip install sitkibex
 
 Wheels from the master branch can be download wheel from `Github Actions`_ in the
 "python-package" artifact.
@@ -121,5 +120,6 @@ Please use the `GitHub Issues`_ for support and code issues related to the sitk-
 .. _NRRD: http://teem.sourceforge.net/nrrd/format.html
 .. _GitHub Issues:  https://github.com/niaid/sitk-ibex
 .. _wheel: https://www.python.org/dev/peps/pep-0427/
+.. _`PyPI - The Python Package Index`: https://pypi.org/project/sitkibex/
 .. _Github Releases: https://github.com/niaid/sitk-ibex/releases
 .. _10.1073/pnas.2018488117: https://www.pnas.org/doi/10.1073/pnas.2018488117
