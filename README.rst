@@ -112,7 +112,6 @@ Contact
 
 Please use the `GitHub Issues`_ for support and code issues related to the sitk-ibex project.
 
-Additionally, we can be emailed at: bioinformatics@niaid.nih.gov Please include "sitk-ibex" in the subject line.
 
 
 .. _SimpleITK toolkit: https://simpleitk.org
