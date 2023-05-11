@@ -1,19 +1,21 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>API &#8212; sitk-ibex 0.5.dev5 documentation</title>
+    <title>API &#8212; sitk-ibex 0.5.dev6 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -31,7 +33,7 @@
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.5.dev5 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.5.dev6 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">API</a></li> 
       </ul>
     </div>  
@@ -42,10 +44,10 @@
           <div class="body" role="main">
             
   <section id="module-sitkibex">
-<span id="api"></span><h1>API<a class="headerlink" href="#module-sitkibex" title="Permalink to this headline">¶</a></h1>
+<span id="api"></span><h1>API<a class="headerlink" href="#module-sitkibex" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sitkibex.registration">
-<span class="sig-prename descclassname"><span class="pre">sitkibex.</span></span><span class="sig-name descname"><span class="pre">registration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SimpleITK.SimpleITK.Image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moving_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SimpleITK.SimpleITK.Image</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_fft_initialization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_affine2d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_affine3d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples_per_parameter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SimpleITK.SimpleITK.Transform</span></span></span><a class="headerlink" href="#sitkibex.registration" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sitkibex.</span></span><span class="sig-name descname"><span class="pre">registration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moving_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Image</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_fft_initialization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_affine2d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_affine3d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples_per_parameter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expand</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Transform</span></span></span><a class="headerlink" href="#sitkibex.registration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Robust multi-phase registration for multi-panel confocal microscopy images.</p>
 <p>The fixed and moving image are expected to be the same molecular labeling, and the same imaged regioned.</p>
 <dl class="simple">
@@ -57,7 +59,7 @@
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fixed_image</strong> – a scalar SimpleITK 3D Image</p></li>
 <li><p><strong>moving_image</strong> – a scalar SimpleITK 3D Image</p></li>
@@ -71,7 +73,7 @@
 <li><p><strong>expand</strong> – Perform super-sampling to increase number of z-slices by an integer factor. Super-sampling is     automatically performed when the number of z-slices is less than 5.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A SimpleITK transform mapping points from the fixed image to the moving. This may be a CompositeTransform.</p>
 </dd>
 </dl>
@@ -79,7 +81,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="sitkibex.resample">
-<span class="sig-prename descclassname"><span class="pre">sitkibex.</span></span><span class="sig-name descname"><span class="pre">resample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SimpleITK.SimpleITK.Image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moving_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SimpleITK.SimpleITK.Image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">SimpleITK.SimpleITK.Transform</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fusion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SimpleITK.SimpleITK.Image</span></span></span><a class="headerlink" href="#sitkibex.resample" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sitkibex.</span></span><span class="sig-name descname"><span class="pre">resample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moving_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Transform</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fusion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">invert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Image</span></span></span><a class="headerlink" href="#sitkibex.resample" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resample fixed_image onto the coordinates of moving_image with transform results from registration.</p>
 <p>The registration process results in a transform which maps points from the coordinates of the fixed_image to the
 moving_image. This method is next used to resample the the fixed_image with the transform to produce an image with
@@ -87,7 +89,7 @@ the fixed_image aligned with the moving_image.</p>
 <p>If no transform is provided, then an identity transform is assumed and the moving_image is still resampled onto the
 fixed_image. This operation is useful to see alignment of images before registration.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fixed_image</strong> – A 3D SimpleITK Image whose pixel values are resampled</p></li>
 <li><p><strong>moving_image</strong> – A 3D SimpleITK Image whose coordinates are used for the output image</p></li>
@@ -98,7 +100,7 @@ fixed_image. This operation is useful to see alignment of images before registra
 <li><p><strong>invert</strong> – Invert the input transform.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The processed SimpleITK Image.</p>
 </dd>
 </dl>
@@ -125,7 +127,7 @@ warning, info, and debug messages are handled.</p>
 <p>SimpleITK is used to read a channel from the file. Channel names can be used if the image file contains meta-data
 which can be parsed and provides names for the channels. Otherwise channel index should be used.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> – The path to an image file.</p></li>
 <li><p><strong>channel</strong> – An integer for the channel index or string for the name of the channel. If None then all channel are</p></li>
@@ -134,7 +136,7 @@ which can be parsed and provides names for the channels. Otherwise channel index
 </dl>
 <p>read.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A SimpleITK Image.</p>
 </dd>
 </dl>
@@ -149,9 +151,25 @@ which can be parsed and provides names for the channels. Otherwise channel index
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="commandline.html"
-                        title="previous chapter">Command Line Interface</a></p>
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">API</a><ul>
+<li><a class="reference internal" href="#sitkibex.registration"><code class="docutils literal notranslate"><span class="pre">registration()</span></code></a></li>
+<li><a class="reference internal" href="#sitkibex.resample"><code class="docutils literal notranslate"><span class="pre">resample()</span></code></a></li>
+<li><a class="reference internal" href="#sitkibex.globals.default_random_seed"><code class="docutils literal notranslate"><span class="pre">default_random_seed</span></code></a></li>
+<li><a class="reference internal" href="#sitkibex.globals.logger"><code class="docutils literal notranslate"><span class="pre">logger</span></code></a></li>
+<li><a class="reference internal" href="#sitkibex.io.im_read_channel"><code class="docutils literal notranslate"><span class="pre">im_read_channel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="commandline.html"
+                          title="previous chapter">Command Line Interface</a></p>
+  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -168,7 +186,7 @@ which can be parsed and provides names for the channels. Otherwise channel index
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -185,7 +203,7 @@ which can be parsed and provides names for the channels. Otherwise channel index
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.5.dev5 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">sitk-ibex 0.5.dev6 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">API</a></li> 
       </ul>
     </div>
