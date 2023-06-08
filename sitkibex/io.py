@@ -70,16 +70,25 @@ def _zarr_read_channel(filename: Path, channel=None) -> sitk.Image:
     if channel is None:
         arr = np.moveaxis(arr[0, ...], 0, -1)
         img = sitk.GetImageFromArray(arr.astype(arr.dtype.newbyteorder("=")), isVector=True)
+    else:
 
-    elif isinstance(channel, int):
-        channel_number = channel
+        if isinstance(channel, int):
+            channel_number = channel
+        else:
+            if "omero" not in zarr_group.attrs or "channels" not in zarr_group.attrs["omero"]:
+                raise ValueError("No OMERO metadata. Only integer channel numbers are supported.")
+            omero_channel_labels = [c["label"] for c in zarr_group.attrs["omero"]["channels"]]
+
+            if channel not in omero_channel_labels:
+                raise Exception(f'Channel name "{channel}" is not in OMERO marker list: {omero_channel_labels}.')
+
+            channel_number = omero_channel_labels.index(channel)
+
         if channel_number >= arr.shape[1] or channel_number < 0:
             raise ValueError("Channel number is out of range.")
 
         arr = arr[0, channel_number, ...]
         img = sitk.GetImageFromArray(arr.astype(arr.dtype.newbyteorder("=")), isVector=False)
-    else:
-        raise ValueError("Only integer channel numbers are supported.")
 
     img.SetSpacing(spacing[2:])
 
