@@ -150,8 +150,8 @@ def cli(**kwargs):
     help="Use wall-clock instead of a fixed seed for random initialization.",
 )
 @click.option("--samples-per-parameter", default=5000, type=int, show_default=True)
-@click.argument("fixed_image", type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
-@click.argument("moving_image", type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
+@click.argument("fixed_image", type=ImagePathChannel(exists=True, dir_okay=True, resolve_path=True))
+@click.argument("moving_image", type=ImagePathChannel(exists=True, dir_okay=True, resolve_path=True))
 @click.argument("output_transform", type=click.Path(exists=False, resolve_path=True))
 def reg_cli(fixed_image, moving_image, output_transform, **kwargs):
     """Perform registration to solve for an OUTPUT_TRANSFORM mapping points from the FIXED_IMAGE to the MOVING_IMAGE."""
@@ -218,8 +218,8 @@ def reg_cli(fixed_image, moving_image, output_transform, **kwargs):
     help="filename for output image, if not provided the SimpleITK Show method is called",
     type=click.Path(exists=False, resolve_path=True),
 )
-@click.argument("fixed_image", type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
-@click.argument("moving_image", type=ImagePathChannel(exists=True, dir_okay=False, resolve_path=True))
+@click.argument("fixed_image", type=ImagePathChannel(exists=True, dir_okay=True, resolve_path=True))
+@click.argument("moving_image", type=ImagePathChannel(exists=True, dir_okay=True, resolve_path=True))
 @click.argument("transform", required=False, type=click.Path(exists=True, dir_okay=False, resolve_path=True))
 def resample_cli(fixed_image, moving_image, transform, **kwargs):
     """Create new image by transforming the MOVING_IMAGE onto the FIXED_IMAGE.
@@ -255,7 +255,7 @@ def resample_cli(fixed_image, moving_image, transform, **kwargs):
 
     moving_img = binner(im_read_channel(moving_image, moving_channel_name))
 
-    if fixed_channel_name is None:
+    if fixed_channel_name is None and os.path.isfile(fixed_image):
         reader = sitk.ImageFileReader()
         reader.SetFileName(fixed_image)
         reader.ReadImageInformation()

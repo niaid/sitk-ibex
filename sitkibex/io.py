@@ -18,6 +18,16 @@ import SimpleITK as sitk
 import os.path
 import logging
 from .xml_info import XMLInfo, OMEInfo
+from pathlib import Path
+import numpy as np
+
+try:
+    import zarr
+
+    _has_zarr = True
+except ImportError:
+    _has_zarr = False
+
 
 _logger = logging.getLogger(__name__)
 
@@ -31,6 +41,49 @@ _vector_to_scalar = {
     sitk.sitkVectorFloat32: sitk.sitkFloat32,
     sitk.sitkVectorFloat64: sitk.sitkFloat64,
 }
+
+
+def _zarr_read_channel(filename: Path, channel=None) -> sitk.Image:
+    """
+    Read a channel from a zarr file.
+    """
+
+    store = zarr.DirectoryStore(filename)
+    zarr_group = zarr.open_group(store=store, mode="r")
+
+    axes = zarr_group.attrs["multiscales"][0]["axes"]
+    ds_attr = zarr_group.attrs["multiscales"][0]["datasets"][0]
+
+    arr = zarr_group[ds_attr["path"]]
+    _logger.debug(arr)
+
+    spacing = ds_attr["coordinateTransformations"][0]["scale"]
+
+    axes_names = [ax["name"].upper() for ax in axes]
+
+    if axes_names != list("TCZYX"):
+        raise ValueError(f"Only TCZYX axes are supported, not {axes_names}.")
+
+    if arr.shape[0] > 1:
+        raise ValueError("Only single time point is supported.")
+
+    if channel is None:
+        arr = np.moveaxis(arr[0, ...], 0, -1)
+        img = sitk.GetImageFromArray(arr.astype(arr.dtype.newbyteorder("=")), isVector=True)
+
+    elif isinstance(channel, int):
+        channel_number = channel
+        if channel_number >= arr.shape[1] or channel_number < 0:
+            raise ValueError("Channel number is out of range.")
+
+        arr = arr[0, channel_number, ...]
+        img = sitk.GetImageFromArray(arr.astype(arr.dtype.newbyteorder("=")), isVector=False)
+    else:
+        raise ValueError("Only integer channel numbers are supported.")
+
+    img.SetSpacing(spacing[2:])
+
+    return img
 
 
 def im_read_channel(filename, channel=None):  # noqa: C901
@@ -48,8 +101,15 @@ def im_read_channel(filename, channel=None):  # noqa: C901
 
     """
 
+    filename = Path(filename)
+    if filename.is_dir() and (filename / ".zattrs").exists():
+        if _has_zarr:
+            return _zarr_read_channel(filename, channel)
+        else:
+            raise ImportError("zarr is not installed.")
+
     reader = sitk.ImageFileReader()
-    reader.SetFileName(filename)
+    reader.SetFileName(str(filename))
 
     if channel is None:
         _logger.info('Reading whole "{}" image file.'.format(filename))
@@ -69,7 +129,6 @@ def im_read_channel(filename, channel=None):  # noqa: C901
         channel_number = channel
 
     else:
-
         IMAGE_DESCRIPTION = "ImageDescription"
         IMARIS_CHANNEL_INFORMATION = "imaris_channels_information"
 
