@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Welcome to sitk-ibex’s documentation! &#8212; sitk-ibex 0.5.dev8 documentation</title>
+    <title>Welcome to sitk-ibex’s documentation! &#8212; sitk-ibex 0.4.2.dev2 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.5.dev8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.4.2.dev2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to sitk-ibex’s documentation!</a></li> 
       </ul>
     </div>  
@@ -83,7 +83,8 @@ dependencies when the wheel is installed. This includes the SimpleITK 2.0 requir
 <p>Sample data is available and described on Zenodo:</p>
 <a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.4304786"><img alt="https://zenodo.org/badge/DOI/10.5281/zenodo.4304786.svg" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4304786.svg" /></a>
 <p>Any image and transform file format supported by <a class="reference external" href="https://simpleitk.readthedocs.io/en/master/IO.html">SimpleITK’s IO</a>
-can be use by sitk-ibex. The 3D <cite>nrrd</cite> format, and <cite>txt</cite> transform file extension are recommended.</p>
+can be used by sitk-ibex. The NRRD or`NGFF &lt;<a class="reference external" href="https://ngff.openmicroscopy.org/latest/">https://ngff.openmicroscopy.org/latest/</a>&gt;`_ image formats, and <cite>txt</cite> transform file
+extension are recommended.</p>
 </section>
 <section id="example">
 <h4>Example<a class="headerlink" href="#example" title="Permalink to this heading">¶</a></h4>
@@ -110,6 +111,28 @@ results are white.</p>
        <span class="o">-</span><span class="n">o</span> <span class="n">spleen_onto_p2_panel3</span><span class="o">.</span><span class="n">nrrd</span>
 </pre></div>
 </div>
+</section>
+<section id="additional-example">
+<h4>Additional Example<a class="headerlink" href="#additional-example" title="Permalink to this heading">¶</a></h4>
+<p>Additional sample data:</p>
+<a class="reference external image-reference" href="https://doi.org/10.5281/zenodo.4632320"><img alt="https://zenodo.org/badge/DOI/10.5281/zenodo.4632320.svg" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4632320.svg" /></a>
+<p>The sample Imaris files can be converted to OME-NGFF ZARR with
+<a class="reference external" href="https://github.com/glencoesoftware/bioformats2raw/releases">bioformats2raw</a>. The ims files contains one series, and
+for simplicity, the structure is generated without a series index in the hierarchy with the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bioformats2raw</span>  <span class="o">--</span><span class="n">series</span> <span class="mi">0</span> <span class="o">--</span><span class="n">scale</span><span class="o">-</span><span class="nb">format</span><span class="o">-</span><span class="n">string</span> <span class="s1">&#39;%2$d/&#39;</span>  <span class="n">Human_Spleen_Panel1</span><span class="o">.</span><span class="n">ims</span> <span class="n">Human_Spleen_Panel1</span><span class="o">.</span><span class="n">zarr</span>
+<span class="n">bioformats2raw</span>  <span class="o">--</span><span class="n">series</span> <span class="mi">0</span> <span class="o">--</span><span class="n">scale</span><span class="o">-</span><span class="nb">format</span><span class="o">-</span><span class="n">string</span> <span class="s1">&#39;%2$d/&#39;</span>  <span class="n">Human_Spleen_Panel2</span><span class="o">.</span><span class="n">ims</span> <span class="n">Human_Spleen_Panel2</span><span class="o">.</span><span class="n">zarr</span>
+<span class="n">bioformats2raw</span>  <span class="o">--</span><span class="n">series</span> <span class="mi">0</span> <span class="o">--</span><span class="n">scale</span><span class="o">-</span><span class="nb">format</span><span class="o">-</span><span class="n">string</span> <span class="s1">&#39;%2$d/&#39;</span>  <span class="n">Human_Spleen_Panel2</span><span class="o">.</span><span class="n">ims</span> <span class="n">Human_Spleen_Panel3</span><span class="o">.</span><span class="n">zarr</span>
+</pre></div>
+</div>
+<p>These images will be registered based on the common “Hoechst”. The name of the channels are lost in this conversion from
+Imaris to OME-NGFF ZARR. Some conversions produce “omera” metadata in the ZARR file which contains channel labels, which
+can be used. When the channel labels are unavailable, the channel index can be used such as the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">sitkibex</span> <span class="n">registration</span> <span class="o">--</span><span class="n">affine</span> <span class="s2">&quot;Human_Spleen_Panel2.zarr@3&quot;</span> <span class="s2">&quot;Human_Spleen_Panel1.zarr@2&quot;</span> <span class="n">tx_p2_to_p1</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">sitkibex</span> <span class="n">registration</span> <span class="o">--</span><span class="n">affine</span> <span class="s2">&quot;Human_Spleen_Panel2.zarr@3&quot;</span> <span class="s2">&quot;Human_Spleen_Panel3.zarr@4&quot;</span> <span class="n">tx_p2_to_p3</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>The quick 2D visualization can be run similarly to the NRRD example. The OME-NGFF ZARR files are not supported for
+writing, so the resample command can produce NRRD files as well.</p>
 </section>
 <section id="how-to-cite">
 <h4>How to Cite<a class="headerlink" href="#how-to-cite" title="Permalink to this heading">¶</a></h4>
@@ -200,6 +223,7 @@ flake8, pytest and sphinx. When merging the branch with rebased onto the origin,
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#data">Data</a></li>
 <li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#additional-example">Additional Example</a></li>
 <li><a class="reference internal" href="#how-to-cite">How to Cite</a></li>
 <li><a class="reference internal" href="#documentation">Documentation</a></li>
 <li><a class="reference internal" href="#contact">Contact</a></li>
@@ -253,7 +277,7 @@ flake8, pytest and sphinx. When merging the branch with rebased onto the origin,
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.5.dev8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.4.2.dev2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to sitk-ibex’s documentation!</a></li> 
       </ul>
     </div>
