@@ -46,5 +46,8 @@ setup(
     python_requires=">=3.5",
     install_requires=requirements,
     tests_require=dev_requirements,
+    extras_require={
+        "zarr": ["zarr"],
+    },
     setup_requires=["setuptools_scm"],
 )

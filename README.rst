@@ -52,7 +52,8 @@ Sample data is available and described on Zenodo:
    :target: https://doi.org/10.5281/zenodo.4304786
 
 Any image and transform file format supported by `SimpleITK's IO <https://simpleitk.readthedocs.io/en/master/IO.html>`_
-can be use by sitk-ibex. The 3D `nrrd` format, and `txt` transform file extension are recommended.
+can be used by sitk-ibex. The NRRD or`NGFF <https://ngff.openmicroscopy.org/latest/>`_ image formats, and `txt` transform file
+extension are recommended.
 
 
 Example
@@ -81,6 +82,32 @@ Then apply the registration transform by resampling all channels of the the inpu
         -o spleen_onto_p2_panel1.nrrd
  python -m sitkibex resample "spleen_panel2.nrrd@CD4 AF594" spleen_panel3.nrrd tx_p2_to_p3.txt \
         -o spleen_onto_p2_panel3.nrrd
+
+Additional Example
+------------------
+
+Additional sample data:
+
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4632320.svg
+   :target: https://doi.org/10.5281/zenodo.4632320
+
+The sample Imaris files can be converted to OME-NGFF ZARR with
+`bioformats2raw <https://github.com/glencoesoftware/bioformats2raw/releases>`_. The ims files contains one series, and
+for simplicity, the structure is generated without a series index in the hierarchy with the following commands::
+
+ bioformats2raw  --series 0 --scale-format-string '%2$d/'  Human_Spleen_Panel1.ims Human_Spleen_Panel1.zarr
+ bioformats2raw  --series 0 --scale-format-string '%2$d/'  Human_Spleen_Panel2.ims Human_Spleen_Panel2.zarr
+ bioformats2raw  --series 0 --scale-format-string '%2$d/'  Human_Spleen_Panel2.ims Human_Spleen_Panel3.zarr
+
+These images will be registered based on the common "Hoechst". The name of the channels are lost in this conversion from
+Imaris to OME-NGFF ZARR. Some conversions produce "omera" metadata in the ZARR file which contains channel labels, which
+can be used. When the channel labels are unavailable, the channel index can be used such as the following commands::
+
+ python -m sitkibex registration --affine "Human_Spleen_Panel2.zarr@3" "Human_Spleen_Panel1.zarr@2" tx_p2_to_p1.txt
+ python -m sitkibex registration --affine "Human_Spleen_Panel2.zarr@3" "Human_Spleen_Panel3.zarr@4" tx_p2_to_p3.txt
+
+The quick 2D visualization can be run similarly to the NRRD example. The OME-NGFF ZARR files are not supported for
+writing, so the resample command can produce NRRD files as well.
 
 
 How to Cite
