@@ -35,13 +35,14 @@ Installation
 
 The Python module is distributed on `PyPI - The Python Package Index`_. The package can be installed by running:
 
- python -m pip install sitkibex
+ python -m pip install sitkibex[zarr]
 
 Wheels from the master branch can be download wheel from `Github Actions`_ in the
 "python-package" artifact.
 
 Dependencies are conventionally specified in `setup.py` and `requirements.txt` and therefore installed as
-dependencies when the wheel is installed. This includes the SimpleITK 2.0 requirement.
+dependencies when the wheel is installed. This includes the SimpleITK 2.0 requirement. The optional "zarr" dependency
+is required for reading OME-NGFF ZARR files, and may be omitted if not needed.
 
 Data
 ----
