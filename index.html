@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Welcome to sitk-ibex’s documentation! &#8212; sitk-ibex 0.4.2.dev2 documentation</title>
+    <title>Welcome to sitk-ibex’s documentation! &#8212; sitk-ibex 0.4.2.dev3 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.4.2.dev2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.4.2.dev3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to sitk-ibex’s documentation!</a></li> 
       </ul>
     </div>  
@@ -71,12 +71,13 @@ The registration approach is implemented using the
 <h4>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h4>
 <p>The Python module is distributed on <a class="reference external" href="https://pypi.org/project/sitkibex/">PyPI - The Python Package Index</a>. The package can be installed by running:</p>
 <blockquote>
-<div><p>python -m pip install sitkibex</p>
+<div><p>python -m pip install sitkibex[zarr]</p>
 </div></blockquote>
 <p>Wheels from the master branch can be download wheel from <a class="reference external" href="https://github.com/niaid/sitk-ibex/actions?query=branch%3Amaster">Github Actions</a> in the
 “python-package” artifact.</p>
 <p>Dependencies are conventionally specified in <cite>setup.py</cite> and <cite>requirements.txt</cite> and therefore installed as
-dependencies when the wheel is installed. This includes the SimpleITK 2.0 requirement.</p>
+dependencies when the wheel is installed. This includes the SimpleITK 2.0 requirement. The optional “zarr” dependency
+is required for reading OME-NGFF ZARR files, and may be omitted if not needed.</p>
 </section>
 <section id="data">
 <h4>Data<a class="headerlink" href="#data" title="Permalink to this heading">¶</a></h4>
@@ -277,7 +278,7 @@ flake8, pytest and sphinx. When merging the branch with rebased onto the origin,
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.4.2.dev2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.4.2.dev3 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to sitk-ibex’s documentation!</a></li> 
       </ul>
     </div>
