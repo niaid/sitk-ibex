@@ -1,5 +1,38 @@
 [build-system]
-requires = ["setuptools>=42", "wheel", "setuptools_scm[toml]>=3.4"]
+requires = ["setuptools>=61.0", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sitkibex"
+authors = [
+  { name="Bradley Lowekamp", email="bioinformatics@niaid.nih.gov" },
+]
+description = "Image registration for iterative fluorescence microscopy"
+readme = "README.rst"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["dependencies", "version"]
+
+
+[project.optional-dependencies]
+zarr= ["zarr"]
+dev = [
+  "pytest",
+  "flake8",
+]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+
+[tool.setuptools_scm]
+write_to = "sitkibex/_version.py"
+local_scheme = "dirty-tag"
+
 
 [tool.pytest.ini_options]
 junit_family = "xunit2"

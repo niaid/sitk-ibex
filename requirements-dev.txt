@@ -1,3 +1,0 @@
-flake8
-pytest >= 6.0
-setuptools_scm

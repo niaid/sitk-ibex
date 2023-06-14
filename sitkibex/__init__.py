@@ -17,20 +17,9 @@ from .registration import registration
 from .resample import resample
 
 try:
-    from importlib.metadata import version, PackageNotFoundError
-
-    __version__ = version(__name__)
+    from ._version import version as __version__
 except ImportError:
-    from pkg_resources import get_distribution, DistributionNotFound
-
-    try:
-        __version__ = get_distribution(__name__).version
-    except DistributionNotFound:
-        # package is not installed
-        pass
-except PackageNotFoundError:
-    # package is not installed
-    pass
+    __version__ = "unknown version"
 
 __author__ = ["Bradley Lowekamp"]
 
