@@ -8,3 +8,4 @@ build
 dist
 sitkibex.dist-info
 sitkibex.egg-info
+_version.py
