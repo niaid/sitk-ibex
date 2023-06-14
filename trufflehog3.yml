@@ -7,6 +7,10 @@ exclude: # exclude matching issues
      pattern: \{GITHUB_TOKEN\}@github.com
      paths:
        - .github/workflows/main.yml
+   - message: "Workflow strings"
+     pattern: pypa/gh-action-pypi-publish@
+     paths:
+       - .github/workflows/publish.yml
    - message: Build Directories
      paths:
        - /docs/_build/**
