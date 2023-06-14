@@ -2,12 +2,17 @@
 SITK-IBEX: Aligning images acquired with the IBEX microscopy imaging technique
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-This Python package was implemented as part of the development of the
+This Python package implementation is part of the development of the
 Iterative Bleaching Extends Multiplexity (IBEX) imaging technique. It enables
 the alignment of multiple cycles of fluorescence images, acquired
 using IBEX. A repeated marker is used to register all panels to a
 selected panel (in the registration nomenclature this is the fixed image).
 After registration all panels are resampled onto the fixed image.
+
+More information about the development of the IBEX technique can be found in
+the `IBEX Imaging Community`_,  which is a community of researchers who are developing
+the  IBEX knowledge-base of reagents, protocols, panels, publications, software,
+and datasets.
 
 While this method was developed for a specific imaging protocol, it will likely
 work for other sequential protocols that contain a repeated marker.
@@ -151,3 +156,4 @@ Please use the `GitHub Issues`_ for support and code issues related to the sitk-
 .. _`PyPI - The Python Package Index`: https://pypi.org/project/sitkibex/
 .. _Github Releases: https://github.com/niaid/sitk-ibex/releases
 .. _10.1073/pnas.2018488117: https://www.pnas.org/doi/10.1073/pnas.2018488117
+.. _`IBEX Imaging Community`: https://ibeximagingcommunity.github.io/ibex_imaging_knowledge_base/data_and_software.html
