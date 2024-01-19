@@ -90,7 +90,8 @@ def _zarr_read_channel(filename: Path, channel=None) -> sitk.Image:
         arr = arr[0, channel_number, ...]
         img = sitk.GetImageFromArray(arr.astype(arr.dtype.newbyteorder("=")), isVector=False)
 
-    img.SetSpacing(spacing[2:])
+    # Select XYZ spacing from input TCZYX
+    img.SetSpacing(spacing[:1:-1])
 
     return img
 
