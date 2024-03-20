@@ -58,7 +58,7 @@ Sample data is available and described on Zenodo:
    :target: https://doi.org/10.5281/zenodo.4304786
 
 Any image and transform file format supported by `SimpleITK's IO <https://simpleitk.readthedocs.io/en/master/IO.html>`_
-can be used by sitk-ibex. The NRRD or`NGFF <https://ngff.openmicroscopy.org/latest/>`_ image formats, and `txt` transform file
+can be used by sitk-ibex. The NRRD or `NGFF <https://ngff.openmicroscopy.org/latest/>`_ image formats, and `txt` transform file
 extension are recommended.
 
 
