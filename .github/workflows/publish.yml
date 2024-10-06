@@ -43,6 +43,6 @@ jobs:
 
     - name: PyPI Publish package
       # hash for release/v1.8
-      uses: pypa/gh-action-pypi-publish@897895f1e160c830e369f9779632ebc134688e1b
+      uses: pypa/gh-action-pypi-publish@f7600683efdcb7656dec5b29656edb7bc586e597
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
