@@ -17,6 +17,8 @@ classifiers = [
 ]
 dynamic = ["dependencies", "version"]
 
+[project.scripts]
+sitkibex = "sitkibex.cli:cli"
 
 [project.optional-dependencies]
 zarr= ["zarr"]
