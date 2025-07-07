@@ -5,11 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Welcome to sitk-ibex’s documentation! &#8212; sitk-ibex 0.5.2.dev16 documentation</title>
+    <title>Welcome to sitk-ibex’s documentation! &#8212; sitk-ibex 0.5.3.dev1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/classic.css?v=2bf1fcf8" />
     
-    <script src="_static/documentation_options.js?v=5859dc7c"></script>
+    <script src="_static/documentation_options.js?v=60d23fbb"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     
@@ -29,7 +29,7 @@
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.5.2.dev16 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.5.3.dev1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to sitk-ibex’s documentation!</a></li> 
       </ul>
     </div>  
@@ -71,14 +71,20 @@ The registration approach is implemented using the
 <section id="installation">
 <h4>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h4>
 <p>The Python module is distributed on <a class="reference external" href="https://pypi.org/project/sitkibex/">PyPI - The Python Package Index</a>. The package can be installed by running:</p>
-<blockquote>
-<div><p>python -m pip install sitkibex[zarr]</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">sitkibex</span><span class="p">[</span><span class="n">zarr</span><span class="p">]</span>
+</pre></div>
+</div>
 <p>Wheels from the main branch can be download wheel from <a class="reference external" href="https://github.com/niaid/sitk-ibex/actions?query=branch%3Amain">Github Actions</a> in the
 “python-package” artifact.</p>
-<p>Dependencies are conventionally specified in <cite>setup.py</cite> and <cite>requirements.txt</cite> and therefore installed as
+<p>Dependencies are conventionally specified in <cite>pyproject.toml</cite> and <cite>requirements.txt</cite> and therefore installed as
 dependencies when the wheel is installed. This includes the SimpleITK 2.0 requirement. The optional “zarr” dependency
 is required for reading OME-NGFF ZARR files, and may be omitted if not needed.</p>
+<p>The sitkibex script can also be installed and managed by <a class="reference external" href="https://pypa.github.io/pipx/">pipx</a> or
+<a class="reference external" href="https://docs.astral.sh/uv/guides/tools/">uv</a>. For example, to run and automatically install the latest version of
+sitkibex, you can use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">uvx</span> <span class="n">sitkibex</span> <span class="o">--</span><span class="n">help</span>
+</pre></div>
+</div>
 </section>
 <section id="data">
 <h4>Data<a class="headerlink" href="#data" title="Link to this heading">¶</a></h4>
@@ -281,7 +287,7 @@ flake8, pytest and sphinx. When merging the branch with rebased onto the origin,
         <li class="right" >
           <a href="commandline.html" title="Command Line Interface"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.5.2.dev16 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="#">sitk-ibex 0.5.3.dev1 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Welcome to sitk-ibex’s documentation!</a></li> 
       </ul>
     </div>
