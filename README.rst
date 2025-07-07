@@ -38,16 +38,22 @@ Installation
 ------------
 
 
-The Python module is distributed on `PyPI - The Python Package Index`_. The package can be installed by running:
+The Python module is distributed on `PyPI - The Python Package Index`_. The package can be installed by running::
 
  python -m pip install sitkibex[zarr]
 
 Wheels from the main branch can be download wheel from `Github Actions`_ in the
 "python-package" artifact.
 
-Dependencies are conventionally specified in `setup.py` and `requirements.txt` and therefore installed as
+Dependencies are conventionally specified in `pyproject.toml` and `requirements.txt` and therefore installed as
 dependencies when the wheel is installed. This includes the SimpleITK 2.0 requirement. The optional "zarr" dependency
 is required for reading OME-NGFF ZARR files, and may be omitted if not needed.
+
+The sitkibex script can also be installed and managed by `pipx <https://pypa.github.io/pipx/>`_ or
+`uv <https://docs.astral.sh/uv/guides/tools/>`_. For example, to run and automatically install the latest version of
+sitkibex, you can use::
+
+  uvx sitkibex --help
 
 Data
 ----
