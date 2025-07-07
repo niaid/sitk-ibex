@@ -44,5 +44,5 @@ without warnings or errors::
   python -m pytest
 
 Since the repository is internal, the feature branch needs to be
-pushed to the *upstream* repository. Next a pull request is made against master, where the CI will automatically run
+pushed to the *upstream* repository. Next a pull request is made against main, where the CI will automatically run
 flake8, pytest and sphinx. When merging the branch with rebased onto the origin, and the feature branch is deleted.

@@ -3,12 +3,12 @@ name: Python Test and Package
 on:
   push:
     branches:
-      - master
+      - main
     tags:
       - 'v*'
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   linting_test:
@@ -95,7 +95,7 @@ jobs:
           name: sphinx-docs
           path: docs/_build/html
       - name: Update gh-pages
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         run: |
           rm docs/_build/html/.buildinfo
           touch docs/_build/html/.nojekyll
