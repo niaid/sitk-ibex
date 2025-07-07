@@ -30,9 +30,9 @@ The key implementation aspects include:
 Build Status
 """"""""""""
 
-.. image:: https://github.com/niaid/sitk-ibex/workflows/Python%20Test%20and%20Package/badge.svg?branch=master&event=push
-   :target: https://github.com/niaid/sitk-ibex/actions?query=branch%3A+master+
-   :alt: Master Build Status
+.. image:: https://github.com/niaid/sitk-ibex/workflows/Python%20Test%20and%20Package/badge.svg?branch=main&event=push
+   :target: https://github.com/niaid/sitk-ibex/actions?query=branch%3A+main+
+   :alt: Main Build Status
 
 Installation
 ------------
@@ -42,7 +42,7 @@ The Python module is distributed on `PyPI - The Python Package Index`_. The pack
 
  python -m pip install sitkibex[zarr]
 
-Wheels from the master branch can be download wheel from `Github Actions`_ in the
+Wheels from the main branch can be download wheel from `Github Actions`_ in the
 "python-package" artifact.
 
 Dependencies are conventionally specified in `setup.py` and `requirements.txt` and therefore installed as
@@ -57,7 +57,7 @@ Sample data is available and described on Zenodo:
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4304786.svg
    :target: https://doi.org/10.5281/zenodo.4304786
 
-Any image and transform file format supported by `SimpleITK's IO <https://simpleitk.readthedocs.io/en/master/IO.html>`_
+Any image and transform file format supported by `SimpleITK's IO <https://simpleitk.readthedocs.io/en/main/IO.html>`_
 can be used by sitk-ibex. The NRRD or `NGFF <https://ngff.openmicroscopy.org/latest/>`_ image formats, and `txt` transform file
 extension are recommended.
 
@@ -135,7 +135,7 @@ Documentation
 
 The published Sphinx documentation is available here: https://niaid.github.io/sitk-ibex/
 
-The master built Sphinx documentation is available for download from
+The main built Sphinx documentation is available for download from
 `Github Actions`_ under the build as "sphinx-docs".
 
 
@@ -149,7 +149,7 @@ Please use the `GitHub Issues`_ for support and code issues related to the sitk-
 .. _SimpleITK toolkit: https://simpleitk.org
 .. _Fiji: https://fiji.sc
 .. _pip: https://pip.pypa.io/en/stable/quickstart/
-.. _Github Actions: https://github.com/niaid/sitk-ibex/actions?query=branch%3Amaster
+.. _Github Actions: https://github.com/niaid/sitk-ibex/actions?query=branch%3Amain
 .. _NRRD: http://teem.sourceforge.net/nrrd/format.html
 .. _GitHub Issues:  https://github.com/niaid/sitk-ibex
 .. _wheel: https://www.python.org/dev/peps/pep-0427/
